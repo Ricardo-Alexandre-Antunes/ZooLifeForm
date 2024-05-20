@@ -29,13 +29,14 @@ namespace ZooLifeForm
             cn = SqlConnection();
             PopulateAnimalList(); // Call the function to populate animal names on form load
             populateZooMenuItems();
+            populateHabitatMenuItems();
         }
 
-        private void toggleVisibilityHabitaculos()
+        private void updateVisibilityHabitaculos(Boolean newValue)
         {
-            showHabitaculos = !showHabitaculos;
+            this.showHabitaculos = newValue;
             escolherHabitáculoToolStripMenuItem.Visible = showHabitaculos;
-        }
+            }
 
 
         private SqlConnection SqlConnection()
@@ -100,7 +101,7 @@ namespace ZooLifeForm
             MessageBox.Show("Option 1 clicked");
         }
 
-        private void populateHabitatMenuItems()
+        private void populateHabitaculoMenuItems()
         {
             if (!VerifySqlConnection())
             {
@@ -109,9 +110,9 @@ namespace ZooLifeForm
             }
 
             escolherHabitáculoToolStripMenuItem.DropDownItems.Clear(); // Clear any existing items
-
-            string query = "SELECT Nome FROM ZOO.HABITAT"; // TODO: MUDAR PARA A TABELA DE HABITATS
-            SqlCommand cmd = new SqlCommand(query, SqlConnection());
+            string query = "SELECT ID FROM ZOO.HABITACULO WHERE ZOO.HABITACULO.Habitat_ID = " + this.chosenHabitat + " AND ZOO.HABITACULO.Nome_JZ = \'" + this.selectedZoo + "\'"; // Assuming a table named 'Habitats' with a column 'HabitatName'
+            MessageBox.Show(query);
+            SqlCommand cmd = new SqlCommand(query, this.cn);
 
             try
             {
@@ -119,11 +120,44 @@ namespace ZooLifeForm
                 {
                     while (reader.Read())
                     {
-                        string habitatName = reader.GetString(0); // Assuming the first column (index 0) contains habitat names
+                        string habitatName = reader.GetInt32(0).ToString(); // Assuming the first column (index 0) contains habitat names
                         ToolStripMenuItem menuItem = new ToolStripMenuItem(habitatName);
                         // Add an event handler for menu item click (optional)
-                        menuItem.Click += new EventHandler(menuItem_Click);
+                        menuItem.Click += new EventHandler(menuItem_ClickHabitat);
                         escolherHabitáculoToolStripMenuItem.DropDownItems.Add(menuItem);
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Error retrieving habitat names: " + ex.Message);
+            }
+        }
+
+        private void populateHabitatMenuItems()
+        {
+            if (!VerifySqlConnection())
+            {
+                MessageBox.Show("Failed to connect to database. Habitat names cannot be loaded.");
+                return;
+            }
+
+            escolherHToolStripMenuItem.DropDownItems.Clear(); // Clear any existing items
+
+            string query = "SELECT Recinto_ID FROM ZOO.HABITAT where ZOO.HABITAT.Nome_JZ = \'" + this.selectedZoo + "\'"; // TODO: MUDAR PARA A TABELA DE HABITATS
+            SqlCommand cmd = new SqlCommand(query, this.cn);
+
+            try
+            {
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())  
+                    {
+                        string habitatName = reader.GetInt32(0).ToString(); // Assuming the first column (index 0) contains habitat names
+                        ToolStripMenuItem menuItem = new ToolStripMenuItem(habitatName);
+                        // Add an event handler for menu item click (optional)
+                        menuItem.Click += new EventHandler(menuItem_ClickHabitat);
+                        escolherHToolStripMenuItem.DropDownItems.Add(menuItem);
                     }
                 }
             }
@@ -159,7 +193,7 @@ namespace ZooLifeForm
                         string zooName = reader.GetString(0); // Assuming the first column (index 0) contains zoo names
                         ToolStripMenuItem menuItem = new ToolStripMenuItem(zooName);
                         // Add an event handler for menu item click (optional)
-                        menuItem.Click += new EventHandler(menuItem_Click);
+                        menuItem.Click += new EventHandler(menuItem_ClickZoo);
                         escolherZooToolStripMenuItem.DropDownItems.Add(menuItem);
                     }
                 }
@@ -170,13 +204,24 @@ namespace ZooLifeForm
             }
         }
 
-        private void menuItem_Click(object sender, EventArgs e)  // Optional event handler for menu item click
+        private void menuItem_ClickZoo(object sender, EventArgs e)
         {
             ToolStripMenuItem clickedItem = (ToolStripMenuItem)sender;
             this.selectedZoo = clickedItem.Text;
-            // Perform actions based on the selected zoo
+            this.chosenHabitat = null;
             this.Text = "ZooLife - Lista de Animais (" + selectedZoo + ")";
-            toggleVisibilityHabitaculos();
+            updateVisibilityHabitaculos(false);
+            populateHabitatMenuItems(); // Add this line to update the habitat menu items
+        }
+
+        private void menuItem_ClickHabitat(object sender, EventArgs e)
+        {
+            ToolStripMenuItem clickedItem = (ToolStripMenuItem)sender;
+            this.chosenHabitat = clickedItem.Text;
+            populateHabitaculoMenuItems();
+            updateVisibilityHabitaculos(true);
+            // Perform actions based on the selected habitat
+            this.Text = "ZooLife - Lista de Animais (" + selectedZoo + " - " + chosenHabitat + ")";
         }
     }
 }
