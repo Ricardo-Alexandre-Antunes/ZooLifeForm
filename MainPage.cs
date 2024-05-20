@@ -78,7 +78,7 @@ namespace ZooLifeForm
             ToolStripMenuItem clickedItem = (ToolStripMenuItem)sender;
             this.selectedZoo = clickedItem.Text;
             // Perform actions based on the selected zoo
-            MessageBox.Show("You selected: " + selectedZoo);
+            this.Text = "ZooLife - Página Principal (" + selectedZoo + ")";
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -109,5 +109,7 @@ namespace ZooLifeForm
         {
 
         }
+
+
     }
 }

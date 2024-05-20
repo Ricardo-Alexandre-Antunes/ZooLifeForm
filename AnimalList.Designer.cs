@@ -101,7 +101,6 @@
             this.escolherHabitáculoToolStripMenuItem.Name = "escolherHabitáculoToolStripMenuItem";
             this.escolherHabitáculoToolStripMenuItem.Size = new System.Drawing.Size(155, 24);
             this.escolherHabitáculoToolStripMenuItem.Text = "Escolher Habitáculo";
-            this.escolherHabitáculoToolStripMenuItem.Click += new System.EventHandler(this.escolherHabitáculoToolStripMenuItem_Click);
             // 
             // AnimalList
             // 
