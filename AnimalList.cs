@@ -16,6 +16,7 @@ namespace ZooLifeForm
 
         private String selectedZoo;
         private String chosenHabitat;
+        private String chosenHabitaculo;
         private SqlConnection cn;
         private Boolean showHabitaculos = false;
         public AnimalList(string selectedZoo)
@@ -27,8 +28,8 @@ namespace ZooLifeForm
             this.selectedZoo = selectedZoo;
             this.Text = "ZooLife - Lista de Animais (" + this.selectedZoo + ")";
             cn = SqlConnection();
-            PopulateAnimalList(); // Call the function to populate animal names on form load
             populateZooMenuItems();
+            PopulateAnimalList(); // Call the function to populate animal names on form load
             populateHabitatMenuItems();
         }
 
@@ -63,9 +64,11 @@ namespace ZooLifeForm
             }
 
             listBox1.Items.Clear(); // Clear any existing items
+            string chosenHabitatQuery = (this.chosenHabitat != null) ? "AND ZOO.ANIMAL.Habitat_ID = " + this.chosenHabitat : "";
+            string chosenHabitaculoQuery = (this.chosenHabitaculo != null) ? "AND ZOO.ANIMAL.Habitaculo_ID = " + this.chosenHabitaculo : "";
 
-            string query = "SELECT Nome FROM ZOO.ANIMAL"; // Assuming a table named 'Animals' with a column 'AnimalName'
-            SqlCommand cmd = new SqlCommand(query, SqlConnection());
+            string query = "SELECT Nome, ID FROM ZOO.ANIMAL WHERE ZOO.ANIMAL.Nome_JZ = \'" + this.selectedZoo + "\'" + chosenHabitatQuery + chosenHabitaculoQuery; // Assuming a table named 'Animals' with a column 'AnimalName'
+            SqlCommand cmd = new SqlCommand(query, this.cn);
 
             try
             {
@@ -73,7 +76,7 @@ namespace ZooLifeForm
                 {
                     while (reader.Read())
                     {
-                        listBox1.Items.Add(reader["Nome"].ToString());
+                        listBox1.Items.Add(reader["ID"].ToString() + ". " + reader["Nome"].ToString());
                     }
                 }
             }
@@ -110,7 +113,7 @@ namespace ZooLifeForm
             }
 
             escolherHabitáculoToolStripMenuItem.DropDownItems.Clear(); // Clear any existing items
-            string query = "SELECT ID FROM ZOO.HABITACULO WHERE ZOO.HABITACULO.Habitat_ID = " + this.chosenHabitat + " AND ZOO.HABITACULO.Nome_JZ = \'" + this.selectedZoo + "\'"; // Assuming a table named 'Habitats' with a column 'HabitatName'
+            string query = "SELECT ZOO.HABITACULO.ID, ZOO.RECINTO.NOME FROM ZOO.HABITACULO INNER JOIN ZOO.RECINTO ON ZOO.HABITACULO.Habitat_ID = ZOO.RECINTO.ID WHERE ZOO.HABITACULO.Habitat_ID = " + this.chosenHabitat + " AND ZOO.HABITACULO.Nome_JZ = \'" + this.selectedZoo + "\'"; // Assuming a table named 'Habitats' with a column 'HabitatName'
             MessageBox.Show(query);
             SqlCommand cmd = new SqlCommand(query, this.cn);
 
@@ -120,7 +123,7 @@ namespace ZooLifeForm
                 {
                     while (reader.Read())
                     {
-                        string habitatName = reader.GetInt32(0).ToString(); // Assuming the first column (index 0) contains habitat names
+                        string habitatName = reader["ID"].ToString() + ". " + reader["NOME"].ToString(); // Assuming the first column (index 0) contains habitat names
                         ToolStripMenuItem menuItem = new ToolStripMenuItem(habitatName);
                         // Add an event handler for menu item click (optional)
                         menuItem.Click += new EventHandler(menuItem_ClickHabitat);
@@ -212,16 +215,30 @@ namespace ZooLifeForm
             this.Text = "ZooLife - Lista de Animais (" + selectedZoo + ")";
             updateVisibilityHabitaculos(false);
             populateHabitatMenuItems(); // Add this line to update the habitat menu items
+            PopulateAnimalList(); // Add this line to update the animal list
         }
 
         private void menuItem_ClickHabitat(object sender, EventArgs e)
         {
             ToolStripMenuItem clickedItem = (ToolStripMenuItem)sender;
-            this.chosenHabitat = clickedItem.Text;
-            populateHabitaculoMenuItems();
-            updateVisibilityHabitaculos(true);
+            string habitatText = clickedItem.Text.ToString();
+            char[] separator = new char[1];
+            separator[0] = '.'; // Assuming the habitat name is in the format 'ID. Name'    
+            string habitatID = habitatText.Split(separator)[0];
+                this.chosenHabitat = habitatID.ToString();
+                populateHabitaculoMenuItems();
+                updateVisibilityHabitaculos(true);
+                PopulateAnimalList();
+                // Perform actions based on the selected habitat
+                this.Text = "ZooLife - Lista de Animais (" + selectedZoo + " - " + chosenHabitat + ")";
+        }
+
+        private void menuItem_ClickHabitaculo(object sender, EventArgs e)
+        {
+            ToolStripMenuItem clickedItem = (ToolStripMenuItem)sender;
+            this.chosenHabitaculo = clickedItem.Text;
             // Perform actions based on the selected habitat
-            this.Text = "ZooLife - Lista de Animais (" + selectedZoo + " - " + chosenHabitat + ")";
+            this.Text = "ZooLife - Lista de Animais (" + selectedZoo + " - " + chosenHabitat + " - " + chosenHabitaculo + ")";
         }
     }
 }
