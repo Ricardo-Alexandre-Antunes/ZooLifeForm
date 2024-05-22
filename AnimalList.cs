@@ -90,6 +90,7 @@ namespace ZooLifeForm
         {
             // Do something when an animal is selected
             MessageBox.Show("Selected animal: " + listBox1.SelectedItem.ToString());
+            FillTextBoxesWithSelectedAnimal();
         }
 
         private void escolherZooToolStripMenuItem_Click(object sender, EventArgs e)
@@ -113,7 +114,7 @@ namespace ZooLifeForm
             }
 
             escolherHabitáculoToolStripMenuItem.DropDownItems.Clear(); // Clear any existing items
-            string query = "SELECT ZOO.HABITACULO.ID, ZOO.RECINTO.NOME FROM ZOO.HABITACULO INNER JOIN ZOO.RECINTO ON ZOO.HABITACULO.Habitat_ID = ZOO.RECINTO.ID WHERE ZOO.HABITACULO.Habitat_ID = " + this.chosenHabitat + " AND ZOO.HABITACULO.Nome_JZ = \'" + this.selectedZoo + "\'"; // Assuming a table named 'Habitats' with a column 'HabitatName'
+            string query = "SELECT ZOO.HABITACULO.ID FROM ZOO.HABITACULO INNER JOIN ZOO.RECINTO ON ZOO.HABITACULO.Habitat_ID = ZOO.RECINTO.ID WHERE ZOO.HABITACULO.Habitat_ID = " + this.chosenHabitat + " AND ZOO.HABITACULO.Nome_JZ = \'" + this.selectedZoo + "\'"; // Assuming a table named 'Habitats' with a column 'HabitatName'
             MessageBox.Show(query);
             SqlCommand cmd = new SqlCommand(query, this.cn);
 
@@ -123,10 +124,10 @@ namespace ZooLifeForm
                 {
                     while (reader.Read())
                     {
-                        string habitatName = reader["ID"].ToString() + ". " + reader["NOME"].ToString(); // Assuming the first column (index 0) contains habitat names
-                        ToolStripMenuItem menuItem = new ToolStripMenuItem(habitatName);
+                        string habitaculoName = reader["ID"].ToString(); // Assuming the first column (index 0) contains habitat names
+                        ToolStripMenuItem menuItem = new ToolStripMenuItem(habitaculoName);
                         // Add an event handler for menu item click (optional)
-                        menuItem.Click += new EventHandler(menuItem_ClickHabitat);
+                        menuItem.Click += new EventHandler(menuItem_ClickHabitaculo);
                         escolherHabitáculoToolStripMenuItem.DropDownItems.Add(menuItem);
                     }
                 }
@@ -147,7 +148,7 @@ namespace ZooLifeForm
 
             escolherHToolStripMenuItem.DropDownItems.Clear(); // Clear any existing items
 
-            string query = "SELECT Recinto_ID FROM ZOO.HABITAT where ZOO.HABITAT.Nome_JZ = \'" + this.selectedZoo + "\'"; // TODO: MUDAR PARA A TABELA DE HABITATS
+            string query = "SELECT Recinto_ID, Nome FROM ZOO.HABITAT INNER JOIN ZOO.RECINTO ON ZOO.HABITAT.Recinto_ID = ZOO.RECINTO.ID where ZOO.HABITAT.Nome_JZ = \'" + this.selectedZoo + "\'"; // TODO: MUDAR PARA A TABELA DE HABITATS
             SqlCommand cmd = new SqlCommand(query, this.cn);
 
             try
@@ -156,7 +157,7 @@ namespace ZooLifeForm
                 {
                     while (reader.Read())  
                     {
-                        string habitatName = reader.GetInt32(0).ToString(); // Assuming the first column (index 0) contains habitat names
+                        string habitatName = reader["Recinto_ID"].ToString() + ". " + reader["Nome"]; // Assuming the first column (index 0) contains habitat names
                         ToolStripMenuItem menuItem = new ToolStripMenuItem(habitatName);
                         // Add an event handler for menu item click (optional)
                         menuItem.Click += new EventHandler(menuItem_ClickHabitat);
@@ -237,8 +238,70 @@ namespace ZooLifeForm
         {
             ToolStripMenuItem clickedItem = (ToolStripMenuItem)sender;
             this.chosenHabitaculo = clickedItem.Text;
+            PopulateAnimalList();
             // Perform actions based on the selected habitat
             this.Text = "ZooLife - Lista de Animais (" + selectedZoo + " - " + chosenHabitat + " - " + chosenHabitaculo + ")";
+        }
+        private void FillTextBoxesWithSelectedAnimal()
+        {
+            if (listBox1.SelectedItem != null)
+            {
+                string selectedAnimal = listBox1.SelectedItem.ToString();
+                string[] animalInfo = selectedAnimal.Split('.'); // Assuming the format is "ID. Name"
+                string animalID = animalInfo[0].Trim();
+                string query = "SELECT * FROM ZOO.ANIMAL INNER JOIN ZOO.PESSOA ON ZOO.ANIMAL.Veterinario_CC = ZOO.PESSOA.Numero_CC WHERE ZOO.ANIMAL.ID = " + animalID; // Assuming a table named 'Zoos' with a column 'ZooName'
+                SqlCommand cmd = new SqlCommand(query, this.cn);
+
+                try
+                {
+                    if (cn.State != ConnectionState.Open)
+                    {
+                        cn.Open();
+                    }
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            const int Dieta = 1;
+                            const int Nome = 3;
+                            const int Cor = 4;
+                            const int Comprimento = 5;
+                            const int Peso = 6;
+                            const int Especie = 7;
+                            const int Veterinario = 13;
+
+                            NomeAnimal.Text = reader.GetValue(Nome).ToString();
+                            EspecieAnimal.Text = reader.GetValue(Especie).ToString();
+                            DietaAnimal.Text = reader.GetValue(Dieta).ToString();
+                            PesoAnimal.Text = reader.GetValue(Peso).ToString();
+                            ComprimentoAnimal.Text = reader.GetValue(Comprimento).ToString();
+                            CorAnimal.Text = reader.GetValue(Cor).ToString();
+                            VeterinarioAnimal.Text = reader.GetValue(Veterinario).ToString();
+
+                        }
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    MessageBox.Show("Error retrieving animal info: " + ex.Message);
+                }
+
+            }
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void EspecieAnimal_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

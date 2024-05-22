@@ -47,6 +47,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FuncionarioList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FuncionarioList.Designer.cs">
+      <DependentUpon>FuncionarioList.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainPage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -63,6 +69,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AnimalList.resx">
       <DependentUpon>AnimalList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FuncionarioList.resx">
+      <DependentUpon>FuncionarioList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainPage.resx">
       <DependentUpon>MainPage.cs</DependentUpon>
