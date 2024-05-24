@@ -249,8 +249,9 @@ namespace ZooLifeForm
                 string selectedAnimal = listBox1.SelectedItem.ToString();
                 string[] animalInfo = selectedAnimal.Split('.'); // Assuming the format is "ID. Name"
                 string animalID = animalInfo[0].Trim();
-                string query = "SELECT * FROM ZOO.ANIMAL INNER JOIN ZOO.PESSOA ON ZOO.ANIMAL.Veterinario_CC = ZOO.PESSOA.Numero_CC WHERE ZOO.ANIMAL.ID = " + animalID; // Assuming a table named 'Zoos' with a column 'ZooName'
+                string query = "SELECT * FROM ZOO.PESQUISA_ANIMAL(@AnimalID)";
                 SqlCommand cmd = new SqlCommand(query, this.cn);
+                cmd.Parameters.AddWithValue("@AnimalID", animalID);
 
                 try
                 {
@@ -263,14 +264,16 @@ namespace ZooLifeForm
                         while (reader.Read())
                         {
                             const int Dieta = 1;
-                            const int Nome = 3;
+                            const int GrupoTaxonomico = 7;
+                            const int Nome = 2;
                             const int Cor = 4;
                             const int Comprimento = 5;
                             const int Peso = 6;
-                            const int Especie = 7;
-                            const int Veterinario = 13;
+                            const int Especie = 3;
+                            const int Veterinario = 10;
 
                             NomeAnimal.Text = reader.GetValue(Nome).ToString();
+                            GrupoTaxonomicoText.Text = reader.GetValue(GrupoTaxonomico).ToString();
                             EspecieAnimal.Text = reader.GetValue(Especie).ToString();
                             DietaAnimal.Text = reader.GetValue(Dieta).ToString();
                             PesoAnimal.Text = reader.GetValue(Peso).ToString();
@@ -302,6 +305,106 @@ namespace ZooLifeForm
         private void label2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void RemoverAnimal_Click(object sender, EventArgs e)
+        {
+            if (listBox1.SelectedItem != null)
+            {
+                string selectedAnimal = listBox1.SelectedItem.ToString();
+                string[] animalInfo = selectedAnimal.Split('.'); // Assuming the format is "ID. Name"
+                string animalID = animalInfo[0].Trim();
+
+                // Call the stored procedure to remove the animal
+                using (SqlConnection connection = SqlConnection())
+                {
+                    try
+                    {
+                        connection.Open();
+                        SqlCommand cmd = new SqlCommand("ZOO.sp_DeleteAnimal", connection);
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@ID", int.Parse(animalID)); // Change the parameter name to "@ID"
+                        cmd.ExecuteNonQuery();
+
+                        // Refresh the animal list after removal
+                        PopulateAnimalList();
+
+                        MessageBox.Show("Animal removed successfully.");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Failed to remove animal. Error: " + ex.Message);
+                    }
+                }
+            }
+        }
+
+        private void AnimalList_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DietaAnimal_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void PesoAnimal_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void NomeAnimal_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ComprimentoAnimal_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void VeterinarioAnimal_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CorAnimal_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Cor_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AdicionarAnimal_Click(object sender, EventArgs e)
+        {
+            // Navigate to the NovoAnimal page
+            NovoAnimal novoAnimalPage = new NovoAnimal();
+            novoAnimalPage.Show();
+            this.Hide();
         }
     }
 }

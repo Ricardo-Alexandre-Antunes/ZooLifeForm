@@ -102,6 +102,7 @@ namespace ZooLifeForm
 
             AnimalList animalListForm = new AnimalList(this.selectedZoo); // Create an instance of the AnimalList form
             animalListForm.Show(); // Show the AnimalList form
+            this.Hide();
         }
 
 

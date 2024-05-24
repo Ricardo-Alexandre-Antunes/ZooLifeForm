@@ -39,7 +39,6 @@
             this.EspecieAnimal = new System.Windows.Forms.TextBox();
             this.DietaAnimal = new System.Windows.Forms.TextBox();
             this.ComprimentoAnimal = new System.Windows.Forms.TextBox();
-            this.VeterinarioAnimal = new System.Windows.Forms.TextBox();
             this.ListaRelacionamentos = new System.Windows.Forms.ListBox();
             this.EditarAnimal = new System.Windows.Forms.Button();
             this.RemoverAnimal = new System.Windows.Forms.Button();
@@ -55,6 +54,11 @@
             this.escolherHToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.escolherHabitáculoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.AdicionarAnimal = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.VeterinarioAnimal = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.GrupoTaxonomicoText = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -81,7 +85,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(263, 84);
+            this.label2.Location = new System.Drawing.Point(263, 100);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(57, 16);
             this.label2.TabIndex = 4;
@@ -91,34 +95,37 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(263, 122);
+            this.label3.Location = new System.Drawing.Point(263, 128);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(39, 16);
             this.label3.TabIndex = 5;
             this.label3.Text = "Dieta";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(263, 202);
+            this.label5.Location = new System.Drawing.Point(263, 184);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(109, 16);
             this.label5.TabIndex = 7;
             this.label5.Text = "Comprimento (m)";
+            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(263, 246);
+            this.label6.Location = new System.Drawing.Point(263, 212);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(156, 16);
             this.label6.TabIndex = 8;
             this.label6.Text = "Veterinário Responsável";
+            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(263, 333);
+            this.label8.Location = new System.Drawing.Point(263, 270);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(117, 16);
             this.label8.TabIndex = 10;
@@ -131,11 +138,12 @@
             this.NomeAnimal.Name = "NomeAnimal";
             this.NomeAnimal.Size = new System.Drawing.Size(542, 22);
             this.NomeAnimal.TabIndex = 11;
+            this.NomeAnimal.TextChanged += new System.EventHandler(this.NomeAnimal_TextChanged);
             // 
             // EspecieAnimal
             // 
             this.EspecieAnimal.Enabled = false;
-            this.EspecieAnimal.Location = new System.Drawing.Point(326, 81);
+            this.EspecieAnimal.Location = new System.Drawing.Point(326, 97);
             this.EspecieAnimal.Name = "EspecieAnimal";
             this.EspecieAnimal.Size = new System.Drawing.Size(535, 22);
             this.EspecieAnimal.TabIndex = 12;
@@ -144,34 +152,28 @@
             // DietaAnimal
             // 
             this.DietaAnimal.Enabled = false;
-            this.DietaAnimal.Location = new System.Drawing.Point(307, 119);
+            this.DietaAnimal.Location = new System.Drawing.Point(307, 125);
             this.DietaAnimal.Name = "DietaAnimal";
             this.DietaAnimal.Size = new System.Drawing.Size(553, 22);
             this.DietaAnimal.TabIndex = 13;
+            this.DietaAnimal.TextChanged += new System.EventHandler(this.DietaAnimal_TextChanged);
             // 
             // ComprimentoAnimal
             // 
             this.ComprimentoAnimal.Enabled = false;
-            this.ComprimentoAnimal.Location = new System.Drawing.Point(378, 199);
+            this.ComprimentoAnimal.Location = new System.Drawing.Point(378, 181);
             this.ComprimentoAnimal.Name = "ComprimentoAnimal";
             this.ComprimentoAnimal.Size = new System.Drawing.Size(483, 22);
             this.ComprimentoAnimal.TabIndex = 15;
-            // 
-            // VeterinarioAnimal
-            // 
-            this.VeterinarioAnimal.Enabled = false;
-            this.VeterinarioAnimal.Location = new System.Drawing.Point(425, 243);
-            this.VeterinarioAnimal.Name = "VeterinarioAnimal";
-            this.VeterinarioAnimal.Size = new System.Drawing.Size(436, 22);
-            this.VeterinarioAnimal.TabIndex = 16;
+            this.ComprimentoAnimal.TextChanged += new System.EventHandler(this.ComprimentoAnimal_TextChanged);
             // 
             // ListaRelacionamentos
             // 
             this.ListaRelacionamentos.FormattingEnabled = true;
             this.ListaRelacionamentos.ItemHeight = 16;
-            this.ListaRelacionamentos.Location = new System.Drawing.Point(396, 333);
+            this.ListaRelacionamentos.Location = new System.Drawing.Point(396, 270);
             this.ListaRelacionamentos.Name = "ListaRelacionamentos";
-            this.ListaRelacionamentos.Size = new System.Drawing.Size(465, 100);
+            this.ListaRelacionamentos.Size = new System.Drawing.Size(464, 148);
             this.ListaRelacionamentos.TabIndex = 18;
             // 
             // EditarAnimal
@@ -191,10 +193,11 @@
             this.RemoverAnimal.TabIndex = 20;
             this.RemoverAnimal.Text = "Remover Animal";
             this.RemoverAnimal.UseVisualStyleBackColor = true;
+            this.RemoverAnimal.Click += new System.EventHandler(this.RemoverAnimal_Click);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(645, 439);
+            this.button1.Location = new System.Drawing.Point(646, 424);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(215, 27);
             this.button1.TabIndex = 21;
@@ -204,36 +207,40 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(263, 163);
+            this.label4.Location = new System.Drawing.Point(263, 156);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(65, 16);
             this.label4.TabIndex = 6;
             this.label4.Text = "Peso (kg)";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // PesoAnimal
             // 
             this.PesoAnimal.Enabled = false;
-            this.PesoAnimal.Location = new System.Drawing.Point(334, 160);
+            this.PesoAnimal.Location = new System.Drawing.Point(334, 153);
             this.PesoAnimal.Name = "PesoAnimal";
             this.PesoAnimal.Size = new System.Drawing.Size(527, 22);
             this.PesoAnimal.TabIndex = 14;
+            this.PesoAnimal.TextChanged += new System.EventHandler(this.PesoAnimal_TextChanged);
             // 
             // CorAnimal
             // 
             this.CorAnimal.Enabled = false;
-            this.CorAnimal.Location = new System.Drawing.Point(307, 285);
+            this.CorAnimal.Location = new System.Drawing.Point(308, 239);
             this.CorAnimal.Name = "CorAnimal";
             this.CorAnimal.Size = new System.Drawing.Size(553, 22);
             this.CorAnimal.TabIndex = 23;
+            this.CorAnimal.TextChanged += new System.EventHandler(this.CorAnimal_TextChanged);
             // 
             // Cor
             // 
             this.Cor.AutoSize = true;
-            this.Cor.Location = new System.Drawing.Point(262, 288);
+            this.Cor.Location = new System.Drawing.Point(263, 242);
             this.Cor.Name = "Cor";
             this.Cor.Size = new System.Drawing.Size(28, 16);
             this.Cor.TabIndex = 22;
             this.Cor.Text = "Cor";
+            this.Cor.Click += new System.EventHandler(this.Cor_Click);
             // 
             // escolherZooToolStripMenuItem
             // 
@@ -288,18 +295,67 @@
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
+            // AdicionarAnimal
+            // 
+            this.AdicionarAnimal.Location = new System.Drawing.Point(292, 493);
+            this.AdicionarAnimal.Name = "AdicionarAnimal";
+            this.AdicionarAnimal.Size = new System.Drawing.Size(137, 43);
+            this.AdicionarAnimal.TabIndex = 24;
+            this.AdicionarAnimal.Text = "Novo Animal";
+            this.AdicionarAnimal.UseVisualStyleBackColor = true;
+            this.AdicionarAnimal.Click += new System.EventHandler(this.AdicionarAnimal_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(435, 493);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(137, 43);
+            this.button2.TabIndex = 25;
+            this.button2.Text = "Editar Animal";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // VeterinarioAnimal
+            // 
+            this.VeterinarioAnimal.Enabled = false;
+            this.VeterinarioAnimal.FormattingEnabled = true;
+            this.VeterinarioAnimal.Location = new System.Drawing.Point(424, 209);
+            this.VeterinarioAnimal.Name = "VeterinarioAnimal";
+            this.VeterinarioAnimal.Size = new System.Drawing.Size(436, 24);
+            this.VeterinarioAnimal.TabIndex = 26;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(263, 72);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(122, 16);
+            this.label7.TabIndex = 27;
+            this.label7.Text = "Grupo Taxonómico";
+            // 
+            // GrupoTaxonomicoText
+            // 
+            this.GrupoTaxonomicoText.Enabled = false;
+            this.GrupoTaxonomicoText.Location = new System.Drawing.Point(391, 69);
+            this.GrupoTaxonomicoText.Name = "GrupoTaxonomicoText";
+            this.GrupoTaxonomicoText.Size = new System.Drawing.Size(470, 22);
+            this.GrupoTaxonomicoText.TabIndex = 28;
+            // 
             // AnimalList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(877, 548);
+            this.Controls.Add(this.GrupoTaxonomicoText);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.VeterinarioAnimal);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.AdicionarAnimal);
             this.Controls.Add(this.CorAnimal);
             this.Controls.Add(this.Cor);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.RemoverAnimal);
             this.Controls.Add(this.EditarAnimal);
             this.Controls.Add(this.ListaRelacionamentos);
-            this.Controls.Add(this.VeterinarioAnimal);
             this.Controls.Add(this.ComprimentoAnimal);
             this.Controls.Add(this.PesoAnimal);
             this.Controls.Add(this.DietaAnimal);
@@ -316,6 +372,7 @@
             this.Controls.Add(this.listBox1);
             this.Name = "AnimalList";
             this.Text = "ZooLife - Lista de Animais";
+            this.Load += new System.EventHandler(this.AnimalList_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -336,7 +393,6 @@
         private System.Windows.Forms.TextBox EspecieAnimal;
         private System.Windows.Forms.TextBox DietaAnimal;
         private System.Windows.Forms.TextBox ComprimentoAnimal;
-        private System.Windows.Forms.TextBox VeterinarioAnimal;
         private System.Windows.Forms.ListBox ListaRelacionamentos;
         private System.Windows.Forms.Button EditarAnimal;
         private System.Windows.Forms.Button RemoverAnimal;
@@ -352,5 +408,10 @@
         private System.Windows.Forms.ToolStripMenuItem escolherHToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem escolherHabitáculoToolStripMenuItem;
         private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.Button AdicionarAnimal;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.ComboBox VeterinarioAnimal;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox GrupoTaxonomicoText;
     }
 }

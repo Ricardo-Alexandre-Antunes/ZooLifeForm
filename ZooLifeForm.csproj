@@ -47,6 +47,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NovoAnimal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NovoAnimal.Designer.cs">
+      <DependentUpon>NovoAnimal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RecintosList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RecintosList.Designer.cs">
+      <DependentUpon>RecintosList.cs</DependentUpon>
+    </Compile>
     <Compile Include="FuncionarioList.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -75,6 +87,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainPage.resx">
       <DependentUpon>MainPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NovoAnimal.resx">
+      <DependentUpon>NovoAnimal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -10,21 +10,11 @@ using System.Windows.Forms;
 
 namespace ZooLifeForm
 {
-    public partial class FuncionarioList : Form
+    public partial class RecintosList : Form
     {
-        public FuncionarioList()
+        public RecintosList()
         {
             InitializeComponent();
-        }
-
-        private void escolherHToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void FuncionarioList_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }
