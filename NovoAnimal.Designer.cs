@@ -365,7 +365,7 @@
         private System.Windows.Forms.Label NovoAnimalCorLabel;
         private System.Windows.Forms.TextBox NovoAnimalCor;
         private System.Windows.Forms.Button ConfirmarButton;
-        private System.Windows.Forms.Button CancelButton;
+        private new System.Windows.Forms.Button CancelButton;
         private System.Windows.Forms.Label NovoAnimalHabitatLabel;
         private System.Windows.Forms.Label NovoAnimalZooLabel;
         private System.Windows.Forms.Label NovoAnimalHabitaculoLabel;

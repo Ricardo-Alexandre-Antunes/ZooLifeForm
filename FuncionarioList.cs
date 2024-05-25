@@ -12,9 +12,11 @@ namespace ZooLifeForm
 {
     public partial class FuncionarioList : Form
     {
-        public FuncionarioList()
+        Form prevForm;
+        public FuncionarioList(Form prevForm)
         {
             InitializeComponent();
+            this.prevForm = prevForm;
         }
 
         private void escolherHToolStripMenuItem_Click(object sender, EventArgs e)

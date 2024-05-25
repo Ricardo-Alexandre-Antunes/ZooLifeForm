@@ -42,7 +42,7 @@
             this.ListaRelacionamentos = new System.Windows.Forms.ListBox();
             this.EditarAnimal = new System.Windows.Forms.Button();
             this.RemoverAnimal = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.GerirRelacoes = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.PesoAnimal = new System.Windows.Forms.TextBox();
             this.CorAnimal = new System.Windows.Forms.TextBox();
@@ -205,14 +205,15 @@
             this.RemoverAnimal.UseVisualStyleBackColor = true;
             this.RemoverAnimal.Click += new System.EventHandler(this.RemoverAnimal_Click);
             // 
-            // button1
+            // GerirRelacoes
             // 
-            this.button1.Location = new System.Drawing.Point(646, 424);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(215, 27);
-            this.button1.TabIndex = 21;
-            this.button1.Text = "Gerir Relacionamentos";
-            this.button1.UseVisualStyleBackColor = true;
+            this.GerirRelacoes.Location = new System.Drawing.Point(646, 424);
+            this.GerirRelacoes.Name = "GerirRelacoes";
+            this.GerirRelacoes.Size = new System.Drawing.Size(215, 27);
+            this.GerirRelacoes.TabIndex = 21;
+            this.GerirRelacoes.Text = "Gerir Relacionamentos";
+            this.GerirRelacoes.UseVisualStyleBackColor = true;
+            this.GerirRelacoes.Click += new System.EventHandler(this.GerirRelacoes_Click);
             // 
             // label4
             // 
@@ -465,7 +466,7 @@
             this.Controls.Add(this.AdicionarAnimal);
             this.Controls.Add(this.CorAnimal);
             this.Controls.Add(this.Cor);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.GerirRelacoes);
             this.Controls.Add(this.RemoverAnimal);
             this.Controls.Add(this.EditarAnimal);
             this.Controls.Add(this.ListaRelacionamentos);
@@ -509,7 +510,7 @@
         private System.Windows.Forms.ListBox ListaRelacionamentos;
         private System.Windows.Forms.Button EditarAnimal;
         private System.Windows.Forms.Button RemoverAnimal;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button GerirRelacoes;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox PesoAnimal;
         private System.Windows.Forms.TextBox CorAnimal;

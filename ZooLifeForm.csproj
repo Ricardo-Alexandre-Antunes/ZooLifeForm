@@ -47,6 +47,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GerirRelacoes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GerirRelacoes.Designer.cs">
+      <DependentUpon>GerirRelacoes.cs</DependentUpon>
+    </Compile>
     <Compile Include="NovoAnimal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -81,6 +87,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AnimalList.resx">
       <DependentUpon>AnimalList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GerirRelacoes.resx">
+      <DependentUpon>GerirRelacoes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FuncionarioList.resx">
       <DependentUpon>FuncionarioList.cs</DependentUpon>

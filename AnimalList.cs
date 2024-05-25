@@ -13,6 +13,7 @@ namespace ZooLifeForm
 {
     public partial class AnimalList : Form
     {
+        private Form prevForm;
 
         private String selectedZoo;
         private String chosenHabitat;
@@ -34,10 +35,11 @@ namespace ZooLifeForm
 
         private SqlConnection cn;
         private Boolean showHabitaculos = false;
-        public AnimalList(string selectedZoo)
+        public AnimalList(string selectedZoo, Form prevForm)
         {
             InitializeComponent();
-            
+            this.prevForm = prevForm;
+            this.FormClosing += new FormClosingEventHandler(this.GerirRelacoes_FormClosing);
             escolherHabitáculoToolStripMenuItem.Visible = showHabitaculos;
             VerifySqlConnection();
             this.selectedZoo = selectedZoo;
@@ -47,6 +49,11 @@ namespace ZooLifeForm
             PopulateAnimalList(); // Call the function to populate animal names on form load
             populateHabitatMenuItems();
             PopulateVeterinarioList();
+        }
+
+        private void GerirRelacoes_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.prevForm.Show();
         }
 
         private void updateVisibilityHabitaculos(Boolean newValue)
@@ -313,6 +320,39 @@ namespace ZooLifeForm
                     MessageBox.Show("Error retrieving animal info: " + ex.Message);
                 }
 
+                PopulateRelacoesList(int.Parse(animalID));
+
+            }
+        }
+
+
+        private void PopulateRelacoesList(int animalID)
+        {
+            if (!VerifySqlConnection())
+            {
+                MessageBox.Show("Failed to connect to database. Animal names cannot be loaded.");
+                return;
+            }
+
+            ListaRelacionamentos.Items.Clear(); // Clear any existing items
+
+            string query = "SELECT * FROM ZOO.PESQUISA_RELACOES_ANIMAL(@AnimalID)"; // Assuming a table named 'Animals' with a column 'AnimalName'
+            SqlCommand cmd = new SqlCommand(query, this.cn);
+            cmd.Parameters.AddWithValue("@AnimalID", animalID);
+
+            try
+            {
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        ListaRelacionamentos.Items.Add(reader["OtherAnimalID"].ToString() + ". " + reader["OtherAnimalName"].ToString() + " - " + reader["Relacao"].ToString());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to load animal names. Error: " + ex.Message);
             }
         }
 
@@ -517,6 +557,8 @@ namespace ZooLifeForm
             label9.Visible = false;
             label10.Visible = false;
             AnimalTransferir.Visible = true;
+            TransferenciaConfirmar.Visible = false;
+
 
         }
 
@@ -712,6 +754,7 @@ namespace ZooLifeForm
                 label9.Visible = false;
                 label10.Visible = false;
                 AnimalTransferir.Visible = true;
+                TransferenciaConfirmar.Visible = false;
 
 
             }
@@ -913,6 +956,13 @@ namespace ZooLifeForm
         private void button2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void GerirRelacoes_Click(object sender, EventArgs e)
+        {
+            GerirRelacoes gerirRelacoesPage = new GerirRelacoes(this);
+            gerirRelacoesPage.Show();
+            this.Hide();
         }
     }
 }
