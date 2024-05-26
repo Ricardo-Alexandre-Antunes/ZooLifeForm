@@ -398,8 +398,10 @@ namespace ZooLifeForm
         {
             ConfirmarButton.Enabled = IsValidFields();
         }
-        
 
+        private void NovoAnimal_Load(object sender, EventArgs e)
+        {
 
+        }
     }
 }

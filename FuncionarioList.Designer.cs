@@ -34,24 +34,33 @@
             this.opção2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.opção3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.escolherHToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.VeterinarioAnimal = new System.Windows.Forms.TextBox();
-            this.ComprimentoAnimal = new System.Windows.Forms.TextBox();
-            this.PesoAnimal = new System.Windows.Forms.TextBox();
-            this.DietaAnimal = new System.Windows.Forms.TextBox();
-            this.EspecieAnimal = new System.Windows.Forms.TextBox();
-            this.NomeAnimal = new System.Windows.Forms.TextBox();
+            this.GerenteFuncionario = new System.Windows.Forms.TextBox();
+            this.FuncaoFuncionario = new System.Windows.Forms.TextBox();
+            this.DataNascimentoFuncionario = new System.Windows.Forms.TextBox();
+            this.GeneroFuncionario = new System.Windows.Forms.TextBox();
+            this.NumeroCCFuncionario = new System.Windows.Forms.TextBox();
+            this.NomeFuncionario = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.FuncionarioCC = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.ListaFuncionarios = new System.Windows.Forms.ListBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.LocalDeTrabalhoFuncionario = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.ContratoTipo = new System.Windows.Forms.TextBox();
+            this.ContratoSalário = new System.Windows.Forms.TextBox();
+            this.ContratoInicio = new System.Windows.Forms.TextBox();
+            this.ContratoFim = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -66,6 +75,7 @@
             this.menuStrip1.Size = new System.Drawing.Size(950, 28);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
             // 
             // escolherZooToolStripMenuItem
             // 
@@ -102,53 +112,53 @@
             this.escolherHToolStripMenuItem.Text = "Escolher Função";
             this.escolherHToolStripMenuItem.Click += new System.EventHandler(this.escolherHToolStripMenuItem_Click);
             // 
-            // VeterinarioAnimal
+            // GerenteFuncionario
             // 
-            this.VeterinarioAnimal.Enabled = false;
-            this.VeterinarioAnimal.Location = new System.Drawing.Point(321, 218);
-            this.VeterinarioAnimal.Name = "VeterinarioAnimal";
-            this.VeterinarioAnimal.Size = new System.Drawing.Size(617, 22);
-            this.VeterinarioAnimal.TabIndex = 38;
+            this.GerenteFuncionario.Enabled = false;
+            this.GerenteFuncionario.Location = new System.Drawing.Point(321, 218);
+            this.GerenteFuncionario.Name = "GerenteFuncionario";
+            this.GerenteFuncionario.Size = new System.Drawing.Size(617, 22);
+            this.GerenteFuncionario.TabIndex = 38;
             // 
-            // ComprimentoAnimal
+            // FuncaoFuncionario
             // 
-            this.ComprimentoAnimal.Enabled = false;
-            this.ComprimentoAnimal.Location = new System.Drawing.Point(321, 190);
-            this.ComprimentoAnimal.Name = "ComprimentoAnimal";
-            this.ComprimentoAnimal.Size = new System.Drawing.Size(617, 22);
-            this.ComprimentoAnimal.TabIndex = 37;
+            this.FuncaoFuncionario.Enabled = false;
+            this.FuncaoFuncionario.Location = new System.Drawing.Point(321, 190);
+            this.FuncaoFuncionario.Name = "FuncaoFuncionario";
+            this.FuncaoFuncionario.Size = new System.Drawing.Size(617, 22);
+            this.FuncaoFuncionario.TabIndex = 37;
             // 
-            // PesoAnimal
+            // DataNascimentoFuncionario
             // 
-            this.PesoAnimal.Enabled = false;
-            this.PesoAnimal.Location = new System.Drawing.Point(398, 158);
-            this.PesoAnimal.Name = "PesoAnimal";
-            this.PesoAnimal.Size = new System.Drawing.Size(540, 22);
-            this.PesoAnimal.TabIndex = 36;
+            this.DataNascimentoFuncionario.Enabled = false;
+            this.DataNascimentoFuncionario.Location = new System.Drawing.Point(398, 158);
+            this.DataNascimentoFuncionario.Name = "DataNascimentoFuncionario";
+            this.DataNascimentoFuncionario.Size = new System.Drawing.Size(540, 22);
+            this.DataNascimentoFuncionario.TabIndex = 36;
             // 
-            // DietaAnimal
+            // GeneroFuncionario
             // 
-            this.DietaAnimal.Enabled = false;
-            this.DietaAnimal.Location = new System.Drawing.Point(321, 119);
-            this.DietaAnimal.Name = "DietaAnimal";
-            this.DietaAnimal.Size = new System.Drawing.Size(617, 22);
-            this.DietaAnimal.TabIndex = 35;
+            this.GeneroFuncionario.Enabled = false;
+            this.GeneroFuncionario.Location = new System.Drawing.Point(321, 119);
+            this.GeneroFuncionario.Name = "GeneroFuncionario";
+            this.GeneroFuncionario.Size = new System.Drawing.Size(617, 22);
+            this.GeneroFuncionario.TabIndex = 35;
             // 
-            // EspecieAnimal
+            // NumeroCCFuncionario
             // 
-            this.EspecieAnimal.Enabled = false;
-            this.EspecieAnimal.Location = new System.Drawing.Point(344, 80);
-            this.EspecieAnimal.Name = "EspecieAnimal";
-            this.EspecieAnimal.Size = new System.Drawing.Size(594, 22);
-            this.EspecieAnimal.TabIndex = 34;
+            this.NumeroCCFuncionario.Enabled = false;
+            this.NumeroCCFuncionario.Location = new System.Drawing.Point(344, 80);
+            this.NumeroCCFuncionario.Name = "NumeroCCFuncionario";
+            this.NumeroCCFuncionario.Size = new System.Drawing.Size(594, 22);
+            this.NumeroCCFuncionario.TabIndex = 34;
             // 
-            // NomeAnimal
+            // NomeFuncionario
             // 
-            this.NomeAnimal.Enabled = false;
-            this.NomeAnimal.Location = new System.Drawing.Point(312, 43);
-            this.NomeAnimal.Name = "NomeAnimal";
-            this.NomeAnimal.Size = new System.Drawing.Size(626, 22);
-            this.NomeAnimal.TabIndex = 33;
+            this.NomeFuncionario.Enabled = false;
+            this.NomeFuncionario.Location = new System.Drawing.Point(312, 43);
+            this.NomeFuncionario.Name = "NomeFuncionario";
+            this.NomeFuncionario.Size = new System.Drawing.Size(626, 22);
+            this.NomeFuncionario.TabIndex = 33;
             // 
             // label6
             // 
@@ -204,14 +214,14 @@
             this.label1.TabIndex = 26;
             this.label1.Text = "Nome";
             // 
-            // listBox1
+            // ListaFuncionarios
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 16;
-            this.listBox1.Location = new System.Drawing.Point(12, 31);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(228, 468);
-            this.listBox1.TabIndex = 24;
+            this.ListaFuncionarios.FormattingEnabled = true;
+            this.ListaFuncionarios.ItemHeight = 16;
+            this.ListaFuncionarios.Location = new System.Drawing.Point(12, 31);
+            this.ListaFuncionarios.Name = "ListaFuncionarios";
+            this.ListaFuncionarios.Size = new System.Drawing.Size(228, 468);
+            this.ListaFuncionarios.TabIndex = 24;
             // 
             // label2
             // 
@@ -222,13 +232,13 @@
             this.label2.TabIndex = 39;
             this.label2.Text = "Local de trabalho";
             // 
-            // textBox1
+            // LocalDeTrabalhoFuncionario
             // 
-            this.textBox1.Enabled = false;
-            this.textBox1.Location = new System.Drawing.Point(376, 252);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(562, 22);
-            this.textBox1.TabIndex = 40;
+            this.LocalDeTrabalhoFuncionario.Enabled = false;
+            this.LocalDeTrabalhoFuncionario.Location = new System.Drawing.Point(376, 252);
+            this.LocalDeTrabalhoFuncionario.Name = "LocalDeTrabalhoFuncionario";
+            this.LocalDeTrabalhoFuncionario.Size = new System.Drawing.Size(562, 22);
+            this.LocalDeTrabalhoFuncionario.TabIndex = 40;
             // 
             // button1
             // 
@@ -257,29 +267,115 @@
             this.button3.Text = "Novo Funcionário";
             this.button3.UseVisualStyleBackColor = true;
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(262, 286);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(120, 16);
+            this.label7.TabIndex = 44;
+            this.label7.Text = "Dados do Contrato";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(294, 344);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(50, 16);
+            this.label9.TabIndex = 46;
+            this.label9.Text = "Salário";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(294, 372);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(159, 16);
+            this.label10.TabIndex = 47;
+            this.label10.Text = "Data de início de contrato";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(294, 402);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(145, 16);
+            this.label11.TabIndex = 48;
+            this.label11.Text = "Data de fim de contrato";
+            // 
+            // ContratoTipo
+            // 
+            this.ContratoTipo.Enabled = false;
+            this.ContratoTipo.Location = new System.Drawing.Point(407, 312);
+            this.ContratoTipo.Name = "ContratoTipo";
+            this.ContratoTipo.Size = new System.Drawing.Size(531, 22);
+            this.ContratoTipo.TabIndex = 49;
+            // 
+            // ContratoSalário
+            // 
+            this.ContratoSalário.Enabled = false;
+            this.ContratoSalário.Location = new System.Drawing.Point(350, 341);
+            this.ContratoSalário.Name = "ContratoSalário";
+            this.ContratoSalário.Size = new System.Drawing.Size(588, 22);
+            this.ContratoSalário.TabIndex = 50;
+            // 
+            // ContratoInicio
+            // 
+            this.ContratoInicio.Enabled = false;
+            this.ContratoInicio.Location = new System.Drawing.Point(459, 369);
+            this.ContratoInicio.Name = "ContratoInicio";
+            this.ContratoInicio.Size = new System.Drawing.Size(479, 22);
+            this.ContratoInicio.TabIndex = 51;
+            // 
+            // ContratoFim
+            // 
+            this.ContratoFim.Enabled = false;
+            this.ContratoFim.Location = new System.Drawing.Point(445, 399);
+            this.ContratoFim.Name = "ContratoFim";
+            this.ContratoFim.Size = new System.Drawing.Size(493, 22);
+            this.ContratoFim.TabIndex = 52;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(294, 315);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(107, 16);
+            this.label8.TabIndex = 45;
+            this.label8.Text = "Tipo de Contrato";
+            // 
             // FuncionarioList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(950, 544);
+            this.Controls.Add(this.ContratoFim);
+            this.Controls.Add(this.ContratoInicio);
+            this.Controls.Add(this.ContratoSalário);
+            this.Controls.Add(this.ContratoTipo);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.LocalDeTrabalhoFuncionario);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.VeterinarioAnimal);
-            this.Controls.Add(this.ComprimentoAnimal);
-            this.Controls.Add(this.PesoAnimal);
-            this.Controls.Add(this.DietaAnimal);
-            this.Controls.Add(this.EspecieAnimal);
-            this.Controls.Add(this.NomeAnimal);
+            this.Controls.Add(this.GerenteFuncionario);
+            this.Controls.Add(this.FuncaoFuncionario);
+            this.Controls.Add(this.DataNascimentoFuncionario);
+            this.Controls.Add(this.GeneroFuncionario);
+            this.Controls.Add(this.NumeroCCFuncionario);
+            this.Controls.Add(this.NomeFuncionario);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.FuncionarioCC);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.ListaFuncionarios);
             this.Controls.Add(this.menuStrip1);
             this.Name = "FuncionarioList";
             this.Text = "ZooLife - Lista de Funcionários";
@@ -299,23 +395,32 @@
         private System.Windows.Forms.ToolStripMenuItem opção2ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem opção3ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem escolherHToolStripMenuItem;
-        private System.Windows.Forms.TextBox VeterinarioAnimal;
-        private System.Windows.Forms.TextBox ComprimentoAnimal;
-        private System.Windows.Forms.TextBox PesoAnimal;
-        private System.Windows.Forms.TextBox DietaAnimal;
-        private System.Windows.Forms.TextBox EspecieAnimal;
-        private System.Windows.Forms.TextBox NomeAnimal;
+        private System.Windows.Forms.TextBox GerenteFuncionario;
+        private System.Windows.Forms.TextBox FuncaoFuncionario;
+        private System.Windows.Forms.TextBox DataNascimentoFuncionario;
+        private System.Windows.Forms.TextBox GeneroFuncionario;
+        private System.Windows.Forms.TextBox NumeroCCFuncionario;
+        private System.Windows.Forms.TextBox NomeFuncionario;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label FuncionarioCC;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox ListaFuncionarios;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox LocalDeTrabalhoFuncionario;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox ContratoTipo;
+        private System.Windows.Forms.TextBox ContratoSalário;
+        private System.Windows.Forms.TextBox ContratoInicio;
+        private System.Windows.Forms.TextBox ContratoFim;
+        private System.Windows.Forms.Label label8;
     }
 }

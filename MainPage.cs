@@ -111,6 +111,11 @@ namespace ZooLifeForm
 
         }
 
-
+        private void button2_Click(object sender, EventArgs e)
+        {
+            FuncionarioList funcionarioListForm = new FuncionarioList(this.selectedZoo ,this); // Create an instance of the FuncionarioList form
+            funcionarioListForm.Show(); // Show the FuncionarioList form
+            this.Hide();
+        }
     }
 }

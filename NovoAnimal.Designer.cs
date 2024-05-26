@@ -115,6 +115,7 @@
             this.NovoAnimalNome.Name = "NovoAnimalNome";
             this.NovoAnimalNome.Size = new System.Drawing.Size(289, 22);
             this.NovoAnimalNome.TabIndex = 6;
+            this.NovoAnimalNome.TextChanged += new System.EventHandler(this.NovoAnimalNome_TextChanged);
             // 
             // NovoAnimalEspecie
             // 
@@ -122,6 +123,7 @@
             this.NovoAnimalEspecie.Name = "NovoAnimalEspecie";
             this.NovoAnimalEspecie.Size = new System.Drawing.Size(289, 22);
             this.NovoAnimalEspecie.TabIndex = 7;
+            this.NovoAnimalEspecie.TextChanged += new System.EventHandler(this.NovoAnimalEspecie_TextChanged);
             // 
             // NovoAnimalDieta
             // 
@@ -129,6 +131,7 @@
             this.NovoAnimalDieta.Name = "NovoAnimalDieta";
             this.NovoAnimalDieta.Size = new System.Drawing.Size(289, 22);
             this.NovoAnimalDieta.TabIndex = 8;
+            this.NovoAnimalDieta.TextChanged += new System.EventHandler(this.NovoAnimalDieta_TextChanged);
             // 
             // NovoAnimalPeso
             // 
@@ -136,6 +139,7 @@
             this.NovoAnimalPeso.Name = "NovoAnimalPeso";
             this.NovoAnimalPeso.Size = new System.Drawing.Size(289, 22);
             this.NovoAnimalPeso.TabIndex = 9;
+            this.NovoAnimalPeso.TextChanged += new System.EventHandler(this.NovoAnimalPeso_TextChanged);
             // 
             // NovoAnimalComprimentoLabel
             // 
@@ -152,6 +156,7 @@
             this.NovoAnimalComprimento.Name = "NovoAnimalComprimento";
             this.NovoAnimalComprimento.Size = new System.Drawing.Size(289, 22);
             this.NovoAnimalComprimento.TabIndex = 11;
+            this.NovoAnimalComprimento.TextChanged += new System.EventHandler(this.NovoAnimalComprimento_TextChanged);
             // 
             // NovoAnimalCorLabel
             // 
@@ -168,6 +173,7 @@
             this.NovoAnimalCor.Name = "NovoAnimalCor";
             this.NovoAnimalCor.Size = new System.Drawing.Size(289, 22);
             this.NovoAnimalCor.TabIndex = 13;
+            this.NovoAnimalCor.TextChanged += new System.EventHandler(this.NovoAnimalCor_TextChanged);
             // 
             // ConfirmarButton
             // 
@@ -263,54 +269,6 @@
             this.NovoAnimalVeterinarioCombo.Size = new System.Drawing.Size(211, 24);
             this.NovoAnimalVeterinarioCombo.TabIndex = 23;
             this.NovoAnimalVeterinarioCombo.SelectedIndexChanged += new System.EventHandler(this.NovoAnimalVeterinarioCombo_SelectedIndexChanged);
-            //
-            // NovoAnimalNome
-            //
-            this.NovoAnimalNome.Location = new System.Drawing.Point(155, 97);
-            this.NovoAnimalNome.Name = "NovoAnimalNome";
-            this.NovoAnimalNome.Size = new System.Drawing.Size(289, 22);
-            this.NovoAnimalNome.TabIndex = 6;
-            this.NovoAnimalNome.TextChanged += new System.EventHandler(this.NovoAnimalNome_TextChanged);
-            //
-            // NovoAnimalEspecie
-            //
-            this.NovoAnimalEspecie.Location = new System.Drawing.Point(155, 139);
-            this.NovoAnimalEspecie.Name = "NovoAnimalEspecie";
-            this.NovoAnimalEspecie.Size = new System.Drawing.Size(289, 22);
-            this.NovoAnimalEspecie.TabIndex = 7;
-            this.NovoAnimalEspecie.TextChanged += new System.EventHandler(this.NovoAnimalEspecie_TextChanged);
-            //
-            // NovoAnimalDieta
-            //
-            this.NovoAnimalDieta.Location = new System.Drawing.Point(155, 187);
-            this.NovoAnimalDieta.Name = "NovoAnimalDieta";
-            this.NovoAnimalDieta.Size = new System.Drawing.Size(289, 22);
-            this.NovoAnimalDieta.TabIndex = 8;
-            this.NovoAnimalDieta.TextChanged += new System.EventHandler(this.NovoAnimalDieta_TextChanged);
-            //
-            // NovoAnimalPeso
-            //
-            this.NovoAnimalPeso.Location = new System.Drawing.Point(155, 232);
-            this.NovoAnimalPeso.Name = "NovoAnimalPeso";
-            this.NovoAnimalPeso.Size = new System.Drawing.Size(289, 22);
-            this.NovoAnimalPeso.TabIndex = 9;
-            this.NovoAnimalPeso.TextChanged += new System.EventHandler(this.NovoAnimalPeso_TextChanged);
-            //
-            // NovoAnimalComprimento
-            //
-            this.NovoAnimalComprimento.Location = new System.Drawing.Point(155, 273);
-            this.NovoAnimalComprimento.Name = "NovoAnimalComprimento";
-            this.NovoAnimalComprimento.Size = new System.Drawing.Size(289, 22);
-            this.NovoAnimalComprimento.TabIndex = 11;
-            this.NovoAnimalComprimento.TextChanged += new System.EventHandler(this.NovoAnimalComprimento_TextChanged);
-            //
-            // NovoAnimalCor
-            //
-            this.NovoAnimalCor.Location = new System.Drawing.Point(155, 311);
-            this.NovoAnimalCor.Name = "NovoAnimalCor";
-            this.NovoAnimalCor.Size = new System.Drawing.Size(289, 22);
-            this.NovoAnimalCor.TabIndex = 13;
-            this.NovoAnimalCor.TextChanged += new System.EventHandler(this.NovoAnimalCor_TextChanged);
             // 
             // NovoAnimal
             // 
@@ -343,6 +301,7 @@
             this.Controls.Add(this.NovoAnimalNomeLabel);
             this.Name = "NovoAnimal";
             this.Text = "NovoAnimal";
+            this.Load += new System.EventHandler(this.NovoAnimal_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
