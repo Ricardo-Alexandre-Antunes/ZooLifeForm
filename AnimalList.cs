@@ -116,17 +116,6 @@ namespace ZooLifeForm
             FillTextBoxesWithSelectedAnimal();
         }
 
-        private void escolherZooToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            // Do something when the 'Choose Zoo' menu item is clicked
-            MessageBox.Show("Choose Zoo clicked");
-        }
-
-        private void opção1ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            // Do something when the 'Option 1' menu item is clicked
-            MessageBox.Show("Option 1 clicked");
-        }
 
         private void populateHabitaculoMenuItems()
         {
