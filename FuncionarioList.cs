@@ -19,6 +19,7 @@ namespace ZooLifeForm
         Object[] funcionarios_CC = new Object[100];
         int selectedFuncionario;
         string selectedRole;
+        Boolean toggle = false;
 
         public FuncionarioList(string selectedZoo, Form prevForm)
         {
@@ -206,13 +207,41 @@ namespace ZooLifeForm
                         ContratoFim.Text = reader["Data_fim_contrato"].ToString();
                         ContratoSalario.Text = reader["Salario"].ToString();
                         FuncaoFuncionario.Text = reader["Role"].ToString();
+                        if (FuncaoFuncionario.Text == "GERENTE")
+                        {
+                            button4.Visible = false;
+                        }
+                        else
+                        {
+                            button4.Visible = true;
+                        }
                         ContratoTipo.Text = reader["Tipo_contrato"].ToString();
 
                     }
                 }
+                if (FuncaoFuncionario.Text == "TRATADOR" || FuncaoFuncionario.Text == "VETERINARIO" || FuncaoFuncionario.Text == "FUNCIONARIO_BILHETEIRA")
+                {
+                    PopulateResponsibilities(CC, FuncaoFuncionario.Text);
+                    PopulateComboBoxBoss(FuncaoFuncionario.Text);
+                    DetermineCurBoss(CC);
+                    this.toggle = false;
+                    label2.Visible = toggle;
+                    ListaResponsabilidades.Visible = toggle;
+                    GerirResponsabilidades.Visible = toggle;
+                    label6.Visible = toggle;
+                    comboBox1.Visible = toggle;
+                }
 
-                PopulateResponsibilitiesAndBoss(CC, FuncaoFuncionario.Text);
-
+                if (FuncaoFuncionario.Text == "FUNCIONARIO_LIMPEZA" || FuncaoFuncionario.Text == "TRABALHADOR")
+                {
+                    PopulateResponsibilities(CC, FuncaoFuncionario.Text);
+                    this.toggle = false;
+                    label2.Visible = toggle;
+                    ListaResponsabilidades.Visible = toggle;
+                    GerirResponsabilidades.Visible = toggle;
+                    label6.Visible = toggle;
+                    comboBox1.Visible = toggle;
+                }
             }
             catch (Exception ex)
             {
@@ -220,7 +249,35 @@ namespace ZooLifeForm
             }
         }
 
-        private void PopulateResponsibilitiesAndBoss(int numeroCC, string role)
+        private void DetermineCurBoss(int numeroCC)
+        {
+            if (!verifySGBDConnection())
+            {
+                MessageBox.Show("Failed to connect to database. Boss could not be loaded.");
+                return;
+            }
+
+            string query = "SELECT Num_Funcionario, Nome FROM ZOO.DETALHES_GERENTE(@CC)";
+            SqlCommand cmd = new SqlCommand(query, cn);
+            cmd.Parameters.AddWithValue("@CC", numeroCC);
+            try
+            {
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        string bossName = reader["Num_Funcionario"] + ". " + reader["Nome"];
+                        comboBox1.Text = bossName;
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Error retrieving boss: " + ex.Message);
+            }
+        }
+
+        private void PopulateResponsibilities(int numeroCC, string role)
         {
             if (!verifySGBDConnection())
             {
@@ -232,30 +289,32 @@ namespace ZooLifeForm
             string query;
             switch (role)
             {
-                case "GERENTE":
-                    query = "SELECT * FROM ZOO.GERENTE WHERE F_Numero_CC = @CC";
-                    break;
                 case "TRATADOR":
                     query = "SELECT * FROM ZOO.RESPONSAVEL_POR_DETALHADO WHERE T_Numero_CC = @CC";
+                    label2.Text = "Habitats designados";
                     break;
                 case "VETERINARIO":
-                    query = "SELECT * FROM ZOO.ANIMAL WHERE Veterinario_CC = @CC";
+                    query = "SELECT * FROM ZOO.ANIMAL INNER JOIN WHERE Veterinario_CC = @CC";
+                    label2.Text = "Animais designados";
                     break;
                 case "FUNCIONARIO_BILHETEIRA":
                     query = "SELECT * FROM ZOO.FUNCIONARIO_BILHETEIRA INNER JOIN ZOO.BILHETEIRA_DETALHADA ON ZOO.FUNCIONARIO_BILHETEIRA.Bilheteira_ID = ZOO.BILHETEIRA_DETALHADA.ID WHERE F_Numero_CC = @CC";
+                    label2.Text = "Bilheteira designada";
                     break;
                 case "FUNCIONARIO_LIMPEZA":
                     query = "SELECT * FROM ZOO.LIMPA_DETALHADO WHERE ZOO.LIMPA_DETALHADO.FL_Numero_CC = @CC";
+                    label2.Text = "Zonas de limpeza";
                     break;
                 case "SEGURANCA":
-                    query = "SELECT * FROM ZOO.";
+                    query = "SELECT * FROM ZOO.SEGURANCA_DETALHADO WHERE ZOO.SEGURANCA_DETALHADO.Numero_CC = @CC";
+                    label2.Text = "Patrulha";
                     break;
                 default:
                     query = "";
                     break;
             }
             SqlCommand cmd = new SqlCommand(query, cn);
-            cmd.Parameters.AddWithValue("@Numero_CC", this.selectedFuncionario);
+            cmd.Parameters.AddWithValue("@CC", this.selectedFuncionario);
 
             try
             {
@@ -263,7 +322,24 @@ namespace ZooLifeForm
                 {
                     while (reader.Read())
                     {
-                        ListaFuncionarios.Items.Add(reader["Nome"]);
+                        switch (role)
+                        {
+                            case "TRATADOR":
+                                ListaFuncionarios.Items.Add(reader["RECINTO_ID"].ToString() + ". " + reader["RECINTO_NOME"].ToString());
+                                break;
+                            case "VETERINARIO":
+                                ListaFuncionarios.Items.Add(reader["ID"].ToString() + ". " + reader["Nome"].ToString());
+                                break;
+                            case "FUNCIONARIO_BILHETEIRA":
+                                ListaFuncionarios.Items.Add(reader["ID"].ToString() + ". " + reader["Nome"].ToString());
+                                break;
+                            case "FUNCIONARIO_LIMPEZA":
+                                ListaFuncionarios.Items.Add(reader["ID"].ToString() + ". " + reader["Nome_Recinto"].ToString());
+                                break;
+                            case "SEGURANCA":
+                                ListaFuncionarios.Items.Add(reader["RECINTO_ID"].ToString() + ". " + reader["RECINTO_NOME"].ToString());
+                                break;
+                        }   
                     }
                 }
             }
@@ -272,6 +348,49 @@ namespace ZooLifeForm
                 MessageBox.Show("Failed to retrieve Responsibilities. \n ERROR MESSAGE: \n" + ex.Message);
             }
         }   
+
+        private void PopulateComboBoxBoss(string role)
+        {
+            if (!verifySGBDConnection())
+            {
+                MessageBox.Show("Failed to connect to database. Bosses could not be loaded.");
+                return;
+            }
+
+            comboBox1.Items.Clear();
+            string query = "SELECT ZOO.PESSOA.* , ZOO.FUNCIONARIO.Num_Funcionario FROM ZOO.PESSOA INNER JOIN";
+            switch (role)
+            {
+                case ("TRATADOR"):
+                    query += "ZOO.TRATADOR ON ZOO.PESSOA.Numero_CC = ZOO.TRATADOR.F_Numero_CC";
+                    break;
+                case ("VETERINARIO"):
+                    query += "ZOO.VETERINARIO ON ZOO.PESSOA.Numero_CC = ZOO.VETERINARIO.F_Numero_CC";
+                    break;
+                case ("FUNCIONARIO_BILHETEIRA"):
+                    query += "ZOO.FUNCIONARIO_BILHETEIRA ON ZOO.PESSOA.Numero_CC = ZOO.FUNCIONARIO_BILHETEIRA.F_Numero_CC";
+                    break;
+            }
+
+            query += " INNER JOIN ZOO.FUNCIONARIO ON ZOO.PESSOA.Numero_CC = ZOO.FUNCIONARIO.Numero_CC";
+            SqlCommand cmd = new SqlCommand(query, cn);
+
+            try
+            {
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        string bossName = reader["Num_Funcionario"] + ". " + reader["Nome"];
+                        comboBox1.Items.Add(bossName);
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Error retrieving bosses: " + ex.Message);
+            }
+        }
 
         private void AdicionarFuncionario_Click(object sender, EventArgs e)
         {
@@ -349,6 +468,16 @@ namespace ZooLifeForm
         private void label_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            toggle = !toggle;
+            label2.Visible = toggle;
+            ListaResponsabilidades.Visible = toggle;
+            GerirResponsabilidades.Visible = toggle;
+            label6.Visible = toggle;
+            comboBox1.Visible = toggle;
         }
     }
 }

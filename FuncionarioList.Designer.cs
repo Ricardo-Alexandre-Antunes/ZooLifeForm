@@ -71,6 +71,7 @@
             this.ListaResponsabilidades = new System.Windows.Forms.ListBox();
             this.NumeroFuncionario = new System.Windows.Forms.TextBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.GerirResponsabilidades = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -389,6 +390,7 @@
             this.button4.TabIndex = 55;
             this.button4.Text = "Mais Detalhes";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // label2
             // 
@@ -403,7 +405,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(263, 410);
+            this.label6.Location = new System.Drawing.Point(263, 435);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(88, 16);
             this.label6.TabIndex = 57;
@@ -431,16 +433,26 @@
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(357, 407);
+            this.comboBox1.Location = new System.Drawing.Point(357, 432);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(581, 24);
             this.comboBox1.TabIndex = 59;
+            // 
+            // GerirResponsabilidades
+            // 
+            this.GerirResponsabilidades.Location = new System.Drawing.Point(739, 403);
+            this.GerirResponsabilidades.Name = "GerirResponsabilidades";
+            this.GerirResponsabilidades.Size = new System.Drawing.Size(199, 23);
+            this.GerirResponsabilidades.TabIndex = 60;
+            this.GerirResponsabilidades.Text = "Gerir Responsabilidades";
+            this.GerirResponsabilidades.UseVisualStyleBackColor = true;
             // 
             // FuncionarioList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(950, 544);
+            this.Controls.Add(this.GerirResponsabilidades);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.ListaResponsabilidades);
             this.Controls.Add(this.label6);
@@ -527,5 +539,6 @@
         private System.Windows.Forms.ListBox ListaResponsabilidades;
         private System.Windows.Forms.TextBox NumeroFuncionario;
         private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Button GerirResponsabilidades;
     }
 }
