@@ -108,6 +108,9 @@ namespace ZooLifeForm
 
         private void button3_Click(object sender, EventArgs e)
         {
+            RecintosList recintosListForm = new RecintosList(this.selectedZoo, this); // Create an instance of the RecintosList form
+            recintosListForm.Show(); // Show the RecintosList form
+            this.Hide();
 
         }
 

@@ -15,7 +15,7 @@ namespace ZooLifeForm
         private String chosenRecinto;
 
 
-        public RecintosList()
+        public RecintosList(string selectedZoo, Form prevForm)
         {
             InitializeComponent();
             this.prevForm = prevForm;
@@ -356,7 +356,7 @@ namespace ZooLifeForm
                         }
 
                         // Optionally refresh the list of habitáculos
-                        LoadHabitaculosForRecinto();
+                        //LoadHabitaculosForRecinto();
                     }
                     catch (Exception ex)
                     {
@@ -400,7 +400,7 @@ namespace ZooLifeForm
                     }
 
                     // Opcionalmente, atualize a lista de habitáculos
-                    LoadHabitaculosForRecinto();
+                    //LoadHabitaculosForRecinto();
                 }
                 catch (Exception ex)
                 {
