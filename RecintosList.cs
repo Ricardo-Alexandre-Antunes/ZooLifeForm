@@ -21,7 +21,7 @@ namespace ZooLifeForm
             this.prevForm = prevForm;
             VerifySqlConnection();
             this.selectedZoo = selectedZoo;
-            this.Text = "ZooLife - Lista de Animais (" + this.selectedZoo + ")";
+            this.Text = "ZooLife - Lista de Recintos (" + this.selectedZoo + ")";
             cn = SqlConnection();
             PopulateZooMenuItems();
             PopulateRecintoList();
@@ -83,20 +83,29 @@ namespace ZooLifeForm
         {
             ToolStripMenuItem clickedItem = (ToolStripMenuItem)sender;
             this.selectedZoo = clickedItem.Text;
+            this.chosenTipo = null;
             this.chosenRecinto = null;
-            this.Text = "ZooLife - Lista de Animais (" + selectedZoo + ")";
+            this.Text = "ZooLife - Lista de Recintos (" + selectedZoo + ")";
             PopulateRecintoList(); // Add this line to update the animal list
+        }
+
+        private void lista_resultados_recintos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FillTextBoxesWithSelectedRecinto();
         }
 
         private void FillTextBoxesWithSelectedRecinto()
         {
             if (lista_resultados_recintos.SelectedItem != null)
             {
+                Boolean isHabitat = false;
                 string selectedRecinto = lista_resultados_recintos.SelectedItem.ToString();
                 string[] recintoInfo = selectedRecinto.Split('.'); // Assuming the format is "ID. Name"
                 string recintoID = recintoInfo[0].Trim();
                 string query = "SELECT * FROM ZOO.PESQUISA_RECINTO(@recintoID)";
-                string query2 = "SELECT * FROM ZOO.BILHETES_VENDIDOS(@recinto_ID)";
+                string query2 = "SELECT ZOO.BILHETES_VENDIDOS(@recintoID)";
+                string query3 = "SELECT ZOO.NUMERO_FUNCIONARIOS_RECINTO(@recintoID)";
+
                 SqlCommand cmd = new SqlCommand(query, this.cn);
                 cmd.Parameters.AddWithValue("@recintoID", recintoID);
 
@@ -108,7 +117,7 @@ namespace ZooLifeForm
                     }
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        while (reader.Read())
+                        if (reader.Read())
                         {
                             const int Nome = 0;
                             const int Nome_JZ = 1;
@@ -119,23 +128,37 @@ namespace ZooLifeForm
                             textbox_nome_recinto.Text = reader.GetValue(Nome).ToString();
                             textbox_recinto_jz.Text = reader.GetValue(Nome_JZ).ToString();
                             textbox_estado_recinto.Text = reader.GetValue(Estado).ToString();
-                            if (reader.GetValue(Max_capacidade) != null)
+
+                            // Show and fill Max_capacidade textbox if not null
+                            if (!reader.IsDBNull(Max_capacidade))
                             {
                                 label_capacidadeMax_recinto.Visible = true;
-                                textbox_capacidadeMax_recinto.Visible=true;
-                                textbox_capacidadeMax_recinto.Text= reader.GetValue(Max_capacidade).ToString();
+                                textbox_capacidadeMax_recinto.Visible = true;
+                                textbox_capacidadeMax_recinto.Text = reader.GetValue(Max_capacidade).ToString();
+                            }
+                            else
+                            {
+                                label_capacidadeMax_recinto.Visible = false;
+                                textbox_capacidadeMax_recinto.Visible = false;
                             }
 
-                            if (reader.GetValue(N_habitaculos) != null)
+                            // Show and fill N_habitaculos textbox if not null
+                            if (!reader.IsDBNull(N_habitaculos))
                             {
                                 label_n_habitaculos_recinto.Visible = true;
                                 textbox_n_habitaculos_recinto.Visible = true;
-                                textbox_n_habitaculos_recinto.Text= reader.GetValue(N_habitaculos).ToString();
+                                textbox_n_habitaculos_recinto.Text = reader.GetValue(N_habitaculos).ToString();
                                 label_lista_habitaculos_recinto.Visible = true;
                                 listBox_habitaculos_recinto.Visible = true;
-                                PopulateHabitaculosList(recintoID);
+                                isHabitat = true;
                             }
-
+                            else
+                            {
+                                label_n_habitaculos_recinto.Visible = false;
+                                textbox_n_habitaculos_recinto.Visible = false;
+                                label_lista_habitaculos_recinto.Visible = false;
+                                listBox_habitaculos_recinto.Visible = false;
+                            }
                         }
                     }
                 }
@@ -144,8 +167,11 @@ namespace ZooLifeForm
                     MessageBox.Show("Error retrieving recinto info: " + ex.Message);
                 }
 
+                // Second query to get bilhetes vendidos
                 SqlCommand cmd2 = new SqlCommand(query2, this.cn);
                 cmd2.Parameters.AddWithValue("@recintoID", recintoID);
+
+                Console.WriteLine(query2);
 
                 try
                 {
@@ -153,33 +179,97 @@ namespace ZooLifeForm
                     {
                         cn.Open();
                     }
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    using (SqlDataReader reader = cmd2.ExecuteReader())
                     {
-                        while (reader.Read())
+                        if (reader.Read())
                         {
                             const int bilhetes_vendidos = 0;
 
-                            if (reader.GetValue(bilhetes_vendidos) != null)
+                            if (!reader.IsDBNull(bilhetes_vendidos))
                             {
+                                Console.WriteLine(bilhetes_vendidos);
                                 label_bilhetes_vendidos_recinto.Visible = true;
-                                textbox_bilhetes_vendidos_recinto.Visible= true;
+                                textbox_bilhetes_vendidos_recinto.Visible = true;
                                 textbox_bilhetes_vendidos_recinto.Text = reader.GetValue(bilhetes_vendidos).ToString();
                             }
-
+                            else
+                            {
+                                label_bilhetes_vendidos_recinto.Visible = false;
+                                textbox_bilhetes_vendidos_recinto.Visible = false;
+                            }
                         }
                     }
                 }
                 catch (SqlException ex)
                 {
-                    MessageBox.Show("Error retrieving recinto info: " + ex.Message);
+                    MessageBox.Show("Error retrieving bilhetes vendidos info: " + ex.Message);
                 }
+
+                if (isHabitat)
+                {
+                    PopulateHabitaculosList(recintoID);
+                }
+
+                SqlCommand cmd3 = new SqlCommand(query3, this.cn);
+                cmd3.Parameters.AddWithValue("@recintoID", recintoID);
+
+                try
+                {
+                    if (cn.State != ConnectionState.Open)
+                    {
+                        cn.Open();
+                    }
+                    using (SqlDataReader reader = cmd3.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            const int num_funcionarios = 0;
+
+                            textbox_numero_funcionarios_recinto.Text = reader.GetValue(num_funcionarios).ToString();
+                        }
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    MessageBox.Show("Error retrieving número de funcionários info: " + ex.Message);
+                }
+                
+                PopulateFuncionariosList(recintoID);
+
 
             }
         }
 
+        private void PopulateFuncionariosList(string recinto_id)
+        {
+            listbox_lista_funcionarios_recinto.Items.Clear();
+            string query = "SELECT Numero_CC, Nome, Funcao FROM ZOO.PESQUISA_FUNCIONARIOS_RECINTO(@recintoID)";
+            
+            SqlCommand cmd = new SqlCommand(query, this.cn);
+            cmd.Parameters.AddWithValue("@recintoID", recinto_id);
+            
+            try
+            {
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                       listbox_lista_funcionarios_recinto.Items.Add(reader["Numero_CC"].ToString()+" - " + reader["Nome"].ToString() + " (" + reader["Funcao"]+ ")");
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Error retrieving funcionario de recinto info: " + ex.Message);
+            }
+        }
+
+
+
         private void PopulateHabitaculosList(string recinto_id)
         {
-            string query = "SELECT ID FROM ZOO.HABITACULO WHERE Habitat_ID=\'" + recinto_id + "\'";
+            listBox_habitaculos_recinto.Items.Clear();
+            string query = "SELECT ID FROM ZOO.HABITACULO WHERE Habitat_ID=\'" + recinto_id + "\' AND Nome_JZ = \'" + this.selectedZoo + "\'" ;
             SqlCommand cmd = new SqlCommand(query, this.cn);
             try
             {
@@ -203,14 +293,15 @@ namespace ZooLifeForm
         {
             if (!VerifySqlConnection())
             {
-                MessageBox.Show("Failed to connect to database. Animal names cannot be loaded.");
+                MessageBox.Show("Failed to connect to database. Recinto names cannot be loaded.");
                 return;
             }
 
             lista_resultados_recintos.Items.Clear(); // Clear any existing items
             string chosenTipoQuery = string.Empty;
+            string outroQuery_where = string.Empty;
 
-            if (this.chosenTipo != null)
+            if (!string.IsNullOrEmpty(this.chosenTipo))
             {
                 switch (this.chosenTipo)
                 {
@@ -226,30 +317,35 @@ namespace ZooLifeForm
                     case "Outro":
                         chosenTipoQuery = "LEFT JOIN ZOO.HABITAT ON ZOO.RECINTO.ID = ZOO.HABITAT.Recinto_ID " +
                                           "LEFT JOIN ZOO.BILHETEIRA ON ZOO.RECINTO.ID = ZOO.BILHETEIRA.Recinto_ID " +
-                                          "LEFT JOIN ZOO.RESTAURACAO ON ZOO.RECINTO.ID = ZOO.RESTAURACAO.Recinto_ID " +
-                                          "WHERE ZOO.HABITAT.Recinto_ID IS NULL " +
+                                          "LEFT JOIN ZOO.RESTAURACAO ON ZOO.RECINTO.ID = ZOO.RESTAURACAO.Recinto_ID ";
+                        outroQuery_where= "AND ZOO.HABITAT.Recinto_ID IS NULL " +
                                           "AND ZOO.BILHETEIRA.Recinto_ID IS NULL " +
                                           "AND ZOO.RESTAURACAO.Recinto_ID IS NULL";
                         break;
                 }
             }
 
-            string query = "SELECT Nome, ID FROM ZOO.RECINTO"+ chosenTipoQuery + "WHERE ZOO.Recinto.Nome_JZ = \'" + this.selectedZoo + "\'"; // Assuming a table named 'Animals' with a column 'AnimalName'
-            SqlCommand cmd = new SqlCommand(query, this.cn);
+            string query = "SELECT ZOO.RECINTO.Nome, ZOO.RECINTO.ID FROM ZOO.RECINTO " + chosenTipoQuery +
+                   " WHERE ZOO.RECINTO.Nome_JZ = @selectedZoo " + outroQuery_where;
 
-            try
+            using (SqlCommand cmd = new SqlCommand(query, this.cn))
             {
-                using (SqlDataReader reader = cmd.ExecuteReader())
+                cmd.Parameters.AddWithValue("@selectedZoo", this.selectedZoo);
+                try
                 {
-                    while (reader.Read())
+                    Console.WriteLine(query);
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        lista_resultados_recintos.Items.Add(reader["ID"].ToString() + ". " + reader["Nome"].ToString());
+                        while (reader.Read())
+                        {
+                            lista_resultados_recintos.Items.Add(reader["ID"].ToString() + ". " + reader["Nome"].ToString());
+                        }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Failed to load recinto names. Error: " + ex.Message);
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Failed to load recinto names. Error: " + ex.Message);
+                }
             }
         }
 
@@ -339,7 +435,7 @@ namespace ZooLifeForm
             if (listBox_habitaculos_recinto.SelectedItem != null)
             {
                 // Assuming the habitaculo ID is stored as the value of the list item
-                int habitaculoID = (int)listBox_habitaculos_recinto.SelectedValue;
+                int habitaculoID = int.Parse(listBox_habitaculos_recinto.SelectedValue.ToString());
 
                 using (SqlConnection cn = new SqlConnection("your_connection_string_here"))
                 {
@@ -429,5 +525,16 @@ namespace ZooLifeForm
                 button_adicionar_habitaculo.Visible = false;
             }
         }
+
+        private void escolherTipoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ToolStripMenuItem clickedItem = (ToolStripMenuItem)sender;
+            string tipoRecinto_text = clickedItem.Text.ToString();
+            this.chosenTipo = tipoRecinto_text.ToString();
+            PopulateRecintoList();
+            // Perform actions based on the selected habitat
+            this.Text = "ZooLife - Lista de Recintos (" + selectedZoo + " - " + this.chosenTipo + ")";
+        }
+
     }
 }

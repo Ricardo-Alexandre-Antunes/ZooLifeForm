@@ -54,6 +54,10 @@
             this.listBox_habitaculos_recinto = new System.Windows.Forms.ListBox();
             this.button_adicionar_habitaculo = new System.Windows.Forms.Button();
             this.button_remover_habitaculo = new System.Windows.Forms.Button();
+            this.label_numero_funcionarios_recinto = new System.Windows.Forms.Label();
+            this.listbox_lista_funcionarios_recinto = new System.Windows.Forms.ListBox();
+            this.textbox_numero_funcionarios_recinto = new System.Windows.Forms.TextBox();
+            this.label_lista_funcionarios_recinto = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -66,6 +70,7 @@
             this.lista_resultados_recintos.Size = new System.Drawing.Size(199, 404);
             this.lista_resultados_recintos.Sorted = true;
             this.lista_resultados_recintos.TabIndex = 0;
+            this.lista_resultados_recintos.SelectedIndexChanged += new System.EventHandler(this.lista_resultados_recintos_SelectedIndexChanged);
             // 
             // menuStrip1
             // 
@@ -102,24 +107,28 @@
             this.habitatToolStripMenuItem.Name = "habitatToolStripMenuItem";
             this.habitatToolStripMenuItem.Size = new System.Drawing.Size(173, 26);
             this.habitatToolStripMenuItem.Text = "Habitat";
+            this.habitatToolStripMenuItem.Click += new System.EventHandler(this.escolherTipoToolStripMenuItem_Click);
             // 
             // bilheteiraToolStripMenuItem
             // 
             this.bilheteiraToolStripMenuItem.Name = "bilheteiraToolStripMenuItem";
             this.bilheteiraToolStripMenuItem.Size = new System.Drawing.Size(173, 26);
             this.bilheteiraToolStripMenuItem.Text = "Bilheteira";
+            this.bilheteiraToolStripMenuItem.Click += new System.EventHandler(this.escolherTipoToolStripMenuItem_Click);
             // 
             // restauraçãoToolStripMenuItem
             // 
             this.restauraçãoToolStripMenuItem.Name = "restauraçãoToolStripMenuItem";
             this.restauraçãoToolStripMenuItem.Size = new System.Drawing.Size(173, 26);
             this.restauraçãoToolStripMenuItem.Text = "Restauração";
+            this.restauraçãoToolStripMenuItem.Click += new System.EventHandler(this.escolherTipoToolStripMenuItem_Click);
             // 
             // outroToolStripMenuItem
             // 
             this.outroToolStripMenuItem.Name = "outroToolStripMenuItem";
             this.outroToolStripMenuItem.Size = new System.Drawing.Size(173, 26);
             this.outroToolStripMenuItem.Text = "Outro";
+            this.outroToolStripMenuItem.Click += new System.EventHandler(this.escolherTipoToolStripMenuItem_Click);
             // 
             // label_nome_recinto
             // 
@@ -175,7 +184,7 @@
             // label_capacidadeMax_recinto
             // 
             this.label_capacidadeMax_recinto.AutoSize = true;
-            this.label_capacidadeMax_recinto.Location = new System.Drawing.Point(247, 184);
+            this.label_capacidadeMax_recinto.Location = new System.Drawing.Point(247, 284);
             this.label_capacidadeMax_recinto.Name = "label_capacidadeMax_recinto";
             this.label_capacidadeMax_recinto.Size = new System.Drawing.Size(132, 16);
             this.label_capacidadeMax_recinto.TabIndex = 10;
@@ -184,7 +193,7 @@
             // 
             // textbox_capacidadeMax_recinto
             // 
-            this.textbox_capacidadeMax_recinto.Location = new System.Drawing.Point(385, 181);
+            this.textbox_capacidadeMax_recinto.Location = new System.Drawing.Point(382, 281);
             this.textbox_capacidadeMax_recinto.Name = "textbox_capacidadeMax_recinto";
             this.textbox_capacidadeMax_recinto.ReadOnly = true;
             this.textbox_capacidadeMax_recinto.Size = new System.Drawing.Size(444, 22);
@@ -194,15 +203,16 @@
             // label_n_habitaculos_recinto
             // 
             this.label_n_habitaculos_recinto.AutoSize = true;
-            this.label_n_habitaculos_recinto.Location = new System.Drawing.Point(247, 261);
+            this.label_n_habitaculos_recinto.Location = new System.Drawing.Point(247, 337);
             this.label_n_habitaculos_recinto.Name = "label_n_habitaculos_recinto";
             this.label_n_habitaculos_recinto.Size = new System.Drawing.Size(146, 16);
             this.label_n_habitaculos_recinto.TabIndex = 12;
             this.label_n_habitaculos_recinto.Text = "Número de habitáculos";
+            this.label_n_habitaculos_recinto.Visible = false;
             // 
             // textbox_n_habitaculos_recinto
             // 
-            this.textbox_n_habitaculos_recinto.Location = new System.Drawing.Point(399, 261);
+            this.textbox_n_habitaculos_recinto.Location = new System.Drawing.Point(399, 334);
             this.textbox_n_habitaculos_recinto.Name = "textbox_n_habitaculos_recinto";
             this.textbox_n_habitaculos_recinto.ReadOnly = true;
             this.textbox_n_habitaculos_recinto.Size = new System.Drawing.Size(62, 22);
@@ -231,7 +241,7 @@
             // label_bilhetes_vendidos_recinto
             // 
             this.label_bilhetes_vendidos_recinto.AutoSize = true;
-            this.label_bilhetes_vendidos_recinto.Location = new System.Drawing.Point(247, 226);
+            this.label_bilhetes_vendidos_recinto.Location = new System.Drawing.Point(247, 306);
             this.label_bilhetes_vendidos_recinto.Name = "label_bilhetes_vendidos_recinto";
             this.label_bilhetes_vendidos_recinto.Size = new System.Drawing.Size(116, 16);
             this.label_bilhetes_vendidos_recinto.TabIndex = 17;
@@ -240,7 +250,7 @@
             // 
             // textbox_bilhetes_vendidos_recinto
             // 
-            this.textbox_bilhetes_vendidos_recinto.Location = new System.Drawing.Point(369, 223);
+            this.textbox_bilhetes_vendidos_recinto.Location = new System.Drawing.Point(369, 303);
             this.textbox_bilhetes_vendidos_recinto.Name = "textbox_bilhetes_vendidos_recinto";
             this.textbox_bilhetes_vendidos_recinto.ReadOnly = true;
             this.textbox_bilhetes_vendidos_recinto.Size = new System.Drawing.Size(460, 22);
@@ -250,7 +260,7 @@
             // label_lista_habitaculos_recinto
             // 
             this.label_lista_habitaculos_recinto.AutoSize = true;
-            this.label_lista_habitaculos_recinto.Location = new System.Drawing.Point(528, 267);
+            this.label_lista_habitaculos_recinto.Location = new System.Drawing.Point(509, 337);
             this.label_lista_habitaculos_recinto.Name = "label_lista_habitaculos_recinto";
             this.label_lista_habitaculos_recinto.Size = new System.Drawing.Size(126, 16);
             this.label_lista_habitaculos_recinto.TabIndex = 19;
@@ -261,9 +271,9 @@
             // 
             this.listBox_habitaculos_recinto.FormattingEnabled = true;
             this.listBox_habitaculos_recinto.ItemHeight = 16;
-            this.listBox_habitaculos_recinto.Location = new System.Drawing.Point(660, 261);
+            this.listBox_habitaculos_recinto.Location = new System.Drawing.Point(660, 337);
             this.listBox_habitaculos_recinto.Name = "listBox_habitaculos_recinto";
-            this.listBox_habitaculos_recinto.Size = new System.Drawing.Size(169, 100);
+            this.listBox_habitaculos_recinto.Size = new System.Drawing.Size(169, 52);
             this.listBox_habitaculos_recinto.Sorted = true;
             this.listBox_habitaculos_recinto.TabIndex = 20;
             this.listBox_habitaculos_recinto.Visible = false;
@@ -289,11 +299,49 @@
             this.button_remover_habitaculo.UseVisualStyleBackColor = true;
             this.button_remover_habitaculo.Visible = false;
             // 
+            // label_numero_funcionarios_recinto
+            // 
+            this.label_numero_funcionarios_recinto.AutoSize = true;
+            this.label_numero_funcionarios_recinto.Location = new System.Drawing.Point(247, 186);
+            this.label_numero_funcionarios_recinto.Name = "label_numero_funcionarios_recinto";
+            this.label_numero_funcionarios_recinto.Size = new System.Drawing.Size(149, 16);
+            this.label_numero_funcionarios_recinto.TabIndex = 23;
+            this.label_numero_funcionarios_recinto.Text = "Número de funcionários";
+            // 
+            // listbox_lista_funcionarios_recinto
+            // 
+            this.listbox_lista_funcionarios_recinto.FormattingEnabled = true;
+            this.listbox_lista_funcionarios_recinto.ItemHeight = 16;
+            this.listbox_lista_funcionarios_recinto.Location = new System.Drawing.Point(492, 214);
+            this.listbox_lista_funcionarios_recinto.Name = "listbox_lista_funcionarios_recinto";
+            this.listbox_lista_funcionarios_recinto.Size = new System.Drawing.Size(334, 52);
+            this.listbox_lista_funcionarios_recinto.TabIndex = 24;
+            // 
+            // textbox_numero_funcionarios_recinto
+            // 
+            this.textbox_numero_funcionarios_recinto.Location = new System.Drawing.Point(399, 183);
+            this.textbox_numero_funcionarios_recinto.Name = "textbox_numero_funcionarios_recinto";
+            this.textbox_numero_funcionarios_recinto.Size = new System.Drawing.Size(64, 22);
+            this.textbox_numero_funcionarios_recinto.TabIndex = 25;
+            // 
+            // label_lista_funcionarios_recinto
+            // 
+            this.label_lista_funcionarios_recinto.AutoSize = true;
+            this.label_lista_funcionarios_recinto.Location = new System.Drawing.Point(489, 186);
+            this.label_lista_funcionarios_recinto.Name = "label_lista_funcionarios_recinto";
+            this.label_lista_funcionarios_recinto.Size = new System.Drawing.Size(129, 16);
+            this.label_lista_funcionarios_recinto.TabIndex = 26;
+            this.label_lista_funcionarios_recinto.Text = "Lista de funcionários";
+            // 
             // RecintosList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(841, 450);
+            this.Controls.Add(this.label_lista_funcionarios_recinto);
+            this.Controls.Add(this.textbox_numero_funcionarios_recinto);
+            this.Controls.Add(this.listbox_lista_funcionarios_recinto);
+            this.Controls.Add(this.label_numero_funcionarios_recinto);
             this.Controls.Add(this.button_remover_habitaculo);
             this.Controls.Add(this.button_adicionar_habitaculo);
             this.Controls.Add(this.listBox_habitaculos_recinto);
@@ -353,5 +401,9 @@
         private System.Windows.Forms.ListBox listBox_habitaculos_recinto;
         private System.Windows.Forms.Button button_adicionar_habitaculo;
         private System.Windows.Forms.Button button_remover_habitaculo;
+        private System.Windows.Forms.Label label_numero_funcionarios_recinto;
+        private System.Windows.Forms.ListBox listbox_lista_funcionarios_recinto;
+        private System.Windows.Forms.TextBox textbox_numero_funcionarios_recinto;
+        private System.Windows.Forms.Label label_lista_funcionarios_recinto;
     }
 }
