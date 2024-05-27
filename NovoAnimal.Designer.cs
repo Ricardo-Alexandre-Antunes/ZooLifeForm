@@ -72,7 +72,6 @@
             this.TitleLabel.Size = new System.Drawing.Size(552, 69);
             this.TitleLabel.TabIndex = 1;
             this.TitleLabel.Text = "Inserir Novo Animal";
-            this.TitleLabel.Click += new System.EventHandler(this.TitleLabel_Click);
             // 
             // label2
             // 

@@ -227,6 +227,7 @@
             this.button_adicionar_recinto.TabIndex = 15;
             this.button_adicionar_recinto.Text = "Adicionar Recinto";
             this.button_adicionar_recinto.UseVisualStyleBackColor = true;
+            this.button_adicionar_recinto.Click += new System.EventHandler(this.button_adicionar_recinto_Click);
             // 
             // butto_remover_recinto
             // 
@@ -291,9 +292,9 @@
             // 
             // button_remover_habitaculo
             // 
-            this.button_remover_habitaculo.Location = new System.Drawing.Point(229, 395);
+            this.button_remover_habitaculo.Location = new System.Drawing.Point(217, 395);
             this.button_remover_habitaculo.Name = "button_remover_habitaculo";
-            this.button_remover_habitaculo.Size = new System.Drawing.Size(147, 43);
+            this.button_remover_habitaculo.Size = new System.Drawing.Size(159, 43);
             this.button_remover_habitaculo.TabIndex = 22;
             this.button_remover_habitaculo.Text = "Remover Habitáculo";
             this.button_remover_habitaculo.UseVisualStyleBackColor = true;
@@ -321,6 +322,7 @@
             // 
             this.textbox_numero_funcionarios_recinto.Location = new System.Drawing.Point(399, 183);
             this.textbox_numero_funcionarios_recinto.Name = "textbox_numero_funcionarios_recinto";
+            this.textbox_numero_funcionarios_recinto.ReadOnly = true;
             this.textbox_numero_funcionarios_recinto.Size = new System.Drawing.Size(64, 22);
             this.textbox_numero_funcionarios_recinto.TabIndex = 25;
             // 

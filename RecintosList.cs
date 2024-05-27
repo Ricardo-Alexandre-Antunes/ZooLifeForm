@@ -374,11 +374,9 @@ namespace ZooLifeForm
                 string recintoID = recintoInfo[0].Trim();
 
                 // Call the stored procedure to remove the animal
-                using (SqlConnection connection = SqlConnection())
                 {
                     try
                     {
-                        connection.Open();
                         string tipoRecinto = null;
 
                         string query = "SELECT ZOO.GET_TIPO_RECINTO(@recintoID) AS TipoRecinto";
@@ -411,10 +409,10 @@ namespace ZooLifeForm
                         }
 
                         
-                        SqlCommand cmd = new SqlCommand(procedure, connection);
+                        SqlCommand cmd = new SqlCommand(procedure, cn);
                         cmd.CommandType = CommandType.StoredProcedure;
 
-                        cmd.Parameters.AddWithValue("@recintoID", int.Parse(recintoID)); // Change the parameter name to "@ID"
+                        cmd.Parameters.AddWithValue("@id", int.Parse(recintoID)); // Change the parameter name to "@ID"
                         cmd.ExecuteNonQuery();
 
                         // Refresh the animal list after removal
@@ -435,17 +433,18 @@ namespace ZooLifeForm
             if (listBox_habitaculos_recinto.SelectedItem != null)
             {
                 // Assuming the habitaculo ID is stored as the value of the list item
-                int habitaculoID = int.Parse(listBox_habitaculos_recinto.SelectedValue.ToString());
 
-                using (SqlConnection cn = new SqlConnection("your_connection_string_here"))
+                string habitaculoID = listBox_habitaculos_recinto.SelectedItem.ToString().Trim();
+                int id = int.Parse(habitaculoID);
+                Console.WriteLine(id);
+
                 {
                     try
                     {
-                        cn.Open();
-                        using (SqlCommand cmd = new SqlCommand("ZOO.sp_remover_habitaculo", cn))
+                        using (SqlCommand cmd = new SqlCommand("ZOO.sp_removerHabitaculo", cn))
                         {
                             cmd.CommandType = CommandType.StoredProcedure;
-                            cmd.Parameters.AddWithValue("@habitaculoID", habitaculoID);
+                            cmd.Parameters.AddWithValue("@id", id);
 
                             cmd.ExecuteNonQuery();
                             MessageBox.Show("Habitáculo removido com sucesso.");
@@ -536,5 +535,12 @@ namespace ZooLifeForm
             this.Text = "ZooLife - Lista de Recintos (" + selectedZoo + " - " + this.chosenTipo + ")";
         }
 
+        private void button_adicionar_recinto_Click(object sender, EventArgs e)
+        {
+
+            AdicionarRecinto novo_recinto_form = new AdicionarRecinto(this); // Create an instance of the AnimalList form
+            novo_recinto_form.Show(); // Show the AnimalList form
+            this.Hide();
+        }
     }
 }

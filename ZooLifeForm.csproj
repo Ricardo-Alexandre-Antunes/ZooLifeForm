@@ -47,6 +47,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdicionarRecinto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdicionarRecinto.Designer.cs">
+      <DependentUpon>AdicionarRecinto.cs</DependentUpon>
+    </Compile>
     <Compile Include="GerirRelacoes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -87,6 +93,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AnimalList.resx">
       <DependentUpon>AnimalList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AdicionarRecinto.resx">
+      <DependentUpon>AdicionarRecinto.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GerirRelacoes.resx">
       <DependentUpon>GerirRelacoes.cs</DependentUpon>
