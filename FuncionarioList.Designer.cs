@@ -437,6 +437,7 @@
             this.GerirResponsabilidades.Text = "Gerir Responsabilidades";
             this.GerirResponsabilidades.UseVisualStyleBackColor = true;
             this.GerirResponsabilidades.Visible = false;
+            this.GerirResponsabilidades.Click += new System.EventHandler(this.GerirResponsabilidades_Click);
             // 
             // ConfirmarEdicao
             // 

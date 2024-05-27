@@ -755,5 +755,12 @@ namespace ZooLifeForm
             novoFuncionario.Show();
             this.Hide();
         }
+
+        private void GerirResponsabilidades_Click(object sender, EventArgs e)
+        {
+            GerirResponsabilidades responsabilidades = new GerirResponsabilidades(this, ListaFuncionarios.Text, this.selectedFuncionario, this.FuncaoFuncionario.Text);
+            responsabilidades.Show();
+            this.Hide();
+        }
     }
 }

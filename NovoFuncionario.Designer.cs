@@ -29,28 +29,32 @@
         private void InitializeComponent()
         {
             this.NovoAnimalVeterinario = new System.Windows.Forms.Label();
-            this.NovoAnimalHabitatCombo = new System.Windows.Forms.ComboBox();
-            this.NovoAnimalZooCombo = new System.Windows.Forms.ComboBox();
+            this.NovoFuncionarioContratoCombo = new System.Windows.Forms.ComboBox();
             this.NovoAnimalHabitaculoLabel = new System.Windows.Forms.Label();
             this.NovoAnimalZooLabel = new System.Windows.Forms.Label();
             this.NovoAnimalHabitatLabel = new System.Windows.Forms.Label();
             this.CancelButton = new System.Windows.Forms.Button();
             this.ConfirmarButton = new System.Windows.Forms.Button();
             this.NovoAnimalCorLabel = new System.Windows.Forms.Label();
-            this.NovoAnimalComprimento = new System.Windows.Forms.TextBox();
             this.NovoAnimalComprimentoLabel = new System.Windows.Forms.Label();
-            this.NovoAnimalDieta = new System.Windows.Forms.TextBox();
-            this.NovoAnimalEspecie = new System.Windows.Forms.TextBox();
-            this.NovoAnimalNome = new System.Windows.Forms.TextBox();
+            this.NovoFuncionarioCC = new System.Windows.Forms.TextBox();
+            this.NovoFuncionarioNome = new System.Windows.Forms.TextBox();
             this.NovoAnimalEspécieLabel = new System.Windows.Forms.Label();
             this.NovoAnimalPesoLabel = new System.Windows.Forms.Label();
             this.NovoAnimalDietaLabel = new System.Windows.Forms.Label();
             this.TitleLabel = new System.Windows.Forms.Label();
             this.NovoAnimalNomeLabel = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker3 = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker4 = new System.Windows.Forms.DateTimePicker();
+            this.NovoFuncionarioIngresso = new System.Windows.Forms.DateTimePicker();
+            this.NovoFuncionarioInicioContrato = new System.Windows.Forms.DateTimePicker();
+            this.NovoFuncionarioFimContrato = new System.Windows.Forms.DateTimePicker();
+            this.NovoFuncionarioNascimento = new System.Windows.Forms.DateTimePicker();
+            this.NovoFuncionarioSalario = new System.Windows.Forms.TextBox();
+            this.NovoFuncionarioGeneroCombo = new System.Windows.Forms.ComboBox();
+            this.NovoFuncionarioFuncao = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.NovoFuncionarioZoo = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.NovoFuncionarioRecintos = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // NovoAnimalVeterinario
@@ -62,22 +66,14 @@
             this.NovoAnimalVeterinario.TabIndex = 45;
             this.NovoAnimalVeterinario.Text = "Fim de contrato";
             // 
-            // NovoAnimalHabitatCombo
+            // NovoFuncionarioContratoCombo
             // 
-            this.NovoAnimalHabitatCombo.Enabled = false;
-            this.NovoAnimalHabitatCombo.FormattingEnabled = true;
-            this.NovoAnimalHabitatCombo.Location = new System.Drawing.Point(587, 144);
-            this.NovoAnimalHabitatCombo.Name = "NovoAnimalHabitatCombo";
-            this.NovoAnimalHabitatCombo.Size = new System.Drawing.Size(195, 24);
-            this.NovoAnimalHabitatCombo.TabIndex = 43;
-            // 
-            // NovoAnimalZooCombo
-            // 
-            this.NovoAnimalZooCombo.FormattingEnabled = true;
-            this.NovoAnimalZooCombo.Location = new System.Drawing.Point(587, 99);
-            this.NovoAnimalZooCombo.Name = "NovoAnimalZooCombo";
-            this.NovoAnimalZooCombo.Size = new System.Drawing.Size(195, 24);
-            this.NovoAnimalZooCombo.TabIndex = 42;
+            this.NovoFuncionarioContratoCombo.FormattingEnabled = true;
+            this.NovoFuncionarioContratoCombo.Location = new System.Drawing.Point(593, 99);
+            this.NovoFuncionarioContratoCombo.Name = "NovoFuncionarioContratoCombo";
+            this.NovoFuncionarioContratoCombo.Size = new System.Drawing.Size(195, 24);
+            this.NovoFuncionarioContratoCombo.TabIndex = 42;
+            this.NovoFuncionarioContratoCombo.SelectedIndexChanged += new System.EventHandler(this.NovoFuncionarioContratoCombo_SelectedIndexChanged);
             // 
             // NovoAnimalHabitaculoLabel
             // 
@@ -114,6 +110,7 @@
             this.CancelButton.TabIndex = 38;
             this.CancelButton.Text = "Cancelar";
             this.CancelButton.UseVisualStyleBackColor = true;
+            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // ConfirmarButton
             // 
@@ -124,6 +121,7 @@
             this.ConfirmarButton.TabIndex = 37;
             this.ConfirmarButton.Text = "Confirmar";
             this.ConfirmarButton.UseVisualStyleBackColor = true;
+            this.ConfirmarButton.Click += new System.EventHandler(this.ConfirmarButton_Click);
             // 
             // NovoAnimalCorLabel
             // 
@@ -134,13 +132,6 @@
             this.NovoAnimalCorLabel.TabIndex = 35;
             this.NovoAnimalCorLabel.Text = "Data de Ingresso";
             // 
-            // NovoAnimalComprimento
-            // 
-            this.NovoAnimalComprimento.Location = new System.Drawing.Point(149, 275);
-            this.NovoAnimalComprimento.Name = "NovoAnimalComprimento";
-            this.NovoAnimalComprimento.Size = new System.Drawing.Size(289, 22);
-            this.NovoAnimalComprimento.TabIndex = 34;
-            // 
             // NovoAnimalComprimentoLabel
             // 
             this.NovoAnimalComprimentoLabel.AutoSize = true;
@@ -150,26 +141,21 @@
             this.NovoAnimalComprimentoLabel.TabIndex = 33;
             this.NovoAnimalComprimentoLabel.Text = "Função";
             // 
-            // NovoAnimalDieta
+            // NovoFuncionarioCC
             // 
-            this.NovoAnimalDieta.Location = new System.Drawing.Point(149, 189);
-            this.NovoAnimalDieta.Name = "NovoAnimalDieta";
-            this.NovoAnimalDieta.Size = new System.Drawing.Size(289, 22);
-            this.NovoAnimalDieta.TabIndex = 31;
+            this.NovoFuncionarioCC.Location = new System.Drawing.Point(149, 141);
+            this.NovoFuncionarioCC.Name = "NovoFuncionarioCC";
+            this.NovoFuncionarioCC.Size = new System.Drawing.Size(289, 22);
+            this.NovoFuncionarioCC.TabIndex = 30;
+            this.NovoFuncionarioCC.TextChanged += new System.EventHandler(this.NovoFuncionarioCC_TextChanged);
             // 
-            // NovoAnimalEspecie
+            // NovoFuncionarioNome
             // 
-            this.NovoAnimalEspecie.Location = new System.Drawing.Point(149, 141);
-            this.NovoAnimalEspecie.Name = "NovoAnimalEspecie";
-            this.NovoAnimalEspecie.Size = new System.Drawing.Size(289, 22);
-            this.NovoAnimalEspecie.TabIndex = 30;
-            // 
-            // NovoAnimalNome
-            // 
-            this.NovoAnimalNome.Location = new System.Drawing.Point(149, 99);
-            this.NovoAnimalNome.Name = "NovoAnimalNome";
-            this.NovoAnimalNome.Size = new System.Drawing.Size(289, 22);
-            this.NovoAnimalNome.TabIndex = 29;
+            this.NovoFuncionarioNome.Location = new System.Drawing.Point(149, 99);
+            this.NovoFuncionarioNome.Name = "NovoFuncionarioNome";
+            this.NovoFuncionarioNome.Size = new System.Drawing.Size(289, 22);
+            this.NovoFuncionarioNome.TabIndex = 29;
+            this.NovoFuncionarioNome.TextChanged += new System.EventHandler(this.NovoFuncionarioNome_TextChanged);
             // 
             // NovoAnimalEspécieLabel
             // 
@@ -217,57 +203,128 @@
             this.NovoAnimalNomeLabel.TabIndex = 24;
             this.NovoAnimalNomeLabel.Text = "Nome";
             // 
-            // dateTimePicker1
+            // NovoFuncionarioIngresso
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(149, 316);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(289, 22);
-            this.dateTimePicker1.TabIndex = 47;
+            this.NovoFuncionarioIngresso.Location = new System.Drawing.Point(149, 316);
+            this.NovoFuncionarioIngresso.Name = "NovoFuncionarioIngresso";
+            this.NovoFuncionarioIngresso.Size = new System.Drawing.Size(289, 22);
+            this.NovoFuncionarioIngresso.TabIndex = 47;
+            this.NovoFuncionarioIngresso.ValueChanged += new System.EventHandler(this.NovoFuncionarioIngresso_ValueChanged);
             // 
-            // dateTimePicker2
+            // NovoFuncionarioInicioContrato
             // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(587, 189);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(195, 22);
-            this.dateTimePicker2.TabIndex = 48;
+            this.NovoFuncionarioInicioContrato.Location = new System.Drawing.Point(593, 189);
+            this.NovoFuncionarioInicioContrato.Name = "NovoFuncionarioInicioContrato";
+            this.NovoFuncionarioInicioContrato.Size = new System.Drawing.Size(195, 22);
+            this.NovoFuncionarioInicioContrato.TabIndex = 48;
+            this.NovoFuncionarioInicioContrato.ValueChanged += new System.EventHandler(this.NovoFuncionarioInicioContrato_ValueChanged);
             // 
-            // dateTimePicker3
+            // NovoFuncionarioFimContrato
             // 
-            this.dateTimePicker3.Location = new System.Drawing.Point(587, 235);
-            this.dateTimePicker3.Name = "dateTimePicker3";
-            this.dateTimePicker3.Size = new System.Drawing.Size(195, 22);
-            this.dateTimePicker3.TabIndex = 49;
+            this.NovoFuncionarioFimContrato.Location = new System.Drawing.Point(593, 235);
+            this.NovoFuncionarioFimContrato.Name = "NovoFuncionarioFimContrato";
+            this.NovoFuncionarioFimContrato.Size = new System.Drawing.Size(195, 22);
+            this.NovoFuncionarioFimContrato.TabIndex = 49;
+            this.NovoFuncionarioFimContrato.ValueChanged += new System.EventHandler(this.NovoFuncionarioFimContrato_ValueChanged);
             // 
-            // dateTimePicker4
+            // NovoFuncionarioNascimento
             // 
-            this.dateTimePicker4.Location = new System.Drawing.Point(149, 235);
-            this.dateTimePicker4.Name = "dateTimePicker4";
-            this.dateTimePicker4.Size = new System.Drawing.Size(289, 22);
-            this.dateTimePicker4.TabIndex = 50;
+            this.NovoFuncionarioNascimento.Location = new System.Drawing.Point(149, 235);
+            this.NovoFuncionarioNascimento.Name = "NovoFuncionarioNascimento";
+            this.NovoFuncionarioNascimento.Size = new System.Drawing.Size(289, 22);
+            this.NovoFuncionarioNascimento.TabIndex = 50;
+            this.NovoFuncionarioNascimento.ValueChanged += new System.EventHandler(this.NovoFuncionarioNascimento_ValueChanged);
+            // 
+            // NovoFuncionarioSalario
+            // 
+            this.NovoFuncionarioSalario.Location = new System.Drawing.Point(593, 144);
+            this.NovoFuncionarioSalario.Name = "NovoFuncionarioSalario";
+            this.NovoFuncionarioSalario.Size = new System.Drawing.Size(195, 22);
+            this.NovoFuncionarioSalario.TabIndex = 51;
+            this.NovoFuncionarioSalario.TextChanged += new System.EventHandler(this.NovoFuncionarioSalario_TextChanged);
+            // 
+            // NovoFuncionarioGeneroCombo
+            // 
+            this.NovoFuncionarioGeneroCombo.FormattingEnabled = true;
+            this.NovoFuncionarioGeneroCombo.Location = new System.Drawing.Point(149, 187);
+            this.NovoFuncionarioGeneroCombo.Name = "NovoFuncionarioGeneroCombo";
+            this.NovoFuncionarioGeneroCombo.Size = new System.Drawing.Size(289, 24);
+            this.NovoFuncionarioGeneroCombo.TabIndex = 52;
+            this.NovoFuncionarioGeneroCombo.SelectedIndexChanged += new System.EventHandler(this.NovoFuncionarioGeneroCombo_SelectedIndexChanged);
+            // 
+            // NovoFuncionarioFuncao
+            // 
+            this.NovoFuncionarioFuncao.FormattingEnabled = true;
+            this.NovoFuncionarioFuncao.Location = new System.Drawing.Point(149, 270);
+            this.NovoFuncionarioFuncao.Name = "NovoFuncionarioFuncao";
+            this.NovoFuncionarioFuncao.Size = new System.Drawing.Size(289, 24);
+            this.NovoFuncionarioFuncao.TabIndex = 53;
+            this.NovoFuncionarioFuncao.SelectedIndexChanged += new System.EventHandler(this.NovoFuncionarioFuncao_SelectedIndexChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(473, 273);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(112, 16);
+            this.label1.TabIndex = 54;
+            this.label1.Text = "Jardim Zoológico";
+            // 
+            // NovoFuncionarioZoo
+            // 
+            this.NovoFuncionarioZoo.FormattingEnabled = true;
+            this.NovoFuncionarioZoo.Location = new System.Drawing.Point(593, 270);
+            this.NovoFuncionarioZoo.Name = "NovoFuncionarioZoo";
+            this.NovoFuncionarioZoo.Size = new System.Drawing.Size(195, 24);
+            this.NovoFuncionarioZoo.TabIndex = 55;
+            this.NovoFuncionarioZoo.SelectedIndexChanged += new System.EventHandler(this.NovoFuncionarioContratoCombo_SelectedIndexChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(473, 316);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(117, 16);
+            this.label2.TabIndex = 56;
+            this.label2.Text = "Local de Trabalho";
+            this.label2.Visible = false;
+            // 
+            // NovoFuncionarioRecintos
+            // 
+            this.NovoFuncionarioRecintos.FormattingEnabled = true;
+            this.NovoFuncionarioRecintos.Location = new System.Drawing.Point(593, 313);
+            this.NovoFuncionarioRecintos.Name = "NovoFuncionarioRecintos";
+            this.NovoFuncionarioRecintos.Size = new System.Drawing.Size(195, 24);
+            this.NovoFuncionarioRecintos.TabIndex = 57;
+            this.NovoFuncionarioRecintos.Visible = false;
             // 
             // NovoFuncionario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.dateTimePicker4);
-            this.Controls.Add(this.dateTimePicker3);
-            this.Controls.Add(this.dateTimePicker2);
-            this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.NovoFuncionarioRecintos);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.NovoFuncionarioZoo);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.NovoFuncionarioFuncao);
+            this.Controls.Add(this.NovoFuncionarioGeneroCombo);
+            this.Controls.Add(this.NovoFuncionarioSalario);
+            this.Controls.Add(this.NovoFuncionarioNascimento);
+            this.Controls.Add(this.NovoFuncionarioFimContrato);
+            this.Controls.Add(this.NovoFuncionarioInicioContrato);
+            this.Controls.Add(this.NovoFuncionarioIngresso);
             this.Controls.Add(this.NovoAnimalVeterinario);
-            this.Controls.Add(this.NovoAnimalHabitatCombo);
-            this.Controls.Add(this.NovoAnimalZooCombo);
+            this.Controls.Add(this.NovoFuncionarioContratoCombo);
             this.Controls.Add(this.NovoAnimalHabitaculoLabel);
             this.Controls.Add(this.NovoAnimalZooLabel);
             this.Controls.Add(this.NovoAnimalHabitatLabel);
             this.Controls.Add(this.CancelButton);
             this.Controls.Add(this.ConfirmarButton);
             this.Controls.Add(this.NovoAnimalCorLabel);
-            this.Controls.Add(this.NovoAnimalComprimento);
             this.Controls.Add(this.NovoAnimalComprimentoLabel);
-            this.Controls.Add(this.NovoAnimalDieta);
-            this.Controls.Add(this.NovoAnimalEspecie);
-            this.Controls.Add(this.NovoAnimalNome);
+            this.Controls.Add(this.NovoFuncionarioCC);
+            this.Controls.Add(this.NovoFuncionarioNome);
             this.Controls.Add(this.NovoAnimalEspécieLabel);
             this.Controls.Add(this.NovoAnimalPesoLabel);
             this.Controls.Add(this.NovoAnimalDietaLabel);
@@ -282,27 +339,31 @@
 
         #endregion
         private System.Windows.Forms.Label NovoAnimalVeterinario;
-        private System.Windows.Forms.ComboBox NovoAnimalHabitatCombo;
-        private System.Windows.Forms.ComboBox NovoAnimalZooCombo;
+        private System.Windows.Forms.ComboBox NovoFuncionarioContratoCombo;
         private System.Windows.Forms.Label NovoAnimalHabitaculoLabel;
         private System.Windows.Forms.Label NovoAnimalZooLabel;
         private System.Windows.Forms.Label NovoAnimalHabitatLabel;
         private System.Windows.Forms.Button CancelButton;
         private System.Windows.Forms.Button ConfirmarButton;
         private System.Windows.Forms.Label NovoAnimalCorLabel;
-        private System.Windows.Forms.TextBox NovoAnimalComprimento;
         private System.Windows.Forms.Label NovoAnimalComprimentoLabel;
-        private System.Windows.Forms.TextBox NovoAnimalDieta;
-        private System.Windows.Forms.TextBox NovoAnimalEspecie;
-        private System.Windows.Forms.TextBox NovoAnimalNome;
+        private System.Windows.Forms.TextBox NovoFuncionarioCC;
+        private System.Windows.Forms.TextBox NovoFuncionarioNome;
         private System.Windows.Forms.Label NovoAnimalEspécieLabel;
         private System.Windows.Forms.Label NovoAnimalPesoLabel;
         private System.Windows.Forms.Label NovoAnimalDietaLabel;
         private System.Windows.Forms.Label TitleLabel;
         private System.Windows.Forms.Label NovoAnimalNomeLabel;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
-        private System.Windows.Forms.DateTimePicker dateTimePicker3;
-        private System.Windows.Forms.DateTimePicker dateTimePicker4;
+        private System.Windows.Forms.DateTimePicker NovoFuncionarioIngresso;
+        private System.Windows.Forms.DateTimePicker NovoFuncionarioInicioContrato;
+        private System.Windows.Forms.DateTimePicker NovoFuncionarioFimContrato;
+        private System.Windows.Forms.DateTimePicker NovoFuncionarioNascimento;
+        private System.Windows.Forms.TextBox NovoFuncionarioSalario;
+        private System.Windows.Forms.ComboBox NovoFuncionarioGeneroCombo;
+        private System.Windows.Forms.ComboBox NovoFuncionarioFuncao;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox NovoFuncionarioZoo;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox NovoFuncionarioRecintos;
     }
 }

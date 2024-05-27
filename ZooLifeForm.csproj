@@ -47,6 +47,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GerirResponsabilidades.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GerirResponsabilidades.Designer.cs">
+      <DependentUpon>GerirResponsabilidades.cs</DependentUpon>
+    </Compile>
     <Compile Include="NovoFuncionario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -71,14 +77,12 @@
     <Compile Include="RecintosList.Designer.cs">
       <DependentUpon>RecintosList.cs</DependentUpon>
     </Compile>
-
     <Compile Include="AdicionarRecinto.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="AdicionarRecinto.Designer.cs">
       <DependentUpon>AdicionarRecinto.cs</DependentUpon>
     </Compile>
-    
     <Compile Include="FuncionarioList.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -110,6 +114,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FuncionarioList.resx">
       <DependentUpon>FuncionarioList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GerirResponsabilidades.resx">
+      <DependentUpon>GerirResponsabilidades.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainPage.resx">
       <DependentUpon>MainPage.cs</DependentUpon>
