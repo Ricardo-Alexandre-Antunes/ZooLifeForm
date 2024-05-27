@@ -21,6 +21,7 @@ namespace ZooLifeForm
         string selectedRole;
         Boolean toggle = false;
 
+
         public FuncionarioList(string selectedZoo, Form prevForm)
         {
             InitializeComponent();
@@ -225,7 +226,7 @@ namespace ZooLifeForm
                         NumeroCCFuncionario.Text = reader["Numero_CC"].ToString();
                         GeneroFuncionario.Text = reader["Genero"].ToString();
                         NumeroFuncionario.Text = reader["Num_Funcionario"].ToString();
-                        DataNascimentoFuncionario.Text = reader["Data_Nascimento"].ToString();
+                        DataNascimentoPicker.Value = Convert.ToDateTime(reader["Data_Nascimento"].ToString());
                         ContratoInicio.Text = reader["Data_inicio_contrato"].ToString();
                         ContratoFim.Text = reader["Data_fim_contrato"].ToString();
                         ContratoSalario.Text = reader["Salario"].ToString();
@@ -528,6 +529,14 @@ namespace ZooLifeForm
             ContratoTipo.ReadOnly = false;
             FuncaoFuncionario.ReadOnly = false;
             comboBox1.Enabled = true;
+            button3.Visible = false;
+            CancelarEdicao.Visible = true;
+            ConfirmarEdicao.Visible = true;
+
+        }
+
+        private void CancelarEdicao_Click(object sender, EventArgs e)
+        {
 
         }
     }

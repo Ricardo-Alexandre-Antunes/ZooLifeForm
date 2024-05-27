@@ -72,6 +72,9 @@
             this.NumeroFuncionario = new System.Windows.Forms.TextBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.GerirResponsabilidades = new System.Windows.Forms.Button();
+            this.ConfirmarEdicao = new System.Windows.Forms.Button();
+            this.CancelarEdicao = new System.Windows.Forms.Button();
+            this.DataNascimentoPicker = new System.Windows.Forms.DateTimePicker();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -173,7 +176,6 @@
             // 
             // FuncaoFuncionario
             // 
-            this.FuncaoFuncionario.Enabled = false;
             this.FuncaoFuncionario.Location = new System.Drawing.Point(321, 190);
             this.FuncaoFuncionario.Name = "FuncaoFuncionario";
             this.FuncaoFuncionario.ReadOnly = true;
@@ -182,8 +184,7 @@
             // 
             // DataNascimentoFuncionario
             // 
-            this.DataNascimentoFuncionario.Enabled = false;
-            this.DataNascimentoFuncionario.Location = new System.Drawing.Point(398, 158);
+            this.DataNascimentoFuncionario.Location = new System.Drawing.Point(12, 521);
             this.DataNascimentoFuncionario.Name = "DataNascimentoFuncionario";
             this.DataNascimentoFuncionario.ReadOnly = true;
             this.DataNascimentoFuncionario.Size = new System.Drawing.Size(540, 22);
@@ -191,7 +192,6 @@
             // 
             // GeneroFuncionario
             // 
-            this.GeneroFuncionario.Enabled = false;
             this.GeneroFuncionario.Location = new System.Drawing.Point(321, 119);
             this.GeneroFuncionario.Name = "GeneroFuncionario";
             this.GeneroFuncionario.ReadOnly = true;
@@ -200,7 +200,6 @@
             // 
             // NumeroCCFuncionario
             // 
-            this.NumeroCCFuncionario.Enabled = false;
             this.NumeroCCFuncionario.Location = new System.Drawing.Point(344, 80);
             this.NumeroCCFuncionario.Name = "NumeroCCFuncionario";
             this.NumeroCCFuncionario.ReadOnly = true;
@@ -336,7 +335,6 @@
             // 
             // ContratoTipo
             // 
-            this.ContratoTipo.Enabled = false;
             this.ContratoTipo.Location = new System.Drawing.Point(407, 285);
             this.ContratoTipo.Name = "ContratoTipo";
             this.ContratoTipo.ReadOnly = true;
@@ -345,7 +343,6 @@
             // 
             // ContratoSalario
             // 
-            this.ContratoSalario.Enabled = false;
             this.ContratoSalario.Location = new System.Drawing.Point(350, 314);
             this.ContratoSalario.Name = "ContratoSalario";
             this.ContratoSalario.ReadOnly = true;
@@ -355,7 +352,6 @@
             // 
             // ContratoInicio
             // 
-            this.ContratoInicio.Enabled = false;
             this.ContratoInicio.Location = new System.Drawing.Point(470, 342);
             this.ContratoInicio.Name = "ContratoInicio";
             this.ContratoInicio.ReadOnly = true;
@@ -364,7 +360,6 @@
             // 
             // ContratoFim
             // 
-            this.ContratoFim.Enabled = false;
             this.ContratoFim.Location = new System.Drawing.Point(460, 372);
             this.ContratoFim.Name = "ContratoFim";
             this.ContratoFim.ReadOnly = true;
@@ -432,7 +427,6 @@
             // 
             // NumeroFuncionario
             // 
-            this.NumeroFuncionario.Enabled = false;
             this.NumeroFuncionario.Location = new System.Drawing.Point(415, 223);
             this.NumeroFuncionario.Name = "NumeroFuncionario";
             this.NumeroFuncionario.ReadOnly = true;
@@ -460,11 +454,43 @@
             this.GerirResponsabilidades.UseVisualStyleBackColor = true;
             this.GerirResponsabilidades.Visible = false;
             // 
+            // ConfirmarEdicao
+            // 
+            this.ConfirmarEdicao.Location = new System.Drawing.Point(786, 484);
+            this.ConfirmarEdicao.Name = "ConfirmarEdicao";
+            this.ConfirmarEdicao.Size = new System.Drawing.Size(152, 48);
+            this.ConfirmarEdicao.TabIndex = 61;
+            this.ConfirmarEdicao.Text = "Confirmar";
+            this.ConfirmarEdicao.UseVisualStyleBackColor = true;
+            this.ConfirmarEdicao.Visible = false;
+            // 
+            // CancelarEdicao
+            // 
+            this.CancelarEdicao.Location = new System.Drawing.Point(628, 484);
+            this.CancelarEdicao.Name = "CancelarEdicao";
+            this.CancelarEdicao.Size = new System.Drawing.Size(152, 48);
+            this.CancelarEdicao.TabIndex = 62;
+            this.CancelarEdicao.Text = "Cancelar";
+            this.CancelarEdicao.UseVisualStyleBackColor = true;
+            this.CancelarEdicao.Visible = false;
+            this.CancelarEdicao.Click += new System.EventHandler(this.CancelarEdicao_Click);
+            // 
+            // DataNascimentoPicker
+            // 
+            this.DataNascimentoPicker.Enabled = false;
+            this.DataNascimentoPicker.Location = new System.Drawing.Point(398, 158);
+            this.DataNascimentoPicker.Name = "DataNascimentoPicker";
+            this.DataNascimentoPicker.Size = new System.Drawing.Size(540, 22);
+            this.DataNascimentoPicker.TabIndex = 63;
+            // 
             // FuncionarioList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(950, 544);
+            this.Controls.Add(this.DataNascimentoPicker);
+            this.Controls.Add(this.CancelarEdicao);
+            this.Controls.Add(this.ConfirmarEdicao);
             this.Controls.Add(this.GerirResponsabilidades);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.ListaResponsabilidades);
@@ -553,5 +579,8 @@
         private System.Windows.Forms.TextBox NumeroFuncionario;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Button GerirResponsabilidades;
+        private System.Windows.Forms.Button ConfirmarEdicao;
+        private System.Windows.Forms.Button CancelarEdicao;
+        private System.Windows.Forms.DateTimePicker DataNascimentoPicker;
     }
 }
