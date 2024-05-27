@@ -266,19 +266,19 @@
             // opção1ToolStripMenuItem
             // 
             this.opção1ToolStripMenuItem.Name = "opção1ToolStripMenuItem";
-            this.opção1ToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.opção1ToolStripMenuItem.Size = new System.Drawing.Size(148, 26);
             this.opção1ToolStripMenuItem.Text = "Opção 1";
             // 
             // opção2ToolStripMenuItem
             // 
             this.opção2ToolStripMenuItem.Name = "opção2ToolStripMenuItem";
-            this.opção2ToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.opção2ToolStripMenuItem.Size = new System.Drawing.Size(148, 26);
             this.opção2ToolStripMenuItem.Text = "Opção 2";
             // 
             // opção3ToolStripMenuItem
             // 
             this.opção3ToolStripMenuItem.Name = "opção3ToolStripMenuItem";
-            this.opção3ToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.opção3ToolStripMenuItem.Size = new System.Drawing.Size(148, 26);
             this.opção3ToolStripMenuItem.Text = "Opção 3";
             // 
             // escolherHToolStripMenuItem
@@ -305,6 +305,7 @@
             this.menuStrip1.Size = new System.Drawing.Size(877, 28);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
             // 
             // AdicionarAnimal
             // 
