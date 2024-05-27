@@ -71,6 +71,14 @@
     <Compile Include="RecintosList.Designer.cs">
       <DependentUpon>RecintosList.cs</DependentUpon>
     </Compile>
+
+    <Compile Include="AdicionarRecinto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdicionarRecinto.Designer.cs">
+      <DependentUpon>AdicionarRecinto.cs</DependentUpon>
+    </Compile>
+    
     <Compile Include="FuncionarioList.cs">
       <SubType>Form</SubType>
     </Compile>
