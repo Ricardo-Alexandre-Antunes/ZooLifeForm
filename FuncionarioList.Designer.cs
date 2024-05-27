@@ -42,7 +42,6 @@
             this.funcionárioDeRestauraçãoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.funcionárioDeBilheteiraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.FuncaoFuncionario = new System.Windows.Forms.TextBox();
-            this.DataNascimentoFuncionario = new System.Windows.Forms.TextBox();
             this.GeneroFuncionario = new System.Windows.Forms.TextBox();
             this.NumeroCCFuncionario = new System.Windows.Forms.TextBox();
             this.NomeFuncionario = new System.Windows.Forms.TextBox();
@@ -61,8 +60,6 @@
             this.label11 = new System.Windows.Forms.Label();
             this.ContratoTipo = new System.Windows.Forms.TextBox();
             this.ContratoSalario = new System.Windows.Forms.TextBox();
-            this.ContratoInicio = new System.Windows.Forms.TextBox();
-            this.ContratoFim = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
@@ -75,6 +72,8 @@
             this.ConfirmarEdicao = new System.Windows.Forms.Button();
             this.CancelarEdicao = new System.Windows.Forms.Button();
             this.DataNascimentoPicker = new System.Windows.Forms.DateTimePicker();
+            this.InicioContratoPicker = new System.Windows.Forms.DateTimePicker();
+            this.FimContratoPicker = new System.Windows.Forms.DateTimePicker();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -181,14 +180,7 @@
             this.FuncaoFuncionario.ReadOnly = true;
             this.FuncaoFuncionario.Size = new System.Drawing.Size(617, 22);
             this.FuncaoFuncionario.TabIndex = 37;
-            // 
-            // DataNascimentoFuncionario
-            // 
-            this.DataNascimentoFuncionario.Location = new System.Drawing.Point(12, 521);
-            this.DataNascimentoFuncionario.Name = "DataNascimentoFuncionario";
-            this.DataNascimentoFuncionario.ReadOnly = true;
-            this.DataNascimentoFuncionario.Size = new System.Drawing.Size(540, 22);
-            this.DataNascimentoFuncionario.TabIndex = 36;
+            this.FuncaoFuncionario.TextChanged += new System.EventHandler(this.FuncaoFuncionario_TextChanged);
             // 
             // GeneroFuncionario
             // 
@@ -197,6 +189,7 @@
             this.GeneroFuncionario.ReadOnly = true;
             this.GeneroFuncionario.Size = new System.Drawing.Size(617, 22);
             this.GeneroFuncionario.TabIndex = 35;
+            this.GeneroFuncionario.TextChanged += new System.EventHandler(this.GeneroFuncionario_TextChanged);
             // 
             // NumeroCCFuncionario
             // 
@@ -205,6 +198,7 @@
             this.NumeroCCFuncionario.ReadOnly = true;
             this.NumeroCCFuncionario.Size = new System.Drawing.Size(594, 22);
             this.NumeroCCFuncionario.TabIndex = 34;
+            this.NumeroCCFuncionario.TextChanged += new System.EventHandler(this.NumeroCCFuncionario_TextChanged);
             // 
             // NomeFuncionario
             // 
@@ -213,6 +207,7 @@
             this.NomeFuncionario.ReadOnly = true;
             this.NomeFuncionario.Size = new System.Drawing.Size(626, 22);
             this.NomeFuncionario.TabIndex = 33;
+            this.NomeFuncionario.TextChanged += new System.EventHandler(this.NomeFuncionario_TextChanged);
             // 
             // label5
             // 
@@ -277,6 +272,7 @@
             this.button1.TabIndex = 41;
             this.button1.Text = "Remover Funcionário";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -296,6 +292,7 @@
             this.button3.TabIndex = 43;
             this.button3.Text = "Novo Funcionário";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // label7
             // 
@@ -350,22 +347,6 @@
             this.ContratoSalario.TabIndex = 50;
             this.ContratoSalario.TextChanged += new System.EventHandler(this.ContratoSalário_TextChanged);
             // 
-            // ContratoInicio
-            // 
-            this.ContratoInicio.Location = new System.Drawing.Point(470, 342);
-            this.ContratoInicio.Name = "ContratoInicio";
-            this.ContratoInicio.ReadOnly = true;
-            this.ContratoInicio.Size = new System.Drawing.Size(468, 22);
-            this.ContratoInicio.TabIndex = 51;
-            // 
-            // ContratoFim
-            // 
-            this.ContratoFim.Location = new System.Drawing.Point(460, 372);
-            this.ContratoFim.Name = "ContratoFim";
-            this.ContratoFim.ReadOnly = true;
-            this.ContratoFim.Size = new System.Drawing.Size(478, 22);
-            this.ContratoFim.TabIndex = 52;
-            // 
             // label8
             // 
             this.label8.AutoSize = true;
@@ -410,9 +391,9 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(263, 435);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(88, 16);
+            this.label6.Size = new System.Drawing.Size(72, 16);
             this.label6.TabIndex = 57;
-            this.label6.Text = "Responsável";
+            this.label6.Text = "Supervisor";
             this.label6.Visible = false;
             // 
             // ListaResponsabilidades
@@ -424,6 +405,7 @@
             this.ListaResponsabilidades.Size = new System.Drawing.Size(641, 116);
             this.ListaResponsabilidades.TabIndex = 58;
             this.ListaResponsabilidades.Visible = false;
+            this.ListaResponsabilidades.SelectedIndexChanged += new System.EventHandler(this.ListaResponsabilidades_SelectedIndexChanged);
             // 
             // NumeroFuncionario
             // 
@@ -432,17 +414,19 @@
             this.NumeroFuncionario.ReadOnly = true;
             this.NumeroFuncionario.Size = new System.Drawing.Size(523, 22);
             this.NumeroFuncionario.TabIndex = 54;
+            this.NumeroFuncionario.TextChanged += new System.EventHandler(this.NumeroFuncionario_TextChanged);
             // 
             // comboBox1
             // 
             this.comboBox1.Enabled = false;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.comboBox1.Location = new System.Drawing.Point(357, 432);
+            this.comboBox1.Location = new System.Drawing.Point(341, 432);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(581, 24);
             this.comboBox1.TabIndex = 59;
             this.comboBox1.Visible = false;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // GerirResponsabilidades
             // 
@@ -463,6 +447,7 @@
             this.ConfirmarEdicao.Text = "Confirmar";
             this.ConfirmarEdicao.UseVisualStyleBackColor = true;
             this.ConfirmarEdicao.Visible = false;
+            this.ConfirmarEdicao.Click += new System.EventHandler(this.ConfirmarEdicao_Click);
             // 
             // CancelarEdicao
             // 
@@ -482,6 +467,23 @@
             this.DataNascimentoPicker.Name = "DataNascimentoPicker";
             this.DataNascimentoPicker.Size = new System.Drawing.Size(540, 22);
             this.DataNascimentoPicker.TabIndex = 63;
+            this.DataNascimentoPicker.ValueChanged += new System.EventHandler(this.DataNascimentoPicker_ValueChanged);
+            // 
+            // InicioContratoPicker
+            // 
+            this.InicioContratoPicker.Enabled = false;
+            this.InicioContratoPicker.Location = new System.Drawing.Point(460, 342);
+            this.InicioContratoPicker.Name = "InicioContratoPicker";
+            this.InicioContratoPicker.Size = new System.Drawing.Size(478, 22);
+            this.InicioContratoPicker.TabIndex = 64;
+            // 
+            // FimContratoPicker
+            // 
+            this.FimContratoPicker.Enabled = false;
+            this.FimContratoPicker.Location = new System.Drawing.Point(460, 370);
+            this.FimContratoPicker.Name = "FimContratoPicker";
+            this.FimContratoPicker.Size = new System.Drawing.Size(478, 22);
+            this.FimContratoPicker.TabIndex = 65;
             // 
             // FuncionarioList
             // 
@@ -499,8 +501,6 @@
             this.Controls.Add(this.button4);
             this.Controls.Add(this.NumeroFuncionario);
             this.Controls.Add(this.label);
-            this.Controls.Add(this.ContratoFim);
-            this.Controls.Add(this.ContratoInicio);
             this.Controls.Add(this.ContratoSalario);
             this.Controls.Add(this.ContratoTipo);
             this.Controls.Add(this.label11);
@@ -512,7 +512,6 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.FuncaoFuncionario);
-            this.Controls.Add(this.DataNascimentoFuncionario);
             this.Controls.Add(this.GeneroFuncionario);
             this.Controls.Add(this.NumeroCCFuncionario);
             this.Controls.Add(this.NomeFuncionario);
@@ -523,6 +522,8 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.ListaFuncionarios);
             this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.InicioContratoPicker);
+            this.Controls.Add(this.FimContratoPicker);
             this.Name = "FuncionarioList";
             this.Text = "ZooLife - Lista de Funcionários";
             this.Load += new System.EventHandler(this.FuncionarioList_Load);
@@ -542,7 +543,6 @@
         private System.Windows.Forms.ToolStripMenuItem opção3ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem escolherHToolStripMenuItem;
         private System.Windows.Forms.TextBox FuncaoFuncionario;
-        private System.Windows.Forms.TextBox DataNascimentoFuncionario;
         private System.Windows.Forms.TextBox GeneroFuncionario;
         private System.Windows.Forms.TextBox NumeroCCFuncionario;
         private System.Windows.Forms.TextBox NomeFuncionario;
@@ -561,8 +561,6 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox ContratoTipo;
         private System.Windows.Forms.TextBox ContratoSalario;
-        private System.Windows.Forms.TextBox ContratoInicio;
-        private System.Windows.Forms.TextBox ContratoFim;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label;
         private System.Windows.Forms.ToolStripMenuItem gerenteToolStripMenuItem;
@@ -582,5 +580,7 @@
         private System.Windows.Forms.Button ConfirmarEdicao;
         private System.Windows.Forms.Button CancelarEdicao;
         private System.Windows.Forms.DateTimePicker DataNascimentoPicker;
+        private System.Windows.Forms.DateTimePicker InicioContratoPicker;
+        private System.Windows.Forms.DateTimePicker FimContratoPicker;
     }
 }

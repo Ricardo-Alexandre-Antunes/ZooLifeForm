@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -16,10 +17,20 @@ namespace ZooLifeForm
         Form prevForm;
         SqlConnection cn;
         string selectedZoo;
-        Object[] funcionarios_CC = new Object[100];
+        int[] funcionarios_CC = new int[900];
         int selectedFuncionario;
         string selectedRole;
         Boolean toggle = false;
+        string editingName;
+        string editingGenero;
+        string editingDataNascimento;
+        string editingInicioContrato;
+        string editingFimContrato;
+        string editingSalario;
+        string editingTipoContrato;
+        string editingBoss;
+        Boolean editing;
+
 
 
         public FuncionarioList(string selectedZoo, Form prevForm)
@@ -31,6 +42,7 @@ namespace ZooLifeForm
             this.Text = "ZooLife - Lista de Funcionários (" + selectedZoo + ")";
             this.FormClosing += new FormClosingEventHandler(this.FuncionarioList_FormClosing);
             PopulateFuncionarios();
+            ListaFuncionarios.SelectedIndex = 0;
             PopulateZoo();
             gerenteToolStripMenuItem.Click += new EventHandler(escolherHToolStripMenuItem_Click);
             tratadorToolStripMenuItem.Click += new EventHandler(escolherHToolStripMenuItem_Click);
@@ -93,7 +105,7 @@ namespace ZooLifeForm
                     while (reader.Read())
                     {
                         ListaFuncionarios.Items.Add(reader["Num_Funcionario"] + ". " + reader["Nome"]);
-                        funcionarios_CC[ListaFuncionarios.Items.Count - 1] = reader["Numero_CC"];
+                        funcionarios_CC[int.Parse(reader["Num_Funcionario"].ToString())] = int.Parse(reader["Numero_CC"].ToString());
                     }
                 }
             }
@@ -202,8 +214,8 @@ namespace ZooLifeForm
             label7.Visible = true;
             this.toggle = false;
             button4.Text = "Mais Detalhes";
-            this.selectedFuncionario = (int)funcionarios_CC[ListaFuncionarios.SelectedIndex];
-            int CC = (int)funcionarios_CC[ListaFuncionarios.SelectedIndex];
+            this.selectedFuncionario = funcionarios_CC[int.Parse(ListaFuncionarios.Text.Split('.')[0])];
+            int CC = funcionarios_CC[int.Parse(ListaFuncionarios.Text.Split('.')[0])];
             if (!verifySGBDConnection())
             {
                 MessageBox.Show("Failed to connect to database. Funcionario could not be loaded.");
@@ -227,8 +239,8 @@ namespace ZooLifeForm
                         GeneroFuncionario.Text = reader["Genero"].ToString();
                         NumeroFuncionario.Text = reader["Num_Funcionario"].ToString();
                         DataNascimentoPicker.Value = Convert.ToDateTime(reader["Data_Nascimento"].ToString());
-                        ContratoInicio.Text = reader["Data_inicio_contrato"].ToString();
-                        ContratoFim.Text = reader["Data_fim_contrato"].ToString();
+                        InicioContratoPicker.Value = Convert.ToDateTime(reader["Data_inicio_contrato"].ToString());
+                        FimContratoPicker.Value = Convert.ToDateTime(reader["Data_fim_contrato"].ToString());
                         ContratoSalario.Text = reader["Salario"].ToString();
                         FuncaoFuncionario.Text = reader["Role"].ToString();
                         if (FuncaoFuncionario.Text == "GERENTE")
@@ -248,12 +260,18 @@ namespace ZooLifeForm
                     PopulateResponsibilities(CC, FuncaoFuncionario.Text);
                     PopulateComboBoxBoss(FuncaoFuncionario.Text);
                     DetermineCurBoss(CC);
+                    label6.Visible = true;
+                    comboBox1.Visible = true;
                 }
 
                 if (FuncaoFuncionario.Text == "FUNCIONARIO_LIMPEZA" || FuncaoFuncionario.Text == "TRABALHADOR_RESTAURACAO" || FuncaoFuncionario.Text == "FUNCIONARIO_BILHETEIRA")
                 {
                     PopulateResponsibilities(CC, FuncaoFuncionario.Text);
+                    label6.Visible = false;
+                    comboBox1.Visible = false;
+
                 }
+
             }
             catch (Exception ex)
             {
@@ -290,7 +308,7 @@ namespace ZooLifeForm
             }
             if (comboBox1.Text == "")
             {
-                comboBox1.Text = "Este funcionário é o chefe atual. Selecione outro funcionário para mudar o chefe.";
+                comboBox1.Text = "Supervisor Atual";
             }
         }
 
@@ -458,19 +476,6 @@ namespace ZooLifeForm
             }
         }
 
-        private void EditarFuncionario_Click(object sender, EventArgs e)
-        {
-            if (ListaFuncionarios.SelectedIndex == -1)
-            {
-                MessageBox.Show("Please select a Funcionario to edit.");
-                return;
-            }
-
-            string[] funcionario = ListaFuncionarios.SelectedItem.ToString().Split('-');
-            int funcionarioID = Int32.Parse(funcionario[0].Trim());
-
-        }
-
 
         private void FuncionarioList_Load(object sender, EventArgs e)
         {
@@ -498,11 +503,9 @@ namespace ZooLifeForm
                     ListaResponsabilidades.Visible = toggle;
                     GerirResponsabilidades.Visible = toggle;
                     label7.Visible = !toggle;
+                    
                 }
-                if (FuncaoFuncionario.Text == "TRATADOR" || FuncaoFuncionario.Text == "VETERINARIO" || FuncaoFuncionario.Text == "SEGURANCA") {
-                    label6.Visible = toggle;
-                    comboBox1.Visible = toggle;
-                }
+                editing = true;
                 button4.Text = "Menos Detalhes";
             }
             else
@@ -510,9 +513,8 @@ namespace ZooLifeForm
                 label2.Visible = toggle;
                 ListaResponsabilidades.Visible = toggle;
                 GerirResponsabilidades.Visible = toggle;
-                label6.Visible = toggle;
-                comboBox1.Visible = toggle;
                 label7.Visible = !toggle;
+                editing = false;
                 button4.Text = "Mais Detalhes";
             }
         }
@@ -522,22 +524,236 @@ namespace ZooLifeForm
             //enable writiing on everything
             NomeFuncionario.ReadOnly = false;
             GeneroFuncionario.ReadOnly = false;
-            DataNascimentoFuncionario.ReadOnly = false;
-            ContratoInicio.ReadOnly = false;
-            ContratoFim.ReadOnly = false;
+            DataNascimentoPicker.Enabled = true;
+            InicioContratoPicker.Enabled = true;
+            FimContratoPicker.Enabled = true;
             ContratoSalario.ReadOnly = false;
             ContratoTipo.ReadOnly = false;
-            FuncaoFuncionario.ReadOnly = false;
             comboBox1.Enabled = true;
             button3.Visible = false;
             CancelarEdicao.Visible = true;
             ConfirmarEdicao.Visible = true;
+            ListaFuncionarios.Enabled = false;
+
+            //store temp values
+            editingName = NomeFuncionario.Text;
+            editingGenero = GeneroFuncionario.Text;
+            editingDataNascimento = DataNascimentoPicker.Value.ToString();
+            editingInicioContrato = InicioContratoPicker.Value.ToString();
+            editingFimContrato = FimContratoPicker.Value.ToString();
+            editingSalario = ContratoSalario.Text;
+            editingTipoContrato = ContratoTipo.Text;
+            editingBoss = comboBox1.Text;
+
 
         }
 
+        private void checkValidEdit()
+        {
+            MessageBox.Show("checkValidEdit");
+            ConfirmarEdicao.Enabled = true;
+            if (NomeFuncionario.Text == "" || GeneroFuncionario.Text == "" || ContratoSalario.Text == "" || ContratoTipo.Text == "" || comboBox1.Text == "" || (GeneroFuncionario.Text != "M" && GeneroFuncionario.Text != "F"))
+            {
+                ConfirmarEdicao.Enabled = false;
+            }
+            MessageBox.Show((NomeFuncionario.Text == "" || GeneroFuncionario.Text == "" || ContratoSalario.Text == "" || ContratoTipo.Text == "" || comboBox1.Text == "" || (GeneroFuncionario.Text != "M" && GeneroFuncionario.Text != "F")).ToString());
+
+            try
+            {
+                if (float.Parse(ContratoSalario.Text) < 0)
+                {
+                    ConfirmarEdicao.Enabled = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                ConfirmarEdicao.Enabled = false;
+            }
+
+            if (DataNascimentoPicker.Value > DateTime.Now || FimContratoPicker.Value < InicioContratoPicker.Value || DataNascimentoPicker.Value > InicioContratoPicker.Value)
+            {
+                ConfirmarEdicao.Enabled = false;
+            }
+        }
+
+
         private void CancelarEdicao_Click(object sender, EventArgs e)
         {
+            //disable writing on everything
+            NomeFuncionario.ReadOnly = true;
+            GeneroFuncionario.ReadOnly = true;
+            DataNascimentoPicker.Enabled = false;
+            InicioContratoPicker.Enabled = false;
+            FimContratoPicker.Enabled = false;
+            ContratoSalario.ReadOnly = true;
+            ContratoTipo.ReadOnly = true;
+            comboBox1.Enabled = false;
+            button3.Visible = true;
+            CancelarEdicao.Visible = false;
+            ConfirmarEdicao.Visible = false;
+            ListaFuncionarios.Enabled = true;
+            comboBox1.Enabled = false;
 
+            //reset values
+            NomeFuncionario.Text = editingName;
+            GeneroFuncionario.Text = editingGenero;
+            DataNascimentoPicker.Value = Convert.ToDateTime(editingDataNascimento);
+            InicioContratoPicker.Value = Convert.ToDateTime(editingInicioContrato);
+            FimContratoPicker.Value = Convert.ToDateTime(editingFimContrato);
+            ContratoSalario.Text = editingSalario;
+            ContratoTipo.Text = editingTipoContrato;
+            comboBox1.Text = editingBoss;
+
+        }
+
+        private void ListaResponsabilidades_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ConfirmarEdicao_Click(object sender, EventArgs e)
+        {
+            if (!verifySGBDConnection())
+            {
+                MessageBox.Show("Failed to connect to database. Funcionario could not be edited.");
+                return;
+            }
+
+            string query = "EXEC ZOO.sp_editarFuncionario @Numero_CC, @Nome, @Genero, @Data_nascimento, @Data_ingresso, @Tipo_contrato, @Salario, @Data_inicio_contrato, @Data_fim_contrato";
+            if (comboBox1.Visible)
+            {
+                Console.WriteLine("Supervisor: " + comboBox1.Text);
+                query += ", @Supervisor";
+            }
+            SqlCommand cmd = new SqlCommand(query, cn);
+            cmd.Parameters.AddWithValue("@Numero_CC", int.Parse(NumeroCCFuncionario.Text));
+            cmd.Parameters.AddWithValue("@Nome", NomeFuncionario.Text);
+            cmd.Parameters.AddWithValue("@Genero", char.Parse(GeneroFuncionario.Text));
+            cmd.Parameters.AddWithValue("@Data_nascimento", DataNascimentoPicker.Value);
+            cmd.Parameters.AddWithValue("@Data_ingresso", InicioContratoPicker.Value);
+            cmd.Parameters.AddWithValue("@Tipo_contrato", ContratoTipo.Text);
+            cmd.Parameters.AddWithValue("@Salario", float.Parse(ContratoSalario.Text));
+            cmd.Parameters.AddWithValue("@Data_inicio_contrato", InicioContratoPicker.Value);
+            cmd.Parameters.AddWithValue("@Data_fim_contrato", FimContratoPicker.Value);
+            string[] boss = comboBox1.Text.Split('.');
+            if (comboBox1.Visible && !comboBox1.Text.Equals("Supervisor Atual"))
+            {
+                Console.WriteLine("Supervisor: " + funcionarios_CC[int.Parse(boss[0])]);
+                cmd.Parameters.AddWithValue("@Supervisor", funcionarios_CC[int.Parse(boss[0])]);
+            }
+            cmd.ExecuteNonQuery();
+
+            MessageBox.Show("Funcionario edited successfully.");
+            PopulateFuncionarios();
+            //disable writing on everything
+            NomeFuncionario.ReadOnly = true;
+            GeneroFuncionario.ReadOnly = true;
+            DataNascimentoPicker.Enabled = false;
+            InicioContratoPicker.Enabled = false;
+            FimContratoPicker.Enabled = false;
+            ContratoSalario.ReadOnly = true;
+            ContratoTipo.ReadOnly = true;
+            comboBox1.Enabled = false;
+            button3.Visible = true;
+            CancelarEdicao.Visible = false;
+            ConfirmarEdicao.Visible = false;
+            ListaFuncionarios.Enabled = true;
+            comboBox1.Enabled = false;
+
+        }
+
+        private void NomeFuncionario_TextChanged(object sender, EventArgs e)
+        {
+            if (editing)
+            {
+                checkValidEdit();
+            }
+        }
+
+        private void NumeroCCFuncionario_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void GeneroFuncionario_TextChanged(object sender, EventArgs e)
+        {
+            if (editing)
+            {
+                checkValidEdit();
+            }
+        }
+
+        private void DataNascimentoPicker_ValueChanged(object sender, EventArgs e)
+        {
+            if (editing)
+            {
+                checkValidEdit();
+            }
+        }
+
+        private void FuncaoFuncionario_TextChanged(object sender, EventArgs e)
+        {
+            if (editing)
+            {
+                checkValidEdit();
+            }
+        }
+
+        private void NumeroFuncionario_TextChanged(object sender, EventArgs e)
+        {
+            if (editing)
+            {
+                checkValidEdit();
+            }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (editing)
+            {
+                checkValidEdit();
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+            DialogResult dialogResult = MessageBox.Show("Are you sure?", "Confirmation", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                // User clicked "OK"
+                if (!verifySGBDConnection())
+                {
+                    MessageBox.Show("Failed to connect to database. Funcionario could not be added.");
+                    return;
+                }
+
+                string query = "EXEC ZOO.sp_eliminarFuncionario @Numero_CC";
+                SqlCommand cmd = new SqlCommand(query, cn);
+                cmd.Parameters.AddWithValue("@Numero_CC", int.Parse(NumeroCCFuncionario.Text));
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("Funcionario removido com sucesso.");
+                PopulateFuncionarios();
+
+                //put all fields in blank
+                NomeFuncionario.Text = "";
+                GeneroFuncionario.Text = "";
+                DataNascimentoPicker.Value = DateTime.Now;
+                InicioContratoPicker.Value = DateTime.Now;
+                FimContratoPicker.Value = DateTime.Now;
+                ContratoSalario.Text = "";
+                ContratoTipo.Text = "";
+                comboBox1.Text = "";
+                ListaFuncionarios.SelectedIndex = 0;
+            }
+            
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            NovoFuncionario novoFuncionario = new NovoFuncionario(this);
+            novoFuncionario.Show();
+            this.Hide();
         }
     }
 }
