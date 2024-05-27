@@ -108,6 +108,12 @@ namespace ZooLifeForm
 
         private void button3_Click(object sender, EventArgs e)
         {
+
+            if (this.selectedZoo == null)
+            {
+                MessageBox.Show("Please select a zoo first.");
+                return;
+            }
             RecintosList recintosListForm = new RecintosList(this.selectedZoo, this); // Create an instance of the RecintosList form
             recintosListForm.Show(); // Show the RecintosList form
             this.Hide();
@@ -116,6 +122,12 @@ namespace ZooLifeForm
 
         private void button2_Click(object sender, EventArgs e)
         {
+
+            if (this.selectedZoo == null)
+            {
+                MessageBox.Show("Please select a zoo first.");
+                return;
+            }
             FuncionarioList funcionarioListForm = new FuncionarioList(this.selectedZoo ,this); // Create an instance of the FuncionarioList form
             funcionarioListForm.Show(); // Show the FuncionarioList form
             this.Hide();

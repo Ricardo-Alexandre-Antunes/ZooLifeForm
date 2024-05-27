@@ -38,6 +38,7 @@ namespace ZooLifeForm
             funcionárioDeLimpezaToolStripMenuItem.Click += new EventHandler(escolherHToolStripMenuItem_Click);
             funcionárioDeBilheteiraToolStripMenuItem.Click += new EventHandler(escolherHToolStripMenuItem_Click);
             segurançaToolStripMenuItem.Click += new EventHandler(escolherHToolStripMenuItem_Click);
+            funcionárioDeRestauraçãoToolStripMenuItem.Click += new EventHandler(escolherHToolStripMenuItem_Click);
 
         }
 
@@ -146,6 +147,16 @@ namespace ZooLifeForm
 
         private void escolherHToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //toggle all details to false
+            label2.Visible = false;
+            ListaResponsabilidades.Visible = false;
+            GerirResponsabilidades.Visible = false;
+            label6.Visible = false;
+            comboBox1.Visible = false;
+            label7.Visible = true;
+            this.toggle = false;
+            button4.Text = "Mais Detalhes";
+
             ToolStripMenuItem clickedItem = (ToolStripMenuItem)sender;
             selectedRole = clickedItem.Text;
             switch (clickedItem.Text)
@@ -168,6 +179,9 @@ namespace ZooLifeForm
                 case "Segurança":
                     selectedRole = "SEGURANCA";
                     break;
+                case "Funcionário de Restauração":
+                    selectedRole = "TRABALHADOR_RESTAURACAO";
+                    break;
             }
             PopulateFuncionarios();
             this.Text = "ZooLife - Lista de Funcionários (" + selectedZoo + ((this.selectedRole != "") ? " - " + this.selectedRole : "") + ")";
@@ -178,7 +192,16 @@ namespace ZooLifeForm
 
         private void FuncionarioList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.selectedFuncionario = int.Parse(ListaFuncionarios.Text.Split('.')[0]);
+            //toggle all details to false
+            label2.Visible = false;
+            ListaResponsabilidades.Visible = false;
+            GerirResponsabilidades.Visible = false;
+            label6.Visible = false;
+            comboBox1.Visible = false;
+            label7.Visible = true;
+            this.toggle = false;
+            button4.Text = "Mais Detalhes";
+            this.selectedFuncionario = (int)funcionarios_CC[ListaFuncionarios.SelectedIndex];
             int CC = (int)funcionarios_CC[ListaFuncionarios.SelectedIndex];
             if (!verifySGBDConnection())
             {
@@ -219,28 +242,16 @@ namespace ZooLifeForm
 
                     }
                 }
-                if (FuncaoFuncionario.Text == "TRATADOR" || FuncaoFuncionario.Text == "VETERINARIO" || FuncaoFuncionario.Text == "FUNCIONARIO_BILHETEIRA")
+                if (FuncaoFuncionario.Text == "TRATADOR" || FuncaoFuncionario.Text == "VETERINARIO" || FuncaoFuncionario.Text == "SEGURANCA")
                 {
                     PopulateResponsibilities(CC, FuncaoFuncionario.Text);
                     PopulateComboBoxBoss(FuncaoFuncionario.Text);
                     DetermineCurBoss(CC);
-                    this.toggle = false;
-                    label2.Visible = toggle;
-                    ListaResponsabilidades.Visible = toggle;
-                    GerirResponsabilidades.Visible = toggle;
-                    label6.Visible = toggle;
-                    comboBox1.Visible = toggle;
                 }
 
-                if (FuncaoFuncionario.Text == "FUNCIONARIO_LIMPEZA" || FuncaoFuncionario.Text == "TRABALHADOR")
+                if (FuncaoFuncionario.Text == "FUNCIONARIO_LIMPEZA" || FuncaoFuncionario.Text == "TRABALHADOR_RESTAURACAO" || FuncaoFuncionario.Text == "FUNCIONARIO_BILHETEIRA")
                 {
                     PopulateResponsibilities(CC, FuncaoFuncionario.Text);
-                    this.toggle = false;
-                    label2.Visible = toggle;
-                    ListaResponsabilidades.Visible = toggle;
-                    GerirResponsabilidades.Visible = toggle;
-                    label6.Visible = toggle;
-                    comboBox1.Visible = toggle;
                 }
             }
             catch (Exception ex)
@@ -256,7 +267,7 @@ namespace ZooLifeForm
                 MessageBox.Show("Failed to connect to database. Boss could not be loaded.");
                 return;
             }
-
+            comboBox1.Text = "";
             string query = "SELECT Num_Funcionario, Nome FROM ZOO.DETALHES_GERENTE(@CC)";
             SqlCommand cmd = new SqlCommand(query, cn);
             cmd.Parameters.AddWithValue("@CC", numeroCC);
@@ -271,9 +282,14 @@ namespace ZooLifeForm
                     }
                 }
             }
+
             catch (SqlException ex)
             {
                 MessageBox.Show("Error retrieving boss: " + ex.Message);
+            }
+            if (comboBox1.Text == "")
+            {
+                comboBox1.Text = "Este funcionário é o chefe atual. Selecione outro funcionário para mudar o chefe.";
             }
         }
 
@@ -285,29 +301,33 @@ namespace ZooLifeForm
                 return;
             }
 
-            ListaFuncionarios.Items.Clear();
+            ListaResponsabilidades.Items.Clear();
             string query;
             switch (role)
             {
                 case "TRATADOR":
-                    query = "SELECT * FROM ZOO.RESPONSAVEL_POR_DETALHADO WHERE T_Numero_CC = @CC";
+                    query = "SELECT * FROM ZOO.RESPONSAVEL_POR_DETALHADO WHERE Numero_CC = @CC";
                     label2.Text = "Habitats designados";
                     break;
                 case "VETERINARIO":
-                    query = "SELECT * FROM ZOO.ANIMAL INNER JOIN WHERE Veterinario_CC = @CC";
+                    query = "SELECT * FROM ZOO.ANIMAL WHERE Veterinario_CC = @CC";
                     label2.Text = "Animais designados";
                     break;
                 case "FUNCIONARIO_BILHETEIRA":
-                    query = "SELECT * FROM ZOO.FUNCIONARIO_BILHETEIRA INNER JOIN ZOO.BILHETEIRA_DETALHADA ON ZOO.FUNCIONARIO_BILHETEIRA.Bilheteira_ID = ZOO.BILHETEIRA_DETALHADA.ID WHERE F_Numero_CC = @CC";
+                    query = "SELECT ZOO.BILHETEIRA_DETALHADA.* FROM ZOO.FUNCIONARIO_BILHETEIRA INNER JOIN ZOO.BILHETEIRA_DETALHADA ON ZOO.FUNCIONARIO_BILHETEIRA.Bilheteira_ID = ZOO.BILHETEIRA_DETALHADA.ID WHERE F_Numero_CC = @CC";
                     label2.Text = "Bilheteira designada";
                     break;
                 case "FUNCIONARIO_LIMPEZA":
-                    query = "SELECT * FROM ZOO.LIMPA_DETALHADO WHERE ZOO.LIMPA_DETALHADO.FL_Numero_CC = @CC";
+                    query = "SELECT * FROM ZOO.LIMPA_DETALHADO WHERE ZOO.LIMPA_DETALHADO.Numero_CC = @CC";
                     label2.Text = "Zonas de limpeza";
                     break;
                 case "SEGURANCA":
                     query = "SELECT * FROM ZOO.SEGURANCA_DETALHADO WHERE ZOO.SEGURANCA_DETALHADO.Numero_CC = @CC";
                     label2.Text = "Patrulha";
+                    break;
+                case "TRABALHADOR_RESTAURACAO":
+                    query = "SELECT * FROM ZOO.TRABALHADOR_RESTAURACAO INNER JOIN ZOO.RECINTO ON ZOO.TRABALHADOR_RESTAURACAO.Restauracao_ID = ZOO.RECINTO.ID and ZOO.TRABALHADOR_RESTAURACAO.Nome_JZ = ZOO.RECINTO.Nome_JZ WHERE ZOO.TRABALHADOR_RESTAURACAO.F_Numero_CC = @CC";
+                    label2.Text = "Restaurante designado";
                     break;
                 default:
                     query = "";
@@ -325,19 +345,19 @@ namespace ZooLifeForm
                         switch (role)
                         {
                             case "TRATADOR":
-                                ListaFuncionarios.Items.Add(reader["RECINTO_ID"].ToString() + ". " + reader["RECINTO_NOME"].ToString());
+                                ListaResponsabilidades.Items.Add(reader["RECINTO_ID"].ToString() + ". " + reader["RECINTO_NOME"].ToString());
                                 break;
                             case "VETERINARIO":
-                                ListaFuncionarios.Items.Add(reader["ID"].ToString() + ". " + reader["Nome"].ToString());
+                                ListaResponsabilidades.Items.Add(reader["ID"].ToString() + ". " + reader["Nome"].ToString());
                                 break;
                             case "FUNCIONARIO_BILHETEIRA":
-                                ListaFuncionarios.Items.Add(reader["ID"].ToString() + ". " + reader["Nome"].ToString());
+                                ListaResponsabilidades.Items.Add(reader["ID"].ToString() + ". " + reader["Nome"].ToString());
                                 break;
                             case "FUNCIONARIO_LIMPEZA":
-                                ListaFuncionarios.Items.Add(reader["ID"].ToString() + ". " + reader["Nome_Recinto"].ToString());
+                                ListaResponsabilidades.Items.Add(reader["ID"].ToString() + ". " + reader["Nome_Recinto"].ToString());
                                 break;
                             case "SEGURANCA":
-                                ListaFuncionarios.Items.Add(reader["RECINTO_ID"].ToString() + ". " + reader["RECINTO_NOME"].ToString());
+                                ListaResponsabilidades.Items.Add(reader["RECINTO_ID"].ToString() + ". " + reader["RECINTO_NOME"].ToString());
                                 break;
                         }   
                     }
@@ -358,22 +378,23 @@ namespace ZooLifeForm
             }
 
             comboBox1.Items.Clear();
-            string query = "SELECT ZOO.PESSOA.* , ZOO.FUNCIONARIO.Num_Funcionario FROM ZOO.PESSOA INNER JOIN";
+            string query = "SELECT ZOO.PESSOA.*, ZOO.FUNCIONARIO.Num_Funcionario, ZOO.FUNCIONARIO.Nome_JZ FROM ZOO.PESSOA INNER JOIN ";
             switch (role)
             {
                 case ("TRATADOR"):
-                    query += "ZOO.TRATADOR ON ZOO.PESSOA.Numero_CC = ZOO.TRATADOR.F_Numero_CC";
+                    query += "ZOO.TRATADOR ON ZOO.PESSOA.Numero_CC = ZOO.TRATADOR.F_Numero_CC ";
                     break;
                 case ("VETERINARIO"):
-                    query += "ZOO.VETERINARIO ON ZOO.PESSOA.Numero_CC = ZOO.VETERINARIO.F_Numero_CC";
+                    query += "ZOO.VETERINARIO ON ZOO.PESSOA.Numero_CC = ZOO.VETERINARIO.F_Numero_CC ";
                     break;
-                case ("FUNCIONARIO_BILHETEIRA"):
-                    query += "ZOO.FUNCIONARIO_BILHETEIRA ON ZOO.PESSOA.Numero_CC = ZOO.FUNCIONARIO_BILHETEIRA.F_Numero_CC";
+                case ("SEGURANCA"):
+                    query += "ZOO.SEGURANCA ON ZOO.PESSOA.Numero_CC = ZOO.SEGURANCA.F_Numero_CC ";
                     break;
             }
 
-            query += " INNER JOIN ZOO.FUNCIONARIO ON ZOO.PESSOA.Numero_CC = ZOO.FUNCIONARIO.Numero_CC";
+            query += "INNER JOIN ZOO.FUNCIONARIO ON ZOO.PESSOA.Numero_CC = ZOO.FUNCIONARIO.Numero_CC WHERE ZOO.FUNCIONARIO.Nome_JZ = @JZ";
             SqlCommand cmd = new SqlCommand(query, cn);
+            cmd.Parameters.AddWithValue("@JZ", selectedZoo);
 
             try
             {
@@ -455,10 +476,6 @@ namespace ZooLifeForm
 
         }
 
-        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
-        }
 
         private void ContratoSalário_TextChanged(object sender, EventArgs e)
         {
@@ -473,11 +490,45 @@ namespace ZooLifeForm
         private void button4_Click(object sender, EventArgs e)
         {
             toggle = !toggle;
-            label2.Visible = toggle;
-            ListaResponsabilidades.Visible = toggle;
-            GerirResponsabilidades.Visible = toggle;
-            label6.Visible = toggle;
-            comboBox1.Visible = toggle;
+            if (toggle) {
+                if (FuncaoFuncionario.Text == "FUNCIONARIO_LIMPEZA" || FuncaoFuncionario.Text == "TRABALHADOR_RESTAURACAO" || FuncaoFuncionario.Text == "FUNCIONARIO_BILHETEIRA" || FuncaoFuncionario.Text == "TRATADOR" || FuncaoFuncionario.Text == "VETERINARIO" || FuncaoFuncionario.Text == "SEGURANCA")
+                {
+                    label2.Visible = toggle;
+                    ListaResponsabilidades.Visible = toggle;
+                    GerirResponsabilidades.Visible = toggle;
+                    label7.Visible = !toggle;
+                }
+                if (FuncaoFuncionario.Text == "TRATADOR" || FuncaoFuncionario.Text == "VETERINARIO" || FuncaoFuncionario.Text == "SEGURANCA") {
+                    label6.Visible = toggle;
+                    comboBox1.Visible = toggle;
+                }
+                button4.Text = "Menos Detalhes";
+            }
+            else
+            {
+                label2.Visible = toggle;
+                ListaResponsabilidades.Visible = toggle;
+                GerirResponsabilidades.Visible = toggle;
+                label6.Visible = toggle;
+                comboBox1.Visible = toggle;
+                label7.Visible = !toggle;
+                button4.Text = "Mais Detalhes";
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            //enable writiing on everything
+            NomeFuncionario.ReadOnly = false;
+            GeneroFuncionario.ReadOnly = false;
+            DataNascimentoFuncionario.ReadOnly = false;
+            ContratoInicio.ReadOnly = false;
+            ContratoFim.ReadOnly = false;
+            ContratoSalario.ReadOnly = false;
+            ContratoTipo.ReadOnly = false;
+            FuncaoFuncionario.ReadOnly = false;
+            comboBox1.Enabled = true;
+
         }
     }
 }
