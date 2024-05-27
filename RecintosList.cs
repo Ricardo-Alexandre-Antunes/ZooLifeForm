@@ -537,10 +537,11 @@ namespace ZooLifeForm
 
         private void button_adicionar_recinto_Click(object sender, EventArgs e)
         {
-
+            /*
             AdicionarRecinto novo_recinto_form = new AdicionarRecinto(this); // Create an instance of the AnimalList form
             novo_recinto_form.Show(); // Show the AnimalList form
             this.Hide();
+            */
         }
     }
 }

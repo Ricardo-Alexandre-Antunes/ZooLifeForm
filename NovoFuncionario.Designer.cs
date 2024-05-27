@@ -39,7 +39,6 @@
             this.NovoAnimalCorLabel = new System.Windows.Forms.Label();
             this.NovoAnimalComprimento = new System.Windows.Forms.TextBox();
             this.NovoAnimalComprimentoLabel = new System.Windows.Forms.Label();
-            this.NovoAnimalPeso = new System.Windows.Forms.TextBox();
             this.NovoAnimalDieta = new System.Windows.Forms.TextBox();
             this.NovoAnimalEspecie = new System.Windows.Forms.TextBox();
             this.NovoAnimalNome = new System.Windows.Forms.TextBox();
@@ -51,6 +50,7 @@
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker3 = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePicker4 = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
             // NovoAnimalVeterinario
@@ -58,25 +58,25 @@
             this.NovoAnimalVeterinario.AutoSize = true;
             this.NovoAnimalVeterinario.Location = new System.Drawing.Point(473, 237);
             this.NovoAnimalVeterinario.Name = "NovoAnimalVeterinario";
-            this.NovoAnimalVeterinario.Size = new System.Drawing.Size(145, 16);
+            this.NovoAnimalVeterinario.Size = new System.Drawing.Size(99, 16);
             this.NovoAnimalVeterinario.TabIndex = 45;
-            this.NovoAnimalVeterinario.Text = "Data de fim de contrato";
+            this.NovoAnimalVeterinario.Text = "Fim de contrato";
             // 
             // NovoAnimalHabitatCombo
             // 
             this.NovoAnimalHabitatCombo.Enabled = false;
             this.NovoAnimalHabitatCombo.FormattingEnabled = true;
-            this.NovoAnimalHabitatCombo.Location = new System.Drawing.Point(586, 144);
+            this.NovoAnimalHabitatCombo.Location = new System.Drawing.Point(587, 144);
             this.NovoAnimalHabitatCombo.Name = "NovoAnimalHabitatCombo";
-            this.NovoAnimalHabitatCombo.Size = new System.Drawing.Size(196, 24);
+            this.NovoAnimalHabitatCombo.Size = new System.Drawing.Size(195, 24);
             this.NovoAnimalHabitatCombo.TabIndex = 43;
             // 
             // NovoAnimalZooCombo
             // 
             this.NovoAnimalZooCombo.FormattingEnabled = true;
-            this.NovoAnimalZooCombo.Location = new System.Drawing.Point(586, 99);
+            this.NovoAnimalZooCombo.Location = new System.Drawing.Point(587, 99);
             this.NovoAnimalZooCombo.Name = "NovoAnimalZooCombo";
-            this.NovoAnimalZooCombo.Size = new System.Drawing.Size(196, 24);
+            this.NovoAnimalZooCombo.Size = new System.Drawing.Size(195, 24);
             this.NovoAnimalZooCombo.TabIndex = 42;
             // 
             // NovoAnimalHabitaculoLabel
@@ -84,9 +84,9 @@
             this.NovoAnimalHabitaculoLabel.AutoSize = true;
             this.NovoAnimalHabitaculoLabel.Location = new System.Drawing.Point(473, 192);
             this.NovoAnimalHabitaculoLabel.Name = "NovoAnimalHabitaculoLabel";
-            this.NovoAnimalHabitaculoLabel.Size = new System.Drawing.Size(159, 16);
+            this.NovoAnimalHabitaculoLabel.Size = new System.Drawing.Size(108, 16);
             this.NovoAnimalHabitaculoLabel.TabIndex = 41;
-            this.NovoAnimalHabitaculoLabel.Text = "Data de início de contrato";
+            this.NovoAnimalHabitaculoLabel.Text = "Início de contrato";
             // 
             // NovoAnimalZooLabel
             // 
@@ -150,13 +150,6 @@
             this.NovoAnimalComprimentoLabel.TabIndex = 33;
             this.NovoAnimalComprimentoLabel.Text = "Função";
             // 
-            // NovoAnimalPeso
-            // 
-            this.NovoAnimalPeso.Location = new System.Drawing.Point(149, 234);
-            this.NovoAnimalPeso.Name = "NovoAnimalPeso";
-            this.NovoAnimalPeso.Size = new System.Drawing.Size(289, 22);
-            this.NovoAnimalPeso.TabIndex = 32;
-            // 
             // NovoAnimalDieta
             // 
             this.NovoAnimalDieta.Location = new System.Drawing.Point(149, 189);
@@ -209,11 +202,11 @@
             // 
             this.TitleLabel.AutoSize = true;
             this.TitleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TitleLabel.Location = new System.Drawing.Point(126, 11);
+            this.TitleLabel.Location = new System.Drawing.Point(72, 9);
             this.TitleLabel.Name = "TitleLabel";
-            this.TitleLabel.Size = new System.Drawing.Size(552, 69);
+            this.TitleLabel.Size = new System.Drawing.Size(681, 69);
             this.TitleLabel.TabIndex = 25;
-            this.TitleLabel.Text = "Inserir Novo Animal";
+            this.TitleLabel.Text = "Inserir Novo Funcionário";
             // 
             // NovoAnimalNomeLabel
             // 
@@ -233,23 +226,31 @@
             // 
             // dateTimePicker2
             // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(638, 189);
+            this.dateTimePicker2.Location = new System.Drawing.Point(587, 189);
             this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(144, 22);
+            this.dateTimePicker2.Size = new System.Drawing.Size(195, 22);
             this.dateTimePicker2.TabIndex = 48;
             // 
             // dateTimePicker3
             // 
-            this.dateTimePicker3.Location = new System.Drawing.Point(638, 235);
+            this.dateTimePicker3.Location = new System.Drawing.Point(587, 235);
             this.dateTimePicker3.Name = "dateTimePicker3";
-            this.dateTimePicker3.Size = new System.Drawing.Size(144, 22);
+            this.dateTimePicker3.Size = new System.Drawing.Size(195, 22);
             this.dateTimePicker3.TabIndex = 49;
+            // 
+            // dateTimePicker4
+            // 
+            this.dateTimePicker4.Location = new System.Drawing.Point(149, 235);
+            this.dateTimePicker4.Name = "dateTimePicker4";
+            this.dateTimePicker4.Size = new System.Drawing.Size(289, 22);
+            this.dateTimePicker4.TabIndex = 50;
             // 
             // NovoFuncionario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.dateTimePicker4);
             this.Controls.Add(this.dateTimePicker3);
             this.Controls.Add(this.dateTimePicker2);
             this.Controls.Add(this.dateTimePicker1);
@@ -264,7 +265,6 @@
             this.Controls.Add(this.NovoAnimalCorLabel);
             this.Controls.Add(this.NovoAnimalComprimento);
             this.Controls.Add(this.NovoAnimalComprimentoLabel);
-            this.Controls.Add(this.NovoAnimalPeso);
             this.Controls.Add(this.NovoAnimalDieta);
             this.Controls.Add(this.NovoAnimalEspecie);
             this.Controls.Add(this.NovoAnimalNome);
@@ -274,7 +274,7 @@
             this.Controls.Add(this.TitleLabel);
             this.Controls.Add(this.NovoAnimalNomeLabel);
             this.Name = "NovoFuncionario";
-            this.Text = "Form1";
+            this.Text = "Novo Funcionario";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -292,7 +292,6 @@
         private System.Windows.Forms.Label NovoAnimalCorLabel;
         private System.Windows.Forms.TextBox NovoAnimalComprimento;
         private System.Windows.Forms.Label NovoAnimalComprimentoLabel;
-        private System.Windows.Forms.TextBox NovoAnimalPeso;
         private System.Windows.Forms.TextBox NovoAnimalDieta;
         private System.Windows.Forms.TextBox NovoAnimalEspecie;
         private System.Windows.Forms.TextBox NovoAnimalNome;
@@ -304,5 +303,6 @@
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
         private System.Windows.Forms.DateTimePicker dateTimePicker3;
+        private System.Windows.Forms.DateTimePicker dateTimePicker4;
     }
 }
