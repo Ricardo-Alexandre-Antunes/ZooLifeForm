@@ -47,24 +47,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdicionarHabitaculo.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AdicionarHabitaculo.Designer.cs">
-      <DependentUpon>AdicionarHabitaculo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Bilhetes.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Bilhetes.Designer.cs">
-      <DependentUpon>Bilhetes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="AdicionarBilhete.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AdicionarBilhete.Designer.cs">
-      <DependentUpon>AdicionarBilhete.cs</DependentUpon>
-    </Compile>
     <Compile Include="NovoFuncionario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -135,6 +117,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FuncionarioList.resx">
       <DependentUpon>FuncionarioList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GerirResponsabilidades.resx">
+      <DependentUpon>GerirResponsabilidades.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainPage.resx">
       <DependentUpon>MainPage.cs</DependentUpon>

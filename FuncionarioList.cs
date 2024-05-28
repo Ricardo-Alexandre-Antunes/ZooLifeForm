@@ -550,13 +550,13 @@ namespace ZooLifeForm
 
         private void checkValidEdit()
         {
-            MessageBox.Show("checkValidEdit");
+
             ConfirmarEdicao.Enabled = true;
             if (NomeFuncionario.Text == "" || GeneroFuncionario.Text == "" || ContratoSalario.Text == "" || ContratoTipo.Text == "" || comboBox1.Text == "" || (GeneroFuncionario.Text != "M" && GeneroFuncionario.Text != "F"))
             {
                 ConfirmarEdicao.Enabled = false;
             }
-            MessageBox.Show((NomeFuncionario.Text == "" || GeneroFuncionario.Text == "" || ContratoSalario.Text == "" || ContratoTipo.Text == "" || comboBox1.Text == "" || (GeneroFuncionario.Text != "M" && GeneroFuncionario.Text != "F")).ToString());
+            
 
             try
             {
@@ -753,6 +753,13 @@ namespace ZooLifeForm
         {
             NovoFuncionario novoFuncionario = new NovoFuncionario(this);
             novoFuncionario.Show();
+            this.Hide();
+        }
+
+        private void GerirResponsabilidades_Click(object sender, EventArgs e)
+        {
+            GerirResponsabilidades responsabilidades = new GerirResponsabilidades(this, ListaFuncionarios.Text, this.selectedFuncionario, this.FuncaoFuncionario.Text, this.selectedZoo);
+            responsabilidades.Show();
             this.Hide();
         }
     }
