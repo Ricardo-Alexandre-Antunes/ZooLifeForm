@@ -47,6 +47,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdicionarHabitaculo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdicionarHabitaculo.Designer.cs">
+      <DependentUpon>AdicionarHabitaculo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Bilhetes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Bilhetes.Designer.cs">
+      <DependentUpon>Bilhetes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AdicionarBilhete.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdicionarBilhete.Designer.cs">
+      <DependentUpon>AdicionarBilhete.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GerirResponsabilidades.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GerirResponsabilidades.Designer.cs">
+      <DependentUpon>GerirResponsabilidades.cs</DependentUpon>
+    </Compile>
     <Compile Include="NovoFuncionario.cs">
       <SubType>Form</SubType>
     </Compile>
