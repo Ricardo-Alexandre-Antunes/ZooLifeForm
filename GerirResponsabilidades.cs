@@ -22,6 +22,7 @@ namespace ZooLifeForm
         public GerirResponsabilidades(Form prevForm, string funcionario, int cc, string function, string currentZoo)
         {
             InitializeComponent();
+            Console.WriteLine(currentZoo);
             this.prevForm = prevForm;
             this.funcionario = funcionario;
             label1.Text += "\n" + funcionario;
@@ -30,14 +31,6 @@ namespace ZooLifeForm
             this.currentZoo = currentZoo;
             PopulateCurResponsibilities();
             PopulateNonResponsibilities();
-            if (ResponsabilidadesAtuais.Items.Count > 0)
-            {
-                ResponsabilidadesAtuais.SelectedIndex = 0;
-            }
-            if (ResponsabilidadesPossiveis.Items.Count > 0)
-            {
-                ResponsabilidadesPossiveis.SelectedIndex = 0;
-            }
             if (this.function.Equals("VETERINARIO"))
             {
                 label2.Visible = true;
@@ -142,22 +135,22 @@ namespace ZooLifeForm
             switch (this.function)
             {
                 case ("VETERINARIO"):
-                    query = "SELECT * FROM ZOO.ANIMAL WHERE Veterinario_CC <> @CC and Nome_JZ = @NomeJZ";
+                    query = "SELECT * FROM ZOO.ANIMAL WHERE ZOO.ANIMAL.Nome_JZ = @NomeJZ and Veterinario_CC <> @CC";
                     break;
                 case ("TRATADOR"):
-                    query = "SELECT * FROM ZOO.RESPONSAVEL_POR_DETALHADO WHERE Numero_CC <> @CC and Nome_JZ = @NomeJZ";
+                    query = "SELECT * FROM ZOO.TRATADOR_DISPONIVEIS(@CC, @NomeJZ)";
                     break;
                 case ("SEGURANCA"):
-                    query = "SELECT * FROM ZOO.RECINTO WHERE ZOO.RECINTO.ID NOT IN (SELECT Recinto_ID FROM ZOO.SEGURANCA WHERE F_Numero_CC = @CC) and Nome_JZ = @NomeJZ";
+                    query = "SELECT * FROM ZOO.SEGURANCA_DISPONIVEIS(@CC, @NomeJZ)";
                     break;
                 case ("FUNCIONARIO_LIMPEZA"):
-                    query = "SELECT * FROM ZOO.RECINTO WHERE ZOO.RECINTO.ID NOT IN (SELECT Recinto_ID FROM ZOO.LIMPA WHERE FL_Numero_CC = @CC) and Nome_JZ = @NomeJZ";
+                    query = "SELECT * FROM ZOO.FUNCIONARIO_LIMPEZA_DISPONIVEIS(@CC, @NomeJZ)";
                     break;
                 case ("TRABALHADOR_RESTAURACAO"):
-                    query = "SELECT ZOO.RECINTO.* FROM ZOO.RECINTO INNER JOIN ZOO.RESTAURACAO ON ZOO.RECINTO.ID = ZOO.RESTAURACAO.Recinto_ID and ZOO.RECINTO.Nome_JZ = ZOO.RESTAURACAO.Nome_JZ WHERE ZOO.RECINTO.ID NOT IN (SELECT Recinto_ID FROM ZOO.TRABALHADOR_RESTAURACAO WHERE F_Numero_CC = @CC) and ZOO.RECINTO.Nome_JZ = @NomeJZ";
+                    query = "SELECT * FROM ZOO.TRABALHADOR_RESTAURACAO_DISPONIVEIS(@CC, @NomeJZ)";
                     break;
                 case ("FUNCIONARIO_BILHETEIRA"):
-                    query = "SELECT ZOO.RECINTO.* FROM ZOO.RECINTO INNER JOIN ZOO.BILHETEIRA ON ZOO.RECINTO.ID = ZOO.BILHETEIRA.Recinto_ID and ZOO.BILHETEIRA.Nome_JZ = ZOO.BILHETEIRA.Nome_JZ WHERE ZOO.RECINTO.ID NOT IN (SELECT Bilheteira_ID FROM ZOO.FUNCIONARIO_BILHETEIRA WHERE F_Numero_CC = @CC) and ZOO.RECINTO.Nome_JZ = @NomeJZ";
+                    query = "SELECT * FROM ZOO.FUNCIONARIO_BILHETEIRAS_DISPONIVEIS(@CC, @NomeJZ)";
                     break;
             }
 
@@ -168,27 +161,7 @@ namespace ZooLifeForm
 
             while (reader.Read())
             {
-                switch (this.function)
-                {
-                    case ("VETERINARIO"):
-                        ResponsabilidadesPossiveis.Items.Add(reader["ID"] + ". " + reader["Nome"].ToString());
-                        break;
-                    case ("TRATADOR"):
-                        ResponsabilidadesPossiveis.Items.Add(reader["RECINTO_ID"] + ". " + reader["RECINTO_NOME"].ToString());
-                        break;
-                    case ("SEGURANCA"):
-                        ResponsabilidadesPossiveis.Items.Add(reader["ID"] + ". " + reader["Nome"].ToString());
-                        break;
-                    case ("FUNCIONARIO_LIMPEZA"):
-                        ResponsabilidadesPossiveis.Items.Add(reader["ID"] + ". " + reader["Nome"].ToString());
-                        break;
-                    case ("TRABALHADOR_RESTAURACAO"):
-                        ResponsabilidadesPossiveis.Items.Add(reader["ID"] + ". " + reader["Nome"].ToString());
-                        break;
-                    case ("FUNCIONARIO_BILHETEIRA"):
-                        ResponsabilidadesPossiveis.Items.Add(reader["ID"] + ". " + reader["Nome"].ToString());
-                        break;
-                }
+                ResponsabilidadesPossiveis.Items.Add(reader["ID"] + ". " + reader["Nome"].ToString());
             }
             reader.Close();
         }
@@ -207,37 +180,93 @@ namespace ZooLifeForm
             }
 
             string query = "";
+ 
 
             switch (this.function)
             {
                 case ("TRATADOR"):
-                    query = "INSERT INTO ZOO.RESPONSAVEL_POR VALUES (@CC, @ID)";
+                    query = "INSERT INTO ZOO.RESPONSAVEL_POR VALUES (@CC, @NomeJZ, @RecintoID)";
+
                     break;
                 case ("SEGURANCA"):
                     if (MessageBox.Show("Ao adicionar este recinto como responsabilidade, o recinto anterior passará a não ser patrulhado por este segurança. Tem a certeza que deseja continuar?", "Tem a certeza?", MessageBoxButtons.YesNo) == DialogResult.No)
                     {
                         return;
                     }
-                    query = "ALTER ";
+                    query = "UPDATE ZOO.SEGURANCA SET Recinto_ID = @RecintoID WHERE F_Numero_CC = @CC ";
                     break;
                 case ("FUNCIONARIO_LIMPEZA"):
-                    query = "INSERT INTO ZOO.LIMPA VALUES (@CC, @ID)";
+                    query = "INSERT INTO ZOO.LIMPA VALUES (@NomeJZ, @RecintoID, @CC)";
                     break;
                 case ("TRABALHADOR_RESTAURACAO"):
                     if (MessageBox.Show("Ao adicionar este recinto como responsabilidade, este trabalhador deixará de trabalhar no restaurante atual. Tem a certeza que deseja continuar?", "Tem a certeza?", MessageBoxButtons.YesNo) == DialogResult.No)
                     {
                         return;
                     }
-                    query = "INSERT INTO ZOO.TRABALHADOR_RESTAURACAO VALUES (@CC, @ID)";
+                    query = "UPDATE ZOO.TRABALHADOR_RESTAURACAO SET Restauracao_ID = @RecintoID WHERE F_Numero_CC = @CC";
                     break;
                 case ("FUNCIONARIO_BILHETEIRA"):
                     if (MessageBox.Show(Text = "Ao adicionar esta bilheteira como responsabilidade, este funcionário deixará de trabalhar na bilheteira atual. Tem a certeza que deseja continuar?", "Tem a certeza?", MessageBoxButtons.YesNo) == DialogResult.No)
                     {
                         return;
                     }
-                    query = "INSERT INTO ZOO.FUNCIONARIO_BILHETEIRA VALUES (@CC, @ID)";
+                    query = "UPDATE ZOO.FUNCIONARIO_BILHETEIRA SET Bilheteira_ID = @RecintoID WHERE F_Numero_CC = @CC";
                     break;
             }
+            SqlCommand cmd = new SqlCommand(query, cn);
+            cmd.Parameters.AddWithValue("@RecintoID", int.Parse(ResponsabilidadesPossiveis.Text.ToString().Split('.')[0]));
+            Console.WriteLine(int.Parse(ResponsabilidadesPossiveis.Text.ToString().Split('.')[0]));
+            cmd.Parameters.AddWithValue("@CC", this.CC);
+            cmd.Parameters.AddWithValue("@NomeJZ", this.currentZoo);
+            SqlDataReader reader = cmd.ExecuteReader();
+            reader.Close();
+            PopulateCurResponsibilities();
+            PopulateNonResponsibilities();
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (!verifySGBDConnection())
+            {
+                return;
+            }
+
+            if (ResponsabilidadesAtuais.SelectedIndex == -1)
+            {
+                MessageBox.Show("Por favor selecione uma responsabilidade para remover.");
+                return;
+            }
+
+            string query = "";
+
+            switch (this.function)
+            {
+                case ("TRATADOR"):
+                    query = "DELETE FROM ZOO.RESPONSAVEL_POR WHERE T_Numero_CC = @CC and Habitat_ID = @RecintoID";
+                    break;
+                case ("SEGURANCA"):
+                    query = "UPDATE ZOO.SEGURANCA SET Recinto_ID = NULL WHERE F_Numero_CC = @CC";
+                    break;
+                case ("FUNCIONARIO_LIMPEZA"):
+                    query = "DELETE FROM ZOO.LIMPA WHERE FL_Numero_CC = @CC and Recinto_ID = @RecintoID";
+                    break;
+                case ("TRABALHADOR_RESTAURACAO"):
+                    query = "UPDATE ZOO.TRABALHADOR_RESTAURACAO SET Restauracao_ID = NULL WHERE F_Numero_CC = @CC";
+                    break;
+                case ("FUNCIONARIO_BILHETEIRA"):
+                    query = "UPDATE ZOO.FUNCIONARIO_BILHETEIRA SET Bilheteira_ID = NULL WHERE F_Numero_CC = @CC";
+                    break;
+            }
+
+            SqlCommand cmd = new SqlCommand(query, cn);
+            cmd.Parameters.AddWithValue("@RecintoID", int.Parse(ResponsabilidadesAtuais.Text.ToString().Split('.')[0]));
+            cmd.Parameters.AddWithValue("@CC", this.CC);
+            SqlDataReader reader = cmd.ExecuteReader();
+            reader.Close();
+            PopulateCurResponsibilities();
+            PopulateNonResponsibilities();
+
         }
     }
 }

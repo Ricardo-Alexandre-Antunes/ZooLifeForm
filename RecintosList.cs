@@ -493,6 +493,11 @@ namespace ZooLifeForm
             }
         }
 
+        private void RecintosList_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            prevForm.Show();
+        }
+
         private void escolherTipoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ToolStripMenuItem clickedItem = (ToolStripMenuItem)sender;

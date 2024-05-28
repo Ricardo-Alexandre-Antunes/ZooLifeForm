@@ -33,6 +33,10 @@ namespace ZooLifeForm
             PopulateBilheteiraMenuItems();
         }
 
+        private void Bilhetes_Closing(object sender, FormClosingEventArgs e)
+        {
+            this.prevForm.Show();
+        }
         private void Bilhetes_Load(object sender, EventArgs e)
         {
 

@@ -159,6 +159,7 @@
             this.Controls.Add(this.label_titulo);
             this.Name = "AdicionarHabitaculo";
             this.Text = "Adicionar Habitáculo";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AdicionarHabitaculo_Closing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

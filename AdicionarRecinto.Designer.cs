@@ -194,6 +194,8 @@
             this.Controls.Add(this.label_title_add_recinto);
             this.Name = "AdicionarRecinto";
             this.Text = "Adicionar Recinto";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AdicionarRecinto_Closing);
+            this.Load += new System.EventHandler(this.AdicionarRecinto_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

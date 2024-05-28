@@ -29,6 +29,11 @@ namespace ZooLifeForm
             NovoRecinto_Load();
         }
 
+        private void AdicionarRecinto_Closing(object sender, FormClosingEventArgs e)
+        {
+            this.previousForm.Show();
+        }
+
         private bool verifySGBDConnection()
         {
             if (cn == null)
@@ -228,5 +233,9 @@ namespace ZooLifeForm
             this.Close();
         }
 
+        private void AdicionarRecinto_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

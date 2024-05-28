@@ -27,6 +27,11 @@ namespace ZooLifeForm
             NovoRecinto_Load();
         }
 
+        private void AdicionarHabitaculo_Closing(object sender, FormClosingEventArgs e)
+        {
+            this.previousForm.Show();
+        }
+
         private bool verifySGBDConnection()
         {
             if (cn == null)

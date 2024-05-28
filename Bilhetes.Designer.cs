@@ -294,6 +294,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Bilhetes";
             this.Text = "Bilhetes";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Bilhetes_Closing);
             this.Load += new System.EventHandler(this.Bilhetes_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

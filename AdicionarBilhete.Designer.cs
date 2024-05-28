@@ -289,6 +289,7 @@
             this.Controls.Add(this.label1);
             this.Name = "AdicionarBilhete";
             this.Text = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AdicionarBilhete_Closing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

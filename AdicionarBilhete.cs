@@ -20,10 +20,15 @@ namespace ZooLifeForm
         private String selectedBilheteira;
         private String SelectedHabitat;
         private int SelectedFuncionario;
+        private int[] BilheteirasID;
+        private string[] BilheteirasNome;
         private int BilheteiraID;
+        private int count = 0;
         public AdicionarBilhete(String selectedZoo, Form previousForm)
         {
             InitializeComponent();
+            this.BilheteirasID = new int[100];
+            this.BilheteirasNome = new string[100];
             this.selectedZoo = selectedZoo;
             this.Text = "Adicionar bilhete vendido";
             this.previousForm = previousForm;
@@ -36,6 +41,11 @@ namespace ZooLifeForm
             NovoRecinto_Load();
         }
 
+
+        private void AdicionarBilhete_Closing(object sender, FormClosingEventArgs e)
+        {
+            this.previousForm.Show();
+        }
         private bool VerifySGBDConnection()
         {
             if (cn == null)
@@ -109,7 +119,7 @@ namespace ZooLifeForm
             comboBox_bilheteira.Items.Clear(); // Clear any existing items
             comboBox_funcionario_cc.Items.Clear();
 
-            string query = "SELECT Nome FROM ZOO.BILHETEIRA JOIN ZOO.RECINTO ON Recinto_ID = ID WHERE @nome_jz = Recinto.Nome_JZ"; // Assuming a table named 'Zoos' with a column 'ZooName'
+            string query = "SELECT ID, Nome FROM ZOO.BILHETEIRA JOIN ZOO.RECINTO ON Recinto_ID = ID WHERE @nome_jz = Recinto.Nome_JZ"; // Assuming a table named 'Zoos' with a column 'ZooName'
             SqlCommand cmd = new SqlCommand(query, cn);
             cmd.Parameters.AddWithValue("@nome_jz", this.selectedZoo);
 
@@ -119,8 +129,16 @@ namespace ZooLifeForm
                 {
                     while (reader.Read())
                     {
-                        string bilheteiraName = reader.GetString(0); // Assuming the first column (index 0) contains zoo names
+                        int bilheteiraID = int.Parse(reader["ID"].ToString());
+                        string bilheteiraName = reader["Nome"].ToString(); // Assuming the first column (index 0) contains zoo names
+                        
+                        Console.WriteLine(bilheteiraID);
+                        Console.WriteLine(bilheteiraName);
+                        this.BilheteirasNome[count] = bilheteiraName;
+                        this.BilheteirasID[count]  = bilheteiraID;
+                        count++;
                         comboBox_bilheteira.Items.Add(bilheteiraName);
+
                     }
                 }
             }
@@ -203,27 +221,40 @@ namespace ZooLifeForm
             PopulateBilheteiraComboBox();
         }
 
+        private int GetBilheteiraID()
+        {
+            for (int i = 0; i < comboBox_bilheteira.Items.Count; i++)
+            {
+                if (BilheteirasNome[i].Equals(this.selectedBilheteira))
+                {
+                    return BilheteirasID[i];
+                }
+            }
+            return -1;
+        }
+
         private void comboBox_bilheteira_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.selectedBilheteira = comboBox_bilheteira.SelectedItem.ToString();
+            this.selectedBilheteira = comboBox_bilheteira.Text.ToString();
+            this.BilheteiraID = GetBilheteiraID();
             PopulateFuncionarioBilheteiraComboBox();
         }
 
         private void comboBox_funcionario_cc_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.SelectedFuncionario = Int32.Parse(comboBox_funcionario_cc.SelectedItem.ToString());
+            this.SelectedFuncionario = int.Parse(comboBox_funcionario_cc.Text.ToString());
         }
 
         private Boolean ValidateForm()
         {
             Boolean nomeValido = textBox_nome.Text.Length > 0;
-            Boolean numeroCC_Valido = textBox_cc.Text.Length > 0;
-            Boolean generoValido = comboBox_genero.SelectedItem != null;
+            Boolean numeroCC_Valido = textBox_cc.Text.Length == 8 && int.TryParse(textBox_cc.Text, out int result);
+            Boolean generoValido = comboBox_genero.Text == "M" || comboBox_genero.Text == "F";
 
-            Boolean jzValido = comboBox_jz.SelectedItem != null;
-            Boolean bilheteiraValida = comboBox_bilheteira.SelectedItem != null;
-            Boolean func_cc_Valido = comboBox_funcionario_cc != null;
-            Boolean preco_valido = (textBox_preco.Text.Length > 0) && Int32.TryParse(textBox_preco.Text, out _);
+            Boolean jzValido = comboBox_jz.SelectedIndex != -1;
+            Boolean bilheteiraValida = comboBox_bilheteira.SelectedIndex != -1;
+            Boolean func_cc_Valido = comboBox_funcionario_cc.SelectedIndex != -1;
+            Boolean preco_valido = int.TryParse(textBox_preco.Text, out result);
 
 
             return (nomeValido && jzValido && numeroCC_Valido && generoValido && bilheteiraValida && func_cc_Valido && preco_valido);
@@ -237,14 +268,15 @@ namespace ZooLifeForm
         private Boolean InserirBilhete()
         {
             string nome = textBox_nome.Text;
-            int visitante_cc = Int32.Parse(textBox_cc.Text);
+            int visitante_cc = int.Parse(textBox_cc.Text);
             string genero = comboBox_genero.SelectedItem.ToString();
             string recinto_jz = this.selectedZoo;
             int bilheteira = this.BilheteiraID;
             int funcionario_cc = this.SelectedFuncionario;
-            int preco = Int32.Parse(textBox_preco.Text.ToString());
+            int preco = int.Parse(textBox_preco.Text.ToString());
             DateTime date_compra = dateTimePicker_data_compra.Value; // Correção
             DateTime date_nascimento = dateTimePicker_data_nascimento.Value; // Correção
+            Console.WriteLine(nome + " | " + visitante_cc + " | " + genero + " | " + recinto_jz + " | " + bilheteira.ToString() + " | " + funcionario_cc.ToString() + " | " + preco.ToString() + " | " + date_compra.ToString() + " | " + date_nascimento.ToString());
             string procedure = "ZOO.sp_adicionarBilhete @v_numero_cc, @v_nome, @v_genero, @v_data_nascimento, @preco, @data_compra, @f_numero_cc, @nome_jz, @bilheteira_id";
 
             SqlCommand cmd = new SqlCommand(procedure, cn);

@@ -367,6 +367,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "RecintosList";
             this.Text = "ZooLife - Lista de Recintos";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RecintosList_FormClosing);
             this.Load += new System.EventHandler(this.RecintosList_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

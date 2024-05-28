@@ -85,7 +85,7 @@
             this.escolherHToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(950, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(950, 30);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -96,7 +96,7 @@
             this.opção2ToolStripMenuItem,
             this.opção3ToolStripMenuItem});
             this.escolherZooToolStripMenuItem.Name = "escolherZooToolStripMenuItem";
-            this.escolherZooToolStripMenuItem.Size = new System.Drawing.Size(109, 24);
+            this.escolherZooToolStripMenuItem.Size = new System.Drawing.Size(109, 26);
             this.escolherZooToolStripMenuItem.Text = "Escolher Zoo";
             // 
             // opção1ToolStripMenuItem
@@ -128,7 +128,7 @@
             this.funcionárioDeRestauraçãoToolStripMenuItem,
             this.funcionárioDeBilheteiraToolStripMenuItem});
             this.escolherHToolStripMenuItem.Name = "escolherHToolStripMenuItem";
-            this.escolherHToolStripMenuItem.Size = new System.Drawing.Size(129, 24);
+            this.escolherHToolStripMenuItem.Size = new System.Drawing.Size(129, 26);
             this.escolherHToolStripMenuItem.Text = "Escolher Função";
             // 
             // gerenteToolStripMenuItem
@@ -418,6 +418,7 @@
             // 
             // comboBox1
             // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.Enabled = false;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
