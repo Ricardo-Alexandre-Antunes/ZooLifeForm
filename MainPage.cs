@@ -132,5 +132,17 @@ namespace ZooLifeForm
             funcionarioListForm.Show(); // Show the FuncionarioList form
             this.Hide();
         }
+
+        private void button_ver_bilhetes_Click(object sender, EventArgs e)
+        {
+            if (this.selectedZoo == null)
+            {
+                MessageBox.Show("Please select a zoo first.");
+                return;
+            }
+            Bilhetes BilhetesForm = new Bilhetes(this.selectedZoo, this); // Create an instance of the FuncionarioList form
+            BilhetesForm.Show(); // Show the FuncionarioList form
+            this.Hide();
+        }
     }
 }

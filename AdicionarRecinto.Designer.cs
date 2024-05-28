@@ -162,6 +162,7 @@
             this.button_cancelar.TabIndex = 12;
             this.button_cancelar.Text = "Cancelar";
             this.button_cancelar.UseVisualStyleBackColor = true;
+            this.button_cancelar.Click += new System.EventHandler(this.button_cancelar_Click);
             // 
             // button_adicionar
             // 
@@ -192,7 +193,7 @@
             this.Controls.Add(this.label_nome);
             this.Controls.Add(this.label_title_add_recinto);
             this.Name = "AdicionarRecinto";
-            this.Text = "Form1";
+            this.Text = "Adicionar Recinto";
             this.ResumeLayout(false);
             this.PerformLayout();
 

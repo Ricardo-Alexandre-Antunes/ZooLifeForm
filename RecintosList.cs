@@ -467,41 +467,9 @@ namespace ZooLifeForm
 
         private void button_adicionar_habitaculo_recinto_Click(object sender, EventArgs e)
         {
-            // Supondo que esses dados sejam obtidos de algum lugar, como caixas de texto no formulário
-            string nomeJZ = "NomeJZ"; // Obtenha o valor real do seu formulário
-            string nome = "Nome"; // Obtenha o valor real do seu formulário
-            string estado = "Estado"; // Obtenha o valor real do seu formulário
-            int recintoID = 1; // Obtenha o valor real do seu formulário
-            string tamanho = "Tamanho"; // Obtenha o valor real do seu formulário
-            int maxAnimais = 10; // Obtenha o valor real do seu formulário
-
-            using (SqlConnection cn = new SqlConnection("your_connection_string_here"))
-            {
-                try
-                {
-                    cn.Open();
-                    using (SqlCommand cmd = new SqlCommand("ZOO.sp_adicionarHabitaculo", cn))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.AddWithValue("@nome_jz", nomeJZ);
-                        cmd.Parameters.AddWithValue("@nome", nome);
-                        cmd.Parameters.AddWithValue("@estado", estado);
-                        cmd.Parameters.AddWithValue("@recinto_id", recintoID);
-                        cmd.Parameters.AddWithValue("@tamanho", tamanho);
-                        cmd.Parameters.AddWithValue("@max_animais", maxAnimais);
-
-                        cmd.ExecuteNonQuery();
-                        MessageBox.Show("Habitáculo adicionado com sucesso.");
-                    }
-
-                    // Opcionalmente, atualize a lista de habitáculos
-                    //LoadHabitaculosForRecinto();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Erro ao adicionar habitáculo: " + ex.Message);
-                }
-            }
+            AdicionarHabitaculo novo_habitaculo_form = new AdicionarHabitaculo(this.selectedZoo, this); // Create an instance of the AnimalList form
+            novo_habitaculo_form.Show(); // Show the AnimalList form
+            this.Hide();
         }
 
         private void listBox_habitaculos_recinto_SelectedIndexChanged(object sender, EventArgs e)

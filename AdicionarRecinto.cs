@@ -221,5 +221,12 @@ namespace ZooLifeForm
                 textBox_max_capacidade.Visible = false;
             }
         }
+
+        private void button_cancelar_Click(object sender, EventArgs e)
+        {
+            this.previousForm.Show();
+            this.Close();
+        }
+
     }
 }

@@ -47,6 +47,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdicionarHabitaculo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdicionarHabitaculo.Designer.cs">
+      <DependentUpon>AdicionarHabitaculo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Bilhetes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Bilhetes.Designer.cs">
+      <DependentUpon>Bilhetes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AdicionarBilhete.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdicionarBilhete.Designer.cs">
+      <DependentUpon>AdicionarBilhete.cs</DependentUpon>
+    </Compile>
     <Compile Include="NovoFuncionario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -71,14 +89,12 @@
     <Compile Include="RecintosList.Designer.cs">
       <DependentUpon>RecintosList.cs</DependentUpon>
     </Compile>
-
     <Compile Include="AdicionarRecinto.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="AdicionarRecinto.Designer.cs">
       <DependentUpon>AdicionarRecinto.cs</DependentUpon>
     </Compile>
-    
     <Compile Include="FuncionarioList.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,11 +115,20 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AdicionarBilhete.resx">
+      <DependentUpon>AdicionarBilhete.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AnimalList.resx">
       <DependentUpon>AnimalList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AdicionarRecinto.resx">
       <DependentUpon>AdicionarRecinto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AdicionarHabitaculo.resx">
+      <DependentUpon>AdicionarHabitaculo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Bilhetes.resx">
+      <DependentUpon>Bilhetes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GerirRelacoes.resx">
       <DependentUpon>GerirRelacoes.cs</DependentUpon>
