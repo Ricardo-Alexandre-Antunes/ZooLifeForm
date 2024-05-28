@@ -112,7 +112,6 @@ namespace ZooLifeForm
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Do something when an animal is selected
-            MessageBox.Show("Selected animal: " + listBox1.SelectedItem.ToString());
             FillTextBoxesWithSelectedAnimal();
         }
 
@@ -126,9 +125,10 @@ namespace ZooLifeForm
             }
 
             escolherHabitáculoToolStripMenuItem.DropDownItems.Clear(); // Clear any existing items
-            string query = "SELECT ZOO.HABITACULO.ID FROM ZOO.HABITACULO INNER JOIN ZOO.RECINTO ON ZOO.HABITACULO.Habitat_ID = ZOO.RECINTO.ID WHERE ZOO.HABITACULO.Habitat_ID = " + this.chosenHabitat + " AND ZOO.HABITACULO.Nome_JZ = \'" + this.selectedZoo + "\'"; // Assuming a table named 'Habitats' with a column 'HabitatName'
-            MessageBox.Show(query);
+            string query = "SELECT ZOO.HABITACULO.ID FROM ZOO.HABITACULO INNER JOIN ZOO.RECINTO ON ZOO.HABITACULO.Habitat_ID = ZOO.RECINTO.ID WHERE ZOO.HABITACULO.Habitat_ID = @HabitatID AND ZOO.HABITACULO.Nome_JZ = @NomeJZ"; // Assuming a table named 'Habitats' with a column 'HabitatName'
             SqlCommand cmd = new SqlCommand(query, this.cn);
+            cmd.Parameters.AddWithValue("@HabitatID", this.chosenHabitat);
+            cmd.Parameters.AddWithValue("@NomeJZ", this.selectedZoo);
 
             try
             {
