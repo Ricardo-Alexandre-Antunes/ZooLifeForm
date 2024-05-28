@@ -192,5 +192,52 @@ namespace ZooLifeForm
             }
             reader.Close();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (!verifySGBDConnection())
+            {
+                return;
+            }
+
+            if (ResponsabilidadesPossiveis.SelectedIndex == -1)
+            {
+                MessageBox.Show("Por favor selecione uma responsabilidade para adicionar.");
+                return;
+            }
+
+            string query = "";
+
+            switch (this.function)
+            {
+                case ("TRATADOR"):
+                    query = "INSERT INTO ZOO.RESPONSAVEL_POR VALUES (@CC, @ID)";
+                    break;
+                case ("SEGURANCA"):
+                    if (MessageBox.Show("Ao adicionar este recinto como responsabilidade, o recinto anterior passará a não ser patrulhado por este segurança. Tem a certeza que deseja continuar?", "Tem a certeza?", MessageBoxButtons.YesNo) == DialogResult.No)
+                    {
+                        return;
+                    }
+                    query = "ALTER ";
+                    break;
+                case ("FUNCIONARIO_LIMPEZA"):
+                    query = "INSERT INTO ZOO.LIMPA VALUES (@CC, @ID)";
+                    break;
+                case ("TRABALHADOR_RESTAURACAO"):
+                    if (MessageBox.Show("Ao adicionar este recinto como responsabilidade, este trabalhador deixará de trabalhar no restaurante atual. Tem a certeza que deseja continuar?", "Tem a certeza?", MessageBoxButtons.YesNo) == DialogResult.No)
+                    {
+                        return;
+                    }
+                    query = "INSERT INTO ZOO.TRABALHADOR_RESTAURACAO VALUES (@CC, @ID)";
+                    break;
+                case ("FUNCIONARIO_BILHETEIRA"):
+                    if (MessageBox.Show(Text = "Ao adicionar esta bilheteira como responsabilidade, este funcionário deixará de trabalhar na bilheteira atual. Tem a certeza que deseja continuar?", "Tem a certeza?", MessageBoxButtons.YesNo) == DialogResult.No)
+                    {
+                        return;
+                    }
+                    query = "INSERT INTO ZOO.FUNCIONARIO_BILHETEIRA VALUES (@CC, @ID)";
+                    break;
+            }
+        }
     }
 }
