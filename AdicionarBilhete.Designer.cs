@@ -171,6 +171,7 @@
             this.textBox_nome.Name = "textBox_nome";
             this.textBox_nome.Size = new System.Drawing.Size(252, 22);
             this.textBox_nome.TabIndex = 12;
+            this.textBox_nome.TextChanged += new System.EventHandler(this.textBox_nome_TextChanged);
             // 
             // textBox_cc
             // 
@@ -178,6 +179,7 @@
             this.textBox_cc.Name = "textBox_cc";
             this.textBox_cc.Size = new System.Drawing.Size(164, 22);
             this.textBox_cc.TabIndex = 14;
+            this.textBox_cc.TextChanged += new System.EventHandler(this.textBox_cc_TextChanged);
             // 
             // textBox_preco
             // 
@@ -185,6 +187,7 @@
             this.textBox_preco.Name = "textBox_preco";
             this.textBox_preco.Size = new System.Drawing.Size(194, 22);
             this.textBox_preco.TabIndex = 17;
+            this.textBox_preco.TextChanged += new System.EventHandler(this.textBox_preco_TextChanged);
             // 
             // dateTimePicker_data_nascimento
             // 
@@ -192,6 +195,7 @@
             this.dateTimePicker_data_nascimento.Name = "dateTimePicker_data_nascimento";
             this.dateTimePicker_data_nascimento.Size = new System.Drawing.Size(200, 22);
             this.dateTimePicker_data_nascimento.TabIndex = 19;
+            this.dateTimePicker_data_nascimento.ValueChanged += new System.EventHandler(this.dateTimePicker_data_nascimento_ValueChanged);
             // 
             // dateTimePicker_data_compra
             // 
@@ -199,6 +203,7 @@
             this.dateTimePicker_data_compra.Name = "dateTimePicker_data_compra";
             this.dateTimePicker_data_compra.Size = new System.Drawing.Size(200, 22);
             this.dateTimePicker_data_compra.TabIndex = 20;
+            this.dateTimePicker_data_compra.ValueChanged += new System.EventHandler(this.dateTimePicker_data_compra_ValueChanged);
             // 
             // button_cancelar
             // 
@@ -228,6 +233,7 @@
             this.comboBox_genero.Name = "comboBox_genero";
             this.comboBox_genero.Size = new System.Drawing.Size(243, 24);
             this.comboBox_genero.TabIndex = 23;
+            this.comboBox_genero.SelectedIndexChanged += new System.EventHandler(this.comboBox_genero_SelectedIndexChanged);
             // 
             // comboBox_jz
             // 

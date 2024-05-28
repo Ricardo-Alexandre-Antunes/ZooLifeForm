@@ -223,6 +223,7 @@
             // 
             // NovoAnimalZooCombo
             // 
+            this.NovoAnimalZooCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.NovoAnimalZooCombo.FormattingEnabled = true;
             this.NovoAnimalZooCombo.Location = new System.Drawing.Point(565, 97);
             this.NovoAnimalZooCombo.Name = "NovoAnimalZooCombo";
@@ -232,6 +233,7 @@
             // 
             // NovoAnimalHabitatCombo
             // 
+            this.NovoAnimalHabitatCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.NovoAnimalHabitatCombo.Enabled = false;
             this.NovoAnimalHabitatCombo.FormattingEnabled = true;
             this.NovoAnimalHabitatCombo.Location = new System.Drawing.Point(565, 139);
@@ -242,6 +244,7 @@
             // 
             // NovoAnimalHabitaculoCombo
             // 
+            this.NovoAnimalHabitaculoCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.NovoAnimalHabitaculoCombo.Enabled = false;
             this.NovoAnimalHabitaculoCombo.FormattingEnabled = true;
             this.NovoAnimalHabitaculoCombo.Location = new System.Drawing.Point(565, 187);
@@ -261,6 +264,7 @@
             // 
             // NovoAnimalVeterinarioCombo
             // 
+            this.NovoAnimalVeterinarioCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.NovoAnimalVeterinarioCombo.Enabled = false;
             this.NovoAnimalVeterinarioCombo.FormattingEnabled = true;
             this.NovoAnimalVeterinarioCombo.Location = new System.Drawing.Point(565, 232);

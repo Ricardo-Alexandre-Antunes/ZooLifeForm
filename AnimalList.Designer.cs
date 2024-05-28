@@ -260,7 +260,7 @@
             this.opção2ToolStripMenuItem,
             this.opção3ToolStripMenuItem});
             this.escolherZooToolStripMenuItem.Name = "escolherZooToolStripMenuItem";
-            this.escolherZooToolStripMenuItem.Size = new System.Drawing.Size(109, 24);
+            this.escolherZooToolStripMenuItem.Size = new System.Drawing.Size(109, 26);
             this.escolherZooToolStripMenuItem.Text = "Escolher Zoo";
             // 
             // opção1ToolStripMenuItem
@@ -284,13 +284,13 @@
             // escolherHToolStripMenuItem
             // 
             this.escolherHToolStripMenuItem.Name = "escolherHToolStripMenuItem";
-            this.escolherHToolStripMenuItem.Size = new System.Drawing.Size(132, 24);
+            this.escolherHToolStripMenuItem.Size = new System.Drawing.Size(132, 26);
             this.escolherHToolStripMenuItem.Text = "Escolher Habitat";
             // 
             // escolherHabitáculoToolStripMenuItem
             // 
             this.escolherHabitáculoToolStripMenuItem.Name = "escolherHabitáculoToolStripMenuItem";
-            this.escolherHabitáculoToolStripMenuItem.Size = new System.Drawing.Size(155, 24);
+            this.escolherHabitáculoToolStripMenuItem.Size = new System.Drawing.Size(155, 26);
             this.escolherHabitáculoToolStripMenuItem.Text = "Escolher Habitáculo";
             // 
             // menuStrip1
@@ -302,7 +302,7 @@
             this.escolherHabitáculoToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(877, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(877, 30);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
@@ -319,6 +319,7 @@
             // 
             // VeterinarioAnimal
             // 
+            this.VeterinarioAnimal.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.VeterinarioAnimal.Enabled = false;
             this.VeterinarioAnimal.FormattingEnabled = true;
             this.VeterinarioAnimal.Location = new System.Drawing.Point(424, 209);
@@ -398,6 +399,7 @@
             // 
             // ZooCombo
             // 
+            this.ZooCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ZooCombo.FormattingEnabled = true;
             this.ZooCombo.Location = new System.Drawing.Point(378, 267);
             this.ZooCombo.Name = "ZooCombo";
@@ -418,6 +420,7 @@
             // 
             // HabitatCombo
             // 
+            this.HabitatCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.HabitatCombo.FormattingEnabled = true;
             this.HabitatCombo.Location = new System.Drawing.Point(319, 296);
             this.HabitatCombo.Name = "HabitatCombo";
@@ -438,6 +441,7 @@
             // 
             // HabitaculoCombo
             // 
+            this.HabitaculoCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.HabitaculoCombo.FormattingEnabled = true;
             this.HabitaculoCombo.Location = new System.Drawing.Point(334, 326);
             this.HabitaculoCombo.Name = "HabitaculoCombo";

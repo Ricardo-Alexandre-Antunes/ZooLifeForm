@@ -68,6 +68,7 @@
             // 
             // NovoFuncionarioContratoCombo
             // 
+            this.NovoFuncionarioContratoCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.NovoFuncionarioContratoCombo.FormattingEnabled = true;
             this.NovoFuncionarioContratoCombo.Location = new System.Drawing.Point(593, 99);
             this.NovoFuncionarioContratoCombo.Name = "NovoFuncionarioContratoCombo";
@@ -245,6 +246,7 @@
             // 
             // NovoFuncionarioGeneroCombo
             // 
+            this.NovoFuncionarioGeneroCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.NovoFuncionarioGeneroCombo.FormattingEnabled = true;
             this.NovoFuncionarioGeneroCombo.Location = new System.Drawing.Point(149, 187);
             this.NovoFuncionarioGeneroCombo.Name = "NovoFuncionarioGeneroCombo";
@@ -254,6 +256,7 @@
             // 
             // NovoFuncionarioFuncao
             // 
+            this.NovoFuncionarioFuncao.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.NovoFuncionarioFuncao.FormattingEnabled = true;
             this.NovoFuncionarioFuncao.Location = new System.Drawing.Point(149, 270);
             this.NovoFuncionarioFuncao.Name = "NovoFuncionarioFuncao";
@@ -272,6 +275,7 @@
             // 
             // NovoFuncionarioZoo
             // 
+            this.NovoFuncionarioZoo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.NovoFuncionarioZoo.FormattingEnabled = true;
             this.NovoFuncionarioZoo.Location = new System.Drawing.Point(593, 270);
             this.NovoFuncionarioZoo.Name = "NovoFuncionarioZoo";
@@ -291,6 +295,7 @@
             // 
             // NovoFuncionarioRecintos
             // 
+            this.NovoFuncionarioRecintos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.NovoFuncionarioRecintos.FormattingEnabled = true;
             this.NovoFuncionarioRecintos.Location = new System.Drawing.Point(593, 313);
             this.NovoFuncionarioRecintos.Name = "NovoFuncionarioRecintos";

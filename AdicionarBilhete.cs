@@ -119,7 +119,7 @@ namespace ZooLifeForm
             comboBox_bilheteira.Items.Clear(); // Clear any existing items
             comboBox_funcionario_cc.Items.Clear();
 
-            string query = "SELECT ID, Nome FROM ZOO.BILHETEIRA JOIN ZOO.RECINTO ON Recinto_ID = ID WHERE @nome_jz = Recinto.Nome_JZ"; // Assuming a table named 'Zoos' with a column 'ZooName'
+            string query = "SELECT ID, Nome FROM ZOO.BILHETEIRA JOIN ZOO.RECINTO ON Recinto_ID = ID WHERE @nome_jz = Recinto.Nome_JZ and ZOO.BILHETEIRA.Estado = 'aberto'"; // Assuming a table named 'Zoos' with a column 'ZooName'
             SqlCommand cmd = new SqlCommand(query, cn);
             cmd.Parameters.AddWithValue("@nome_jz", this.selectedZoo);
 
@@ -207,7 +207,7 @@ namespace ZooLifeForm
 
         private void label5_Click(object sender, EventArgs e)
         {
-
+            button_adicionar.Enabled = ValidateForm();
         }
 
         private void textBox7_TextChanged(object sender, EventArgs e)
@@ -219,6 +219,7 @@ namespace ZooLifeForm
         {
             this.selectedZoo = comboBox_jz.SelectedItem.ToString();
             PopulateBilheteiraComboBox();
+            button_adicionar.Enabled = ValidateForm();
         }
 
         private int GetBilheteiraID()
@@ -238,11 +239,13 @@ namespace ZooLifeForm
             this.selectedBilheteira = comboBox_bilheteira.Text.ToString();
             this.BilheteiraID = GetBilheteiraID();
             PopulateFuncionarioBilheteiraComboBox();
+            button_adicionar.Enabled = ValidateForm();
         }
 
         private void comboBox_funcionario_cc_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.SelectedFuncionario = int.Parse(comboBox_funcionario_cc.Text.ToString());
+            button_adicionar.Enabled = ValidateForm();
         }
 
         private Boolean ValidateForm()
@@ -323,6 +326,36 @@ namespace ZooLifeForm
             {
                 MessageBox.Show("Erro. Insira os dados corretamente no formulário.");
             }
+        }
+
+        private void textBox_nome_TextChanged(object sender, EventArgs e)
+        {
+            button_adicionar.Enabled = ValidateForm();
+        }
+
+        private void comboBox_genero_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            button_adicionar.Enabled = ValidateForm();
+        }
+
+        private void textBox_cc_TextChanged(object sender, EventArgs e)
+        {
+            button_adicionar.Enabled = ValidateForm();
+        }
+
+        private void dateTimePicker_data_nascimento_ValueChanged(object sender, EventArgs e)
+        {
+            button_adicionar.Enabled = ValidateForm();
+        }
+
+        private void textBox_preco_TextChanged(object sender, EventArgs e)
+        {
+            button_adicionar.Enabled = ValidateForm();
+        }
+
+        private void dateTimePicker_data_compra_ValueChanged(object sender, EventArgs e)
+        {
+            button_adicionar.Enabled = ValidateForm();
         }
     }
 }

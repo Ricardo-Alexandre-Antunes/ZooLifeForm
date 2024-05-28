@@ -40,7 +40,6 @@
             this.label_estado_recinto = new System.Windows.Forms.Label();
             this.label_recinto_jz = new System.Windows.Forms.Label();
             this.textbox_nome_recinto = new System.Windows.Forms.TextBox();
-            this.textbox_estado_recinto = new System.Windows.Forms.TextBox();
             this.textbox_recinto_jz = new System.Windows.Forms.TextBox();
             this.label_capacidadeMax_recinto = new System.Windows.Forms.Label();
             this.textbox_capacidadeMax_recinto = new System.Windows.Forms.TextBox();
@@ -58,6 +57,10 @@
             this.listbox_lista_funcionarios_recinto = new System.Windows.Forms.ListBox();
             this.textbox_numero_funcionarios_recinto = new System.Windows.Forms.TextBox();
             this.label_lista_funcionarios_recinto = new System.Windows.Forms.Label();
+            this.EditarRecinto = new System.Windows.Forms.Button();
+            this.CancelarEdicao = new System.Windows.Forms.Button();
+            this.ConfirmarEdicao = new System.Windows.Forms.Button();
+            this.RecintoEstado = new System.Windows.Forms.ComboBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -80,7 +83,7 @@
             this.escolherTipoToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(841, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(841, 30);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -165,14 +168,6 @@
             this.textbox_nome_recinto.Size = new System.Drawing.Size(522, 22);
             this.textbox_nome_recinto.TabIndex = 5;
             // 
-            // textbox_estado_recinto
-            // 
-            this.textbox_estado_recinto.Location = new System.Drawing.Point(307, 97);
-            this.textbox_estado_recinto.Name = "textbox_estado_recinto";
-            this.textbox_estado_recinto.ReadOnly = true;
-            this.textbox_estado_recinto.Size = new System.Drawing.Size(522, 22);
-            this.textbox_estado_recinto.TabIndex = 6;
-            // 
             // textbox_recinto_jz
             // 
             this.textbox_recinto_jz.Location = new System.Drawing.Point(365, 139);
@@ -233,7 +228,7 @@
             // 
             this.butto_remover_recinto.Location = new System.Drawing.Point(691, 395);
             this.butto_remover_recinto.Name = "butto_remover_recinto";
-            this.butto_remover_recinto.Size = new System.Drawing.Size(138, 43);
+            this.butto_remover_recinto.Size = new System.Drawing.Size(144, 43);
             this.butto_remover_recinto.TabIndex = 16;
             this.butto_remover_recinto.Text = "Remover Recinto";
             this.butto_remover_recinto.UseVisualStyleBackColor = true;
@@ -335,11 +330,57 @@
             this.label_lista_funcionarios_recinto.TabIndex = 26;
             this.label_lista_funcionarios_recinto.Text = "Lista de funcionários";
             // 
+            // EditarRecinto
+            // 
+            this.EditarRecinto.Location = new System.Drawing.Point(250, 223);
+            this.EditarRecinto.Name = "EditarRecinto";
+            this.EditarRecinto.Size = new System.Drawing.Size(144, 43);
+            this.EditarRecinto.TabIndex = 27;
+            this.EditarRecinto.Text = "Editar Recinto";
+            this.EditarRecinto.UseVisualStyleBackColor = true;
+            this.EditarRecinto.Click += new System.EventHandler(this.EditarRecinto_Click);
+            // 
+            // CancelarEdicao
+            // 
+            this.CancelarEdicao.Location = new System.Drawing.Point(541, 395);
+            this.CancelarEdicao.Name = "CancelarEdicao";
+            this.CancelarEdicao.Size = new System.Drawing.Size(144, 43);
+            this.CancelarEdicao.TabIndex = 28;
+            this.CancelarEdicao.Text = "Cancelar";
+            this.CancelarEdicao.UseVisualStyleBackColor = true;
+            this.CancelarEdicao.Visible = false;
+            this.CancelarEdicao.Click += new System.EventHandler(this.CancelarEdicao_Click);
+            // 
+            // ConfirmarEdicao
+            // 
+            this.ConfirmarEdicao.Location = new System.Drawing.Point(691, 395);
+            this.ConfirmarEdicao.Name = "ConfirmarEdicao";
+            this.ConfirmarEdicao.Size = new System.Drawing.Size(144, 43);
+            this.ConfirmarEdicao.TabIndex = 29;
+            this.ConfirmarEdicao.Text = "Confirmar";
+            this.ConfirmarEdicao.UseVisualStyleBackColor = true;
+            this.ConfirmarEdicao.Visible = false;
+            this.ConfirmarEdicao.Click += new System.EventHandler(this.ConfirmarEdicao_Click);
+            // 
+            // RecintoEstado
+            // 
+            this.RecintoEstado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.RecintoEstado.Enabled = false;
+            this.RecintoEstado.FormattingEnabled = true;
+            this.RecintoEstado.Location = new System.Drawing.Point(307, 92);
+            this.RecintoEstado.Name = "RecintoEstado";
+            this.RecintoEstado.Size = new System.Drawing.Size(522, 24);
+            this.RecintoEstado.TabIndex = 30;
+            // 
             // RecintosList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(841, 450);
+            this.Controls.Add(this.RecintoEstado);
+            this.Controls.Add(this.ConfirmarEdicao);
+            this.Controls.Add(this.CancelarEdicao);
+            this.Controls.Add(this.EditarRecinto);
             this.Controls.Add(this.label_lista_funcionarios_recinto);
             this.Controls.Add(this.textbox_numero_funcionarios_recinto);
             this.Controls.Add(this.listbox_lista_funcionarios_recinto);
@@ -357,7 +398,6 @@
             this.Controls.Add(this.textbox_capacidadeMax_recinto);
             this.Controls.Add(this.label_capacidadeMax_recinto);
             this.Controls.Add(this.textbox_recinto_jz);
-            this.Controls.Add(this.textbox_estado_recinto);
             this.Controls.Add(this.textbox_nome_recinto);
             this.Controls.Add(this.label_recinto_jz);
             this.Controls.Add(this.label_estado_recinto);
@@ -386,7 +426,6 @@
         private System.Windows.Forms.Label label_estado_recinto;
         private System.Windows.Forms.Label label_recinto_jz;
         private System.Windows.Forms.TextBox textbox_nome_recinto;
-        private System.Windows.Forms.TextBox textbox_estado_recinto;
         private System.Windows.Forms.TextBox textbox_recinto_jz;
         private System.Windows.Forms.Label label_capacidadeMax_recinto;
         private System.Windows.Forms.TextBox textbox_capacidadeMax_recinto;
@@ -408,5 +447,9 @@
         private System.Windows.Forms.ListBox listbox_lista_funcionarios_recinto;
         private System.Windows.Forms.TextBox textbox_numero_funcionarios_recinto;
         private System.Windows.Forms.Label label_lista_funcionarios_recinto;
+        private System.Windows.Forms.Button EditarRecinto;
+        private System.Windows.Forms.Button CancelarEdicao;
+        private System.Windows.Forms.Button ConfirmarEdicao;
+        private System.Windows.Forms.ComboBox RecintoEstado;
     }
 }

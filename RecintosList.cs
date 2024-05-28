@@ -14,6 +14,10 @@ namespace ZooLifeForm
         private String chosenTipo;
         private String chosenRecinto;
 
+        private string editingNome;
+        private string editingEstado;
+        private bool buttonsVisibleBefore;
+
 
         public RecintosList(string selectedZoo, Form prevForm)
         {
@@ -25,6 +29,8 @@ namespace ZooLifeForm
             cn = SqlConnection();
             PopulateZooMenuItems();
             PopulateRecintoList();
+            RecintoEstado.Items.Add("aberto");
+            RecintoEstado.Items.Add("fechado");
         }
 
         private SqlConnection SqlConnection()
@@ -127,7 +133,7 @@ namespace ZooLifeForm
 
                             textbox_nome_recinto.Text = reader.GetValue(Nome).ToString();
                             textbox_recinto_jz.Text = reader.GetValue(Nome_JZ).ToString();
-                            textbox_estado_recinto.Text = reader.GetValue(Estado).ToString();
+                            RecintoEstado.Text = reader.GetValue(Estado).ToString();
 
                             // Show and fill Max_capacidade textbox if not null
                             if (!reader.IsDBNull(Max_capacidade))
@@ -513,6 +519,114 @@ namespace ZooLifeForm
             AdicionarRecinto novo_recinto_form = new AdicionarRecinto(this); // Create an instance of the AnimalList form
             novo_recinto_form.Show(); // Show the AnimalList form
             this.Hide();
+        }
+
+        private void EditarRecinto_Click(object sender, EventArgs e)
+        {
+            //allowing edition on name and estado fiels and disabling everything else to not allow other changes
+            editingNome = textbox_nome_recinto.Text;
+            editingEstado = RecintoEstado.Text;
+            buttonsVisibleBefore = button_adicionar_habitaculo.Visible;
+            textbox_nome_recinto.ReadOnly = false;
+            RecintoEstado.Enabled = true;
+            textbox_capacidadeMax_recinto.ReadOnly = true;
+            textbox_n_habitaculos_recinto.ReadOnly = true;
+            textbox_recinto_jz.ReadOnly = true;
+            textbox_bilhetes_vendidos_recinto.ReadOnly = true;
+            textbox_numero_funcionarios_recinto.ReadOnly = true;
+            listbox_lista_funcionarios_recinto.Enabled = false;
+            listBox_habitaculos_recinto.Enabled = false;
+            lista_resultados_recintos.Enabled = false;
+            button_adicionar_habitaculo.Visible = false;
+            button_remover_habitaculo.Visible = false;
+            butto_remover_recinto.Visible = false;
+            button_adicionar_recinto.Visible = false;
+            ConfirmarEdicao.Visible = true;
+            CancelarEdicao.Visible = true;
+            EditarRecinto.Enabled = false;
+
+        }
+
+        private void CancelarEdicao_Click(object sender, EventArgs e)
+        {
+            //put everything back to what it was before
+            textbox_nome_recinto.Text = editingNome;
+            RecintoEstado.Text = editingEstado;
+            textbox_nome_recinto.ReadOnly = true;
+            RecintoEstado.Enabled = false;
+            textbox_capacidadeMax_recinto.ReadOnly = true;
+            textbox_n_habitaculos_recinto.ReadOnly = true;
+            textbox_recinto_jz.ReadOnly = true;
+            textbox_bilhetes_vendidos_recinto.ReadOnly = true;
+            textbox_numero_funcionarios_recinto.ReadOnly = true;
+            listbox_lista_funcionarios_recinto.Enabled = true;
+            listBox_habitaculos_recinto.Enabled = true;
+            lista_resultados_recintos.Enabled = true;
+            button_adicionar_habitaculo.Visible = buttonsVisibleBefore;
+            button_remover_habitaculo.Visible = buttonsVisibleBefore;
+            butto_remover_recinto.Visible = true;
+            button_adicionar_recinto.Visible = true;
+            ConfirmarEdicao.Visible = false;
+            CancelarEdicao.Visible = false;
+            EditarRecinto.Enabled = true;
+        }
+
+        private void ConfirmarEdicao_Click(object sender, EventArgs e)
+        {
+            if (!VerifySqlConnection())
+            {
+                MessageBox.Show("Failed to connect to database. Recinto names cannot be loaded.");
+                return;
+            }
+
+            if (lista_resultados_recintos.SelectedItem != null)
+            {
+                string selectedRecinto = lista_resultados_recintos.SelectedItem.ToString();
+                string[] recintoInfo = selectedRecinto.Split('.'); // Assuming the format is "ID. Name"
+                string recintoID = recintoInfo[0].Trim();
+
+                // Call the stored procedure to remove the animal
+                {
+                    try
+                    {
+                        using (SqlCommand cmd = new SqlCommand("ZOO.sp_editarRecinto", cn))
+                        {
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.Parameters.AddWithValue("@id", int.Parse(recintoID)); // Change the parameter name to "@ID"
+                            cmd.Parameters.AddWithValue("@nome", textbox_nome_recinto.Text);
+                            cmd.Parameters.AddWithValue("@estado", RecintoEstado.Text);
+
+                            cmd.ExecuteNonQuery();
+                            MessageBox.Show("Recinto editado com sucesso.");
+                        }
+
+                        // Refresh the animal list after removal
+                        PopulateRecintoList();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Failed to edit Recinto. Error: " + ex.Message);
+                    }
+                }
+            }
+            //put everything back to what it was before
+            textbox_nome_recinto.ReadOnly = true;
+            RecintoEstado.Enabled = false;
+            textbox_capacidadeMax_recinto.ReadOnly = true;
+            textbox_n_habitaculos_recinto.ReadOnly = true;
+            textbox_recinto_jz.ReadOnly = true;
+            textbox_bilhetes_vendidos_recinto.ReadOnly = true;
+            textbox_numero_funcionarios_recinto.ReadOnly = true;
+            listbox_lista_funcionarios_recinto.Enabled = true;
+            listBox_habitaculos_recinto.Enabled = true;
+            lista_resultados_recintos.Enabled = true;
+            button_adicionar_habitaculo.Visible = buttonsVisibleBefore;
+            button_remover_habitaculo.Visible = buttonsVisibleBefore;
+            butto_remover_recinto.Visible = true;
+            button_adicionar_recinto.Visible = true;
+            ConfirmarEdicao.Visible = false;
+            CancelarEdicao.Visible = false;
+            EditarRecinto.Enabled = true;
         }
     }
 }
