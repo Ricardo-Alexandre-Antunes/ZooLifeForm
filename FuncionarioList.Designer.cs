@@ -74,6 +74,24 @@
             this.DataNascimentoPicker = new System.Windows.Forms.DateTimePicker();
             this.InicioContratoPicker = new System.Windows.Forms.DateTimePicker();
             this.FimContratoPicker = new System.Windows.Forms.DateTimePicker();
+            this.ordenarPorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.salárioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ordemAscendenteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ordemDescendenteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dataDeNascimentoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ordemCrescenteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ordemDecrescenteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dataDeIngressoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ordemCrescenteToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.ordemDecrescenteToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.filtrarPorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.géneroToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nomeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.DataIngressoPicker = new System.Windows.Forms.DateTimePicker();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -82,10 +100,13 @@
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.escolherZooToolStripMenuItem,
-            this.escolherHToolStripMenuItem});
+            this.escolherHToolStripMenuItem,
+            this.ordenarPorToolStripMenuItem,
+            this.filtrarPorToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(950, 30);
+            this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.menuStrip1.Size = new System.Drawing.Size(950, 28);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -96,7 +117,7 @@
             this.opção2ToolStripMenuItem,
             this.opção3ToolStripMenuItem});
             this.escolherZooToolStripMenuItem.Name = "escolherZooToolStripMenuItem";
-            this.escolherZooToolStripMenuItem.Size = new System.Drawing.Size(109, 26);
+            this.escolherZooToolStripMenuItem.Size = new System.Drawing.Size(109, 24);
             this.escolherZooToolStripMenuItem.Text = "Escolher Zoo";
             // 
             // opção1ToolStripMenuItem
@@ -128,7 +149,7 @@
             this.funcionárioDeRestauraçãoToolStripMenuItem,
             this.funcionárioDeBilheteiraToolStripMenuItem});
             this.escolherHToolStripMenuItem.Name = "escolherHToolStripMenuItem";
-            this.escolherHToolStripMenuItem.Size = new System.Drawing.Size(129, 26);
+            this.escolherHToolStripMenuItem.Size = new System.Drawing.Size(129, 24);
             this.escolherHToolStripMenuItem.Text = "Escolher Função";
             // 
             // gerenteToolStripMenuItem
@@ -297,7 +318,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(262, 259);
+            this.label7.Location = new System.Drawing.Point(265, 281);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(120, 16);
             this.label7.TabIndex = 44;
@@ -306,7 +327,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(294, 317);
+            this.label9.Location = new System.Drawing.Point(297, 339);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(50, 16);
             this.label9.TabIndex = 46;
@@ -315,7 +336,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(294, 345);
+            this.label10.Location = new System.Drawing.Point(297, 367);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(159, 16);
             this.label10.TabIndex = 47;
@@ -324,7 +345,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(294, 375);
+            this.label11.Location = new System.Drawing.Point(297, 397);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(145, 16);
             this.label11.TabIndex = 48;
@@ -332,7 +353,7 @@
             // 
             // ContratoTipo
             // 
-            this.ContratoTipo.Location = new System.Drawing.Point(407, 285);
+            this.ContratoTipo.Location = new System.Drawing.Point(410, 307);
             this.ContratoTipo.Name = "ContratoTipo";
             this.ContratoTipo.ReadOnly = true;
             this.ContratoTipo.Size = new System.Drawing.Size(531, 22);
@@ -340,7 +361,7 @@
             // 
             // ContratoSalario
             // 
-            this.ContratoSalario.Location = new System.Drawing.Point(350, 314);
+            this.ContratoSalario.Location = new System.Drawing.Point(353, 336);
             this.ContratoSalario.Name = "ContratoSalario";
             this.ContratoSalario.ReadOnly = true;
             this.ContratoSalario.Size = new System.Drawing.Size(588, 22);
@@ -350,7 +371,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(294, 288);
+            this.label8.Location = new System.Drawing.Point(297, 310);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(107, 16);
             this.label8.TabIndex = 45;
@@ -379,7 +400,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(262, 259);
+            this.label2.Location = new System.Drawing.Point(263, 281);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(126, 16);
             this.label2.TabIndex = 56;
@@ -389,7 +410,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(263, 435);
+            this.label6.Location = new System.Drawing.Point(266, 457);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(72, 16);
             this.label6.TabIndex = 57;
@@ -400,7 +421,7 @@
             // 
             this.ListaResponsabilidades.FormattingEnabled = true;
             this.ListaResponsabilidades.ItemHeight = 16;
-            this.ListaResponsabilidades.Location = new System.Drawing.Point(297, 281);
+            this.ListaResponsabilidades.Location = new System.Drawing.Point(300, 303);
             this.ListaResponsabilidades.Name = "ListaResponsabilidades";
             this.ListaResponsabilidades.Size = new System.Drawing.Size(641, 116);
             this.ListaResponsabilidades.TabIndex = 58;
@@ -422,7 +443,7 @@
             this.comboBox1.Enabled = false;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.comboBox1.Location = new System.Drawing.Point(341, 432);
+            this.comboBox1.Location = new System.Drawing.Point(344, 454);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(581, 24);
             this.comboBox1.TabIndex = 59;
@@ -431,7 +452,7 @@
             // 
             // GerirResponsabilidades
             // 
-            this.GerirResponsabilidades.Location = new System.Drawing.Point(739, 403);
+            this.GerirResponsabilidades.Location = new System.Drawing.Point(742, 425);
             this.GerirResponsabilidades.Name = "GerirResponsabilidades";
             this.GerirResponsabilidades.Size = new System.Drawing.Size(199, 23);
             this.GerirResponsabilidades.TabIndex = 60;
@@ -474,24 +495,179 @@
             // InicioContratoPicker
             // 
             this.InicioContratoPicker.Enabled = false;
-            this.InicioContratoPicker.Location = new System.Drawing.Point(460, 342);
+            this.InicioContratoPicker.Location = new System.Drawing.Point(487, 364);
             this.InicioContratoPicker.Name = "InicioContratoPicker";
-            this.InicioContratoPicker.Size = new System.Drawing.Size(478, 22);
+            this.InicioContratoPicker.Size = new System.Drawing.Size(454, 22);
             this.InicioContratoPicker.TabIndex = 64;
             // 
             // FimContratoPicker
             // 
             this.FimContratoPicker.Enabled = false;
-            this.FimContratoPicker.Location = new System.Drawing.Point(460, 370);
+            this.FimContratoPicker.Location = new System.Drawing.Point(487, 392);
             this.FimContratoPicker.Name = "FimContratoPicker";
-            this.FimContratoPicker.Size = new System.Drawing.Size(478, 22);
+            this.FimContratoPicker.Size = new System.Drawing.Size(454, 22);
             this.FimContratoPicker.TabIndex = 65;
+            // 
+            // ordenarPorToolStripMenuItem
+            // 
+            this.ordenarPorToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.salárioToolStripMenuItem,
+            this.dataDeNascimentoToolStripMenuItem,
+            this.dataDeIngressoToolStripMenuItem});
+            this.ordenarPorToolStripMenuItem.Name = "ordenarPorToolStripMenuItem";
+            this.ordenarPorToolStripMenuItem.Size = new System.Drawing.Size(102, 24);
+            this.ordenarPorToolStripMenuItem.Text = "Ordenar Por";
+            // 
+            // salárioToolStripMenuItem
+            // 
+            this.salárioToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ordemAscendenteToolStripMenuItem,
+            this.ordemDescendenteToolStripMenuItem});
+            this.salárioToolStripMenuItem.Name = "salárioToolStripMenuItem";
+            this.salárioToolStripMenuItem.Size = new System.Drawing.Size(228, 26);
+            this.salárioToolStripMenuItem.Text = "Salário";
+            // 
+            // ordemAscendenteToolStripMenuItem
+            // 
+            this.ordemAscendenteToolStripMenuItem.CheckOnClick = true;
+            this.ordemAscendenteToolStripMenuItem.Name = "ordemAscendenteToolStripMenuItem";
+            this.ordemAscendenteToolStripMenuItem.Size = new System.Drawing.Size(228, 26);
+            this.ordemAscendenteToolStripMenuItem.Text = "Ordem Crescente";
+            this.ordemAscendenteToolStripMenuItem.Click += new System.EventHandler(this.ordemAscendenteToolStripMenuItem_Click);
+            // 
+            // ordemDescendenteToolStripMenuItem
+            // 
+            this.ordemDescendenteToolStripMenuItem.CheckOnClick = true;
+            this.ordemDescendenteToolStripMenuItem.Name = "ordemDescendenteToolStripMenuItem";
+            this.ordemDescendenteToolStripMenuItem.Size = new System.Drawing.Size(228, 26);
+            this.ordemDescendenteToolStripMenuItem.Text = "Ordem Descendente";
+            this.ordemDescendenteToolStripMenuItem.Click += new System.EventHandler(this.ordemDescendenteToolStripMenuItem_Click);
+            // 
+            // dataDeNascimentoToolStripMenuItem
+            // 
+            this.dataDeNascimentoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ordemCrescenteToolStripMenuItem,
+            this.ordemDecrescenteToolStripMenuItem});
+            this.dataDeNascimentoToolStripMenuItem.Name = "dataDeNascimentoToolStripMenuItem";
+            this.dataDeNascimentoToolStripMenuItem.Size = new System.Drawing.Size(228, 26);
+            this.dataDeNascimentoToolStripMenuItem.Text = "Data de Nascimento";
+            // 
+            // ordemCrescenteToolStripMenuItem
+            // 
+            this.ordemCrescenteToolStripMenuItem.CheckOnClick = true;
+            this.ordemCrescenteToolStripMenuItem.Name = "ordemCrescenteToolStripMenuItem";
+            this.ordemCrescenteToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.ordemCrescenteToolStripMenuItem.Text = "Mais Velho";
+            this.ordemCrescenteToolStripMenuItem.Click += new System.EventHandler(this.ordemCrescenteToolStripMenuItem_Click);
+            // 
+            // ordemDecrescenteToolStripMenuItem
+            // 
+            this.ordemDecrescenteToolStripMenuItem.CheckOnClick = true;
+            this.ordemDecrescenteToolStripMenuItem.Name = "ordemDecrescenteToolStripMenuItem";
+            this.ordemDecrescenteToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.ordemDecrescenteToolStripMenuItem.Text = "Mais Novo";
+            this.ordemDecrescenteToolStripMenuItem.Click += new System.EventHandler(this.ordemDecrescenteToolStripMenuItem_Click);
+            // 
+            // dataDeIngressoToolStripMenuItem
+            // 
+            this.dataDeIngressoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ordemCrescenteToolStripMenuItem1,
+            this.ordemDecrescenteToolStripMenuItem1});
+            this.dataDeIngressoToolStripMenuItem.Name = "dataDeIngressoToolStripMenuItem";
+            this.dataDeIngressoToolStripMenuItem.Size = new System.Drawing.Size(228, 26);
+            this.dataDeIngressoToolStripMenuItem.Text = "Data de Ingresso";
+            // 
+            // ordemCrescenteToolStripMenuItem1
+            // 
+            this.ordemCrescenteToolStripMenuItem1.CheckOnClick = true;
+            this.ordemCrescenteToolStripMenuItem1.Name = "ordemCrescenteToolStripMenuItem1";
+            this.ordemCrescenteToolStripMenuItem1.Size = new System.Drawing.Size(224, 26);
+            this.ordemCrescenteToolStripMenuItem1.Text = "Mais Antigo";
+            this.ordemCrescenteToolStripMenuItem1.Click += new System.EventHandler(this.ordemCrescenteToolStripMenuItem1_Click);
+            // 
+            // ordemDecrescenteToolStripMenuItem1
+            // 
+            this.ordemDecrescenteToolStripMenuItem1.CheckOnClick = true;
+            this.ordemDecrescenteToolStripMenuItem1.Name = "ordemDecrescenteToolStripMenuItem1";
+            this.ordemDecrescenteToolStripMenuItem1.Size = new System.Drawing.Size(224, 26);
+            this.ordemDecrescenteToolStripMenuItem1.Text = "Mais Recente";
+            this.ordemDecrescenteToolStripMenuItem1.Click += new System.EventHandler(this.ordemDecrescenteToolStripMenuItem1_Click);
+            // 
+            // filtrarPorToolStripMenuItem
+            // 
+            this.filtrarPorToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.géneroToolStripMenuItem,
+            this.nomeToolStripMenuItem});
+            this.filtrarPorToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.filtrarPorToolStripMenuItem.Name = "filtrarPorToolStripMenuItem";
+            this.filtrarPorToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.filtrarPorToolStripMenuItem.Size = new System.Drawing.Size(86, 24);
+            this.filtrarPorToolStripMenuItem.Text = "Filtrar Por";
+            // 
+            // géneroToolStripMenuItem
+            // 
+            this.géneroToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mToolStripMenuItem,
+            this.fToolStripMenuItem});
+            this.géneroToolStripMenuItem.Name = "géneroToolStripMenuItem";
+            this.géneroToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.géneroToolStripMenuItem.Text = "Género";
+            // 
+            // mToolStripMenuItem
+            // 
+            this.mToolStripMenuItem.CheckOnClick = true;
+            this.mToolStripMenuItem.Name = "mToolStripMenuItem";
+            this.mToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.mToolStripMenuItem.Text = "M";
+            this.mToolStripMenuItem.Click += new System.EventHandler(this.mToolStripMenuItem_Click);
+            // 
+            // fToolStripMenuItem
+            // 
+            this.fToolStripMenuItem.CheckOnClick = true;
+            this.fToolStripMenuItem.Name = "fToolStripMenuItem";
+            this.fToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.fToolStripMenuItem.Text = "F";
+            this.fToolStripMenuItem.Click += new System.EventHandler(this.fToolStripMenuItem_Click);
+            // 
+            // nomeToolStripMenuItem
+            // 
+            this.nomeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripTextBox1});
+            this.nomeToolStripMenuItem.Name = "nomeToolStripMenuItem";
+            this.nomeToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.nomeToolStripMenuItem.Text = "Nome";
+            // 
+            // toolStripTextBox1
+            // 
+            this.toolStripTextBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.toolStripTextBox1.Name = "toolStripTextBox1";
+            this.toolStripTextBox1.Size = new System.Drawing.Size(100, 27);
+            this.toolStripTextBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.toolStripTextBox1_KeyPress);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(262, 253);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(110, 16);
+            this.label12.TabIndex = 66;
+            this.label12.Text = "Data de Ingresso";
+            // 
+            // DataIngressoPicker
+            // 
+            this.DataIngressoPicker.Enabled = false;
+            this.DataIngressoPicker.Location = new System.Drawing.Point(415, 248);
+            this.DataIngressoPicker.Name = "DataIngressoPicker";
+            this.DataIngressoPicker.Size = new System.Drawing.Size(523, 22);
+            this.DataIngressoPicker.TabIndex = 67;
             // 
             // FuncionarioList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(950, 544);
+            this.ClientSize = new System.Drawing.Size(950, 547);
+            this.Controls.Add(this.DataIngressoPicker);
+            this.Controls.Add(this.label12);
             this.Controls.Add(this.DataNascimentoPicker);
             this.Controls.Add(this.CancelarEdicao);
             this.Controls.Add(this.ConfirmarEdicao);
@@ -584,5 +760,23 @@
         private System.Windows.Forms.DateTimePicker DataNascimentoPicker;
         private System.Windows.Forms.DateTimePicker InicioContratoPicker;
         private System.Windows.Forms.DateTimePicker FimContratoPicker;
+        private System.Windows.Forms.ToolStripMenuItem ordenarPorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem salárioToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ordemAscendenteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ordemDescendenteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dataDeNascimentoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ordemCrescenteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ordemDecrescenteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dataDeIngressoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ordemCrescenteToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem ordemDecrescenteToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem filtrarPorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem géneroToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem nomeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.DateTimePicker DataIngressoPicker;
     }
 }

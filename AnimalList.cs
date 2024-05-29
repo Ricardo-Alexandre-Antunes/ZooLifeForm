@@ -60,7 +60,7 @@ namespace ZooLifeForm
         {
             this.showHabitaculos = newValue;
             escolherHabitáculoToolStripMenuItem.Visible = showHabitaculos;
-            }
+        }
 
 
         private SqlConnection SqlConnection()
@@ -225,6 +225,7 @@ namespace ZooLifeForm
             ToolStripMenuItem clickedItem = (ToolStripMenuItem)sender;
             this.selectedZoo = clickedItem.Text;
             this.chosenHabitat = null;
+            this.chosenHabitaculo = null;
             this.Text = "ZooLife - Lista de Animais (" + selectedZoo + ")";
             updateVisibilityHabitaculos(false);
             populateHabitatMenuItems(); // Add this line to update the habitat menu items
@@ -236,15 +237,16 @@ namespace ZooLifeForm
         {
             ToolStripMenuItem clickedItem = (ToolStripMenuItem)sender;
             string habitatText = clickedItem.Text.ToString();
+            this.chosenHabitaculo = null;
             char[] separator = new char[1];
             separator[0] = '.'; // Assuming the habitat name is in the format 'ID. Name'    
             string habitatID = habitatText.Split(separator)[0];
-                this.chosenHabitat = habitatID.ToString();
-                populateHabitaculoMenuItems();
-                updateVisibilityHabitaculos(true);
-                PopulateAnimalList();
-                // Perform actions based on the selected habitat
-                this.Text = "ZooLife - Lista de Animais (" + selectedZoo + " - " + chosenHabitat + ")";
+            this.chosenHabitat = habitatID.ToString();
+            populateHabitaculoMenuItems();
+            updateVisibilityHabitaculos(true);
+            PopulateAnimalList();
+            // Perform actions based on the selected habitat
+            this.Text = "ZooLife - Lista de Animais (" + selectedZoo + " - " + chosenHabitat + ")";
         }
 
         private void menuItem_ClickHabitaculo(object sender, EventArgs e)

@@ -30,6 +30,9 @@ namespace ZooLifeForm
         string editingTipoContrato;
         string editingBoss;
         Boolean editing;
+        List<String> orderingQueries = new List<String>();
+        string generoFilter;
+        string nomeFilter;
 
 
 
@@ -39,6 +42,7 @@ namespace ZooLifeForm
             this.prevForm = prevForm;
             this.selectedZoo = selectedZoo;
             this.selectedRole = "";
+            this.generoFilter = "";
             this.Text = "ZooLife - Lista de Funcionários (" + selectedZoo + ")";
             this.FormClosing += new FormClosingEventHandler(this.FuncionarioList_FormClosing);
             PopulateFuncionarios();
@@ -91,6 +95,26 @@ namespace ZooLifeForm
             {
                 query += " AND ZOO.FUNCIONARIO_DETALHADO_TOTAL_CONTRATO.Role = @Role";
             }
+            if (generoFilter != "")
+            {
+                query += generoFilter;
+            }
+            if (nomeFilter != "")
+            {
+                query += nomeFilter;
+            }
+            if (orderingQueries.Count > 0)
+            {
+                query += " ORDER BY ";
+                for (int i = 0; i < orderingQueries.Count; i++)
+                {
+                    query += orderingQueries[i];
+                    if (i != orderingQueries.Count - 1)
+                    {
+                        query += ", ";
+                    }
+                }
+            }
             SqlCommand cmd = new SqlCommand(query, cn);
             cmd.Parameters.AddWithValue("@Nome_JZ", this.selectedZoo);
             if (selectedRole != "")
@@ -107,6 +131,10 @@ namespace ZooLifeForm
                         ListaFuncionarios.Items.Add(reader["Num_Funcionario"] + ". " + reader["Nome"]);
                         funcionarios_CC[int.Parse(reader["Num_Funcionario"].ToString())] = int.Parse(reader["Numero_CC"].ToString());
                     }
+                }
+                if (ListaFuncionarios.Items.Count > 0)
+                {
+                    ListaFuncionarios.SelectedIndex = 0;
                 }
             }
             catch (Exception ex)
@@ -241,6 +269,7 @@ namespace ZooLifeForm
                         DataNascimentoPicker.Value = Convert.ToDateTime(reader["Data_Nascimento"].ToString());
                         InicioContratoPicker.Value = Convert.ToDateTime(reader["Data_inicio_contrato"].ToString());
                         FimContratoPicker.Value = Convert.ToDateTime(reader["Data_fim_contrato"].ToString());
+                        DataIngressoPicker.Value = Convert.ToDateTime(reader["Data_ingresso"].ToString());
                         ContratoSalario.Text = reader["Salario"].ToString();
                         FuncaoFuncionario.Text = reader["Role"].ToString();
                         if (FuncaoFuncionario.Text == "GERENTE")
@@ -741,6 +770,7 @@ namespace ZooLifeForm
                 DataNascimentoPicker.Value = DateTime.Now;
                 InicioContratoPicker.Value = DateTime.Now;
                 FimContratoPicker.Value = DateTime.Now;
+                DataIngressoPicker.Value = DateTime.Now;
                 ContratoSalario.Text = "";
                 ContratoTipo.Text = "";
                 comboBox1.Text = "";
@@ -761,6 +791,134 @@ namespace ZooLifeForm
             GerirResponsabilidades responsabilidades = new GerirResponsabilidades(this, ListaFuncionarios.Text, this.selectedFuncionario, this.FuncaoFuncionario.Text, this.selectedZoo);
             responsabilidades.Show();
             this.Hide();
+        }
+
+        private void ordemAscendenteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ordemDescendenteToolStripMenuItem.Checked = false;
+            if (ordemAscendenteToolStripMenuItem.Checked)
+            {
+                orderingQueries.Add("ZOO.FUNCIONARIO_DETALHADO_TOTAL_CONTRATO.Salario ASC");
+                orderingQueries.Remove("ZOO.FUNCIONARIO_DETALHADO_TOTAL_CONTRATO.Salario DESC");
+            }
+            else
+            {
+                orderingQueries.Remove("ZOO.FUNCIONARIO_DETALHADO_TOTAL_CONTRATO.Salario ASC");
+            }
+            PopulateFuncionarios();
+        }
+
+        private void ordemDescendenteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ordemAscendenteToolStripMenuItem.Checked = false;
+            if (ordemDescendenteToolStripMenuItem.Checked)
+            {
+                orderingQueries.Add("ZOO.FUNCIONARIO_DETALHADO_TOTAL_CONTRATO.Salario DESC");
+                orderingQueries.Remove("ZOO.FUNCIONARIO_DETALHADO_TOTAL_CONTRATO.Salario ASC");
+            }
+            else
+            {
+                orderingQueries.Remove("ZOO.FUNCIONARIO_DETALHADO_TOTAL_CONTRATO.Salario DESC");
+            }
+            PopulateFuncionarios();
+        }
+
+        private void ordemCrescenteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ordemDescendenteToolStripMenuItem.Checked = false;
+            if (ordemCrescenteToolStripMenuItem.Checked)
+            {
+                orderingQueries.Add("ZOO.FUNCIONARIO_DETALHADO_TOTAL_CONTRATO.Data_nascimento ASC");
+                orderingQueries.Remove("ZOO.FUNCIONARIO_DETALHADO_TOTAL_CONTRATO.Data_nascimento DESC");
+            }
+            else
+            {
+                orderingQueries.Remove("ZOO.FUNCIONARIO_DETALHADO_TOTAL_CONTRATO.Data_nascimento ASC");
+            }
+            PopulateFuncionarios();
+        }
+
+        private void ordemDecrescenteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ordemCrescenteToolStripMenuItem.Checked = false;
+            if (ordemDecrescenteToolStripMenuItem.Checked)
+            {
+                orderingQueries.Add("ZOO.FUNCIONARIO_DETALHADO_TOTAL_CONTRATO.Data_nascimento DESC");
+                orderingQueries.Remove("ZOO.FUNCIONARIO_DETALHADO_TOTAL_CONTRATO.Data_nascimento ASC");
+            }
+            else
+            {
+                orderingQueries.Remove("ZOO.FUNCIONARIO_DETALHADO_TOTAL_CONTRATO.Data_nascimento DESC");
+            }
+            PopulateFuncionarios();
+        }
+
+        private void ordemCrescenteToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            ordemDecrescenteToolStripMenuItem1.Checked = false;
+            if (ordemCrescenteToolStripMenuItem1.Checked)
+            {
+                orderingQueries.Add("ZOO.FUNCIONARIO_DETALHADO_TOTAL_CONTRATO.Data_ingresso ASC");
+                orderingQueries.Remove("ZOO.FUNCIONARIO_DETALHADO_TOTAL_CONTRATO.Data_ingresso DESC");
+            }
+            else
+            {
+                orderingQueries.Remove("ZOO.FUNCIONARIO_DETALHADO_TOTAL_CONTRATO.Data_ingresso ASC");
+            }
+            PopulateFuncionarios();
+        }
+
+        private void ordemDecrescenteToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            ordemCrescenteToolStripMenuItem1.Checked = false;
+            if (ordemDecrescenteToolStripMenuItem1.Checked)
+            {
+                orderingQueries.Add("ZOO.FUNCIONARIO_DETALHADO_TOTAL_CONTRATO.Data_ingresso DESC");
+                orderingQueries.Remove("ZOO.FUNCIONARIO_DETALHADO_TOTAL_CONTRATO.Data_ingresso ASC");
+            }
+            else
+            {
+                orderingQueries.Remove("ZOO.FUNCIONARIO_DETALHADO_TOTAL_CONTRATO.Data_ingresso DESC");
+            }
+            PopulateFuncionarios();
+        }
+
+        private void mToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            fToolStripMenuItem.Checked = false;
+            if (mToolStripMenuItem.Checked)
+            {
+                generoFilter = " and ZOO.FUNCIONARIO_DETALHADO_TOTAL_CONTRATO.Genero = 'M'";
+            }
+            else
+            {
+                generoFilter = "";
+            }
+            PopulateFuncionarios();
+        }
+
+        private void fToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            mToolStripMenuItem.Checked = false;
+            if (fToolStripMenuItem.Checked)
+            {
+                generoFilter = " and ZOO.FUNCIONARIO_DETALHADO_TOTAL_CONTRATO.Genero = 'F'";
+            }
+            else
+            {
+                generoFilter = "";
+            }
+            PopulateFuncionarios();
+        }
+
+        private void toolStripTextBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                nomeFilter = " and ZOO.FUNCIONARIO_DETALHADO_TOTAL_CONTRATO.Nome like '%" + toolStripTextBox1.Text + "%'";
+                PopulateFuncionarios();
+            }
+
         }
     }
 }
