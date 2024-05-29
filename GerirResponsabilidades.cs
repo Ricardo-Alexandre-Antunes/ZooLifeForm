@@ -19,7 +19,8 @@ namespace ZooLifeForm
         private int CC;
         private SqlConnection cn;
         private string currentZoo;
-        public GerirResponsabilidades(Form prevForm, string funcionario, int cc, string function, string currentZoo)
+        private string connectionString;
+        public GerirResponsabilidades(Form prevForm, string funcionario, int cc, string function, string currentZoo, string connectionString)
         {
             InitializeComponent();
             Console.WriteLine(currentZoo);
@@ -29,6 +30,7 @@ namespace ZooLifeForm
             this.CC = cc;
             this.function = function;
             this.currentZoo = currentZoo;
+            this.connectionString = connectionString;
             PopulateCurResponsibilities();
             PopulateNonResponsibilities();
             if (this.function.Equals("VETERINARIO"))
@@ -46,7 +48,7 @@ namespace ZooLifeForm
 
         private SqlConnection getSGBDConnection()
         {
-            return new SqlConnection("data source = tcp:mednat.ieeta.pt\\SQLSERVER,8101; Initial Catalog = p8g5; uid = p8g5; password = grupoRRBD2024");
+            return new SqlConnection(connectionString);
         }
 
         private bool verifySGBDConnection()

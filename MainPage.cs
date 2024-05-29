@@ -16,6 +16,7 @@ namespace ZooLifeForm
 
         private SqlConnection cn;
         String selectedZoo;
+        string connectionString = "data source = tcp:mednat.ieeta.pt\\SQLSERVER,8101; Initial Catalog = p8g5; uid = p8g5; password = grupoRRBD2024";
 
         public MainPage()
         {
@@ -26,7 +27,7 @@ namespace ZooLifeForm
 
         private SqlConnection getSGBDConnection()
         {
-            return new SqlConnection("data source = tcp:mednat.ieeta.pt\\SQLSERVER,8101; Initial Catalog = p8g5; uid = p8g5; password = grupoRRBD2024");
+            return new SqlConnection(connectionString);
         }
 
         private bool verifySGBDConnection()
@@ -100,7 +101,7 @@ namespace ZooLifeForm
                 return;
             }
 
-            AnimalList animalListForm = new AnimalList(this.selectedZoo, this); // Create an instance of the AnimalList form
+            AnimalList animalListForm = new AnimalList(this.selectedZoo, this, this.connectionString); // Create an instance of the AnimalList form
             animalListForm.Show(); // Show the AnimalList form
             this.Hide();
         }
@@ -114,7 +115,7 @@ namespace ZooLifeForm
                 MessageBox.Show("Please select a zoo first.");
                 return;
             }
-            RecintosList recintosListForm = new RecintosList(this.selectedZoo, this); // Create an instance of the RecintosList form
+            RecintosList recintosListForm = new RecintosList(this.selectedZoo, this, this.connectionString); // Create an instance of the RecintosList form
             recintosListForm.Show(); // Show the RecintosList form
             this.Hide();
 
@@ -128,7 +129,7 @@ namespace ZooLifeForm
                 MessageBox.Show("Please select a zoo first.");
                 return;
             }
-            FuncionarioList funcionarioListForm = new FuncionarioList(this.selectedZoo ,this); // Create an instance of the FuncionarioList form
+            FuncionarioList funcionarioListForm = new FuncionarioList(this.selectedZoo ,this, connectionString); // Create an instance of the FuncionarioList form
             funcionarioListForm.Show(); // Show the FuncionarioList form
             this.Hide();
         }
@@ -140,7 +141,7 @@ namespace ZooLifeForm
                 MessageBox.Show("Please select a zoo first.");
                 return;
             }
-            Bilhetes BilhetesForm = new Bilhetes(this.selectedZoo, this); // Create an instance of the FuncionarioList form
+            Bilhetes BilhetesForm = new Bilhetes(this.selectedZoo, this, connectionString); // Create an instance of the FuncionarioList form
             BilhetesForm.Show(); // Show the FuncionarioList form
             this.Hide();
         }

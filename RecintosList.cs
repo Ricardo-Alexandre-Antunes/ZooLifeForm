@@ -17,14 +17,22 @@ namespace ZooLifeForm
         private string editingNome;
         private string editingEstado;
         private bool buttonsVisibleBefore;
+        private string connectionString;
 
 
-        public RecintosList(string selectedZoo, Form prevForm)
+        public RecintosList(string selectedZoo, Form prevForm, string connectionString)
         {
             InitializeComponent();
             this.prevForm = prevForm;
+            this.connectionString = connectionString;
             VerifySqlConnection();
             this.selectedZoo = selectedZoo;
+            this.chosenTipo = null;
+            this.chosenRecinto = null;
+            this.editingNome = null;
+            this.editingEstado = null;
+            this.buttonsVisibleBefore = false;
+            
             this.Text = "ZooLife - Lista de Recintos (" + this.selectedZoo + ")";
             cn = SqlConnection();
             PopulateZooMenuItems();
@@ -35,7 +43,7 @@ namespace ZooLifeForm
 
         private SqlConnection SqlConnection()
         {
-            return new SqlConnection("data source = tcp:mednat.ieeta.pt\\SQLSERVER,8101; Initial Catalog = p8g5; uid = p8g5; password = grupoRRBD2024");
+            return new SqlConnection(connectionString);
         }
 
         private bool VerifySqlConnection()
@@ -473,7 +481,7 @@ namespace ZooLifeForm
 
         private void button_adicionar_habitaculo_recinto_Click(object sender, EventArgs e)
         {
-            AdicionarHabitaculo novo_habitaculo_form = new AdicionarHabitaculo(this.selectedZoo, this); // Create an instance of the AnimalList form
+            AdicionarHabitaculo novo_habitaculo_form = new AdicionarHabitaculo(this.selectedZoo, this, this.connectionString); // Create an instance of the AnimalList form
             novo_habitaculo_form.Show(); // Show the AnimalList form
             this.Hide();
         }
@@ -516,7 +524,7 @@ namespace ZooLifeForm
 
         private void button_adicionar_recinto_Click(object sender, EventArgs e)
         {
-            AdicionarRecinto novo_recinto_form = new AdicionarRecinto(this); // Create an instance of the AnimalList form
+            AdicionarRecinto novo_recinto_form = new AdicionarRecinto(this, this.connectionString); // Create an instance of the AnimalList form
             novo_recinto_form.Show(); // Show the AnimalList form
             this.Hide();
         }

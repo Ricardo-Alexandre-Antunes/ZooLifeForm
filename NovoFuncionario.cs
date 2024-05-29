@@ -17,10 +17,12 @@ namespace ZooLifeForm
         private SqlConnection cn;
         private string selectedZoo;
         private string selectedRole;
+        private string connectionString;
 
-        public NovoFuncionario(Form prevForm)
+        public NovoFuncionario(Form prevForm, string connectionString)
         {
             InitializeComponent();
+            this.connectionString = connectionString;
             this.prevForm = prevForm;
             this.FormClosing += new FormClosingEventHandler(this.NovoFuncionario_FormClosing);
             NovoFuncionarioGeneroCombo.Items.Add("M");

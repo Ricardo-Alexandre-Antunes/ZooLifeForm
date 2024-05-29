@@ -33,16 +33,19 @@ namespace ZooLifeForm
         List<String> orderingQueries = new List<String>();
         string generoFilter;
         string nomeFilter;
+        string connectionString;
 
 
 
-        public FuncionarioList(string selectedZoo, Form prevForm)
+        public FuncionarioList(string selectedZoo, Form prevForm, string connectionString)
         {
             InitializeComponent();
             this.prevForm = prevForm;
             this.selectedZoo = selectedZoo;
             this.selectedRole = "";
             this.generoFilter = "";
+            this.nomeFilter = "";
+            this.connectionString = connectionString;
             this.Text = "ZooLife - Lista de Funcionários (" + selectedZoo + ")";
             this.FormClosing += new FormClosingEventHandler(this.FuncionarioList_FormClosing);
             PopulateFuncionarios();
@@ -66,7 +69,7 @@ namespace ZooLifeForm
 
         private SqlConnection getSGBDConnection()
         {
-            return new SqlConnection("data source = tcp:mednat.ieeta.pt\\SQLSERVER,8101; Initial Catalog = p8g5; uid = p8g5; password = grupoRRBD2024");
+            return new SqlConnection(connectionString);
         }
 
         private bool verifySGBDConnection()
@@ -489,9 +492,10 @@ namespace ZooLifeForm
             string[] funcionario = ListaFuncionarios.SelectedItem.ToString().Split('-');
             int funcionarioID = Int32.Parse(funcionario[0].Trim());
 
-            string query = "DELETE FROM ZOO.Funcionario WHERE ID = @funcionarioID";
+            string query = "DELETE FROM ZOO.Funcionario WHERE ID = @funcionarioID AND Nome_JZ = @NomeJZ";
             SqlCommand cmd = new SqlCommand(query, cn);
             cmd.Parameters.AddWithValue("@funcionarioID", funcionarioID);
+            cmd.Parameters.AddWithValue("@NomeJZ", selectedZoo);
 
             try
             {
@@ -781,14 +785,14 @@ namespace ZooLifeForm
 
         private void button3_Click(object sender, EventArgs e)
         {
-            NovoFuncionario novoFuncionario = new NovoFuncionario(this);
+            NovoFuncionario novoFuncionario = new NovoFuncionario(this, this.connectionString);
             novoFuncionario.Show();
             this.Hide();
         }
 
         private void GerirResponsabilidades_Click(object sender, EventArgs e)
         {
-            GerirResponsabilidades responsabilidades = new GerirResponsabilidades(this, ListaFuncionarios.Text, this.selectedFuncionario, this.FuncaoFuncionario.Text, this.selectedZoo);
+            GerirResponsabilidades responsabilidades = new GerirResponsabilidades(this, ListaFuncionarios.Text, this.selectedFuncionario, this.FuncaoFuncionario.Text, this.selectedZoo, this.connectionString);
             responsabilidades.Show();
             this.Hide();
         }

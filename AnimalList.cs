@@ -32,15 +32,17 @@ namespace ZooLifeForm
         private int transferenciaHabitat;
         private string transferenciaHabitatNome;
         private int transferenciaHabitaculo;
+        private string connectionString;
 
         private SqlConnection cn;
         private Boolean showHabitaculos = false;
-        public AnimalList(string selectedZoo, Form prevForm)
+        public AnimalList(string selectedZoo, Form prevForm, string connectionString)
         {
             InitializeComponent();
             this.prevForm = prevForm;
             this.FormClosing += new FormClosingEventHandler(this.GerirRelacoes_FormClosing);
             escolherHabitáculoToolStripMenuItem.Visible = showHabitaculos;
+            this.connectionString = connectionString;
             VerifySqlConnection();
             this.selectedZoo = selectedZoo;
             this.Text = "ZooLife - Lista de Animais (" + this.selectedZoo + ")";
@@ -65,7 +67,7 @@ namespace ZooLifeForm
 
         private SqlConnection SqlConnection()
         {
-            return new SqlConnection("data source = tcp:mednat.ieeta.pt\\SQLSERVER,8101; Initial Catalog = p8g5; uid = p8g5; password = grupoRRBD2024");
+            return new SqlConnection(connectionString);
         }
 
         private bool VerifySqlConnection()
@@ -87,11 +89,20 @@ namespace ZooLifeForm
             }
 
             listBox1.Items.Clear(); // Clear any existing items
-            string chosenHabitatQuery = (this.chosenHabitat != null) ? "AND ZOO.ANIMAL.Habitat_ID = " + this.chosenHabitat : "";
-            string chosenHabitaculoQuery = (this.chosenHabitaculo != null) ? "AND ZOO.ANIMAL.Habitaculo_ID = " + this.chosenHabitaculo : "";
+            string chosenHabitatQuery = (this.chosenHabitat != null) ? " AND ZOO.ANIMAL.Habitat_ID = @HabitatID" : "";
+            string chosenHabitaculoQuery = (this.chosenHabitaculo != null) ? " AND ZOO.ANIMAL.Habitaculo_ID = @HabitaculoID" : "";
 
-            string query = "SELECT Nome, ID FROM ZOO.ANIMAL WHERE ZOO.ANIMAL.Nome_JZ = \'" + this.selectedZoo + "\'" + chosenHabitatQuery + chosenHabitaculoQuery; // Assuming a table named 'Animals' with a column 'AnimalName'
+            string query = "SELECT Nome, ID FROM ZOO.ANIMAL WHERE ZOO.ANIMAL.Nome_JZ = @NomeJZ" + chosenHabitatQuery + chosenHabitaculoQuery; // Assuming a table named 'Animals' with a column 'AnimalName'
             SqlCommand cmd = new SqlCommand(query, this.cn);
+            cmd.Parameters.AddWithValue("@NomeJZ", this.selectedZoo);
+            if (this.chosenHabitat != null)
+            {
+                cmd.Parameters.AddWithValue("@HabitatID", this.chosenHabitat);
+            }
+            if (this.chosenHabitaculo != null)
+            {
+                cmd.Parameters.AddWithValue("@HabitaculoID", this.chosenHabitaculo);
+            }
 
             try
             {
@@ -457,7 +468,7 @@ namespace ZooLifeForm
         private void AdicionarAnimal_Click(object sender, EventArgs e)
         {
             // Navigate to the NovoAnimal page
-            NovoAnimal novoAnimalPage = new NovoAnimal();
+            NovoAnimal novoAnimalPage = new NovoAnimal(this.connectionString);
             novoAnimalPage.Show();
             this.Hide();
         }
@@ -951,7 +962,7 @@ namespace ZooLifeForm
 
         private void GerirRelacoes_Click(object sender, EventArgs e)
         {
-            GerirRelacoes gerirRelacoesPage = new GerirRelacoes(this);
+            GerirRelacoes gerirRelacoesPage = new GerirRelacoes(this, this.connectionString);
             gerirRelacoesPage.Show();
             this.Hide();
         }

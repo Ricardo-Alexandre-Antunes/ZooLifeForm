@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -24,7 +25,8 @@ namespace ZooLifeForm
         private string[] BilheteirasNome;
         private int BilheteiraID;
         private int count = 0;
-        public AdicionarBilhete(String selectedZoo, Form previousForm)
+        private string connectionString;
+        public AdicionarBilhete(String selectedZoo, Form previousForm, string connectionString)
         {
             InitializeComponent();
             this.BilheteirasID = new int[100];
@@ -32,6 +34,7 @@ namespace ZooLifeForm
             this.selectedZoo = selectedZoo;
             this.Text = "Adicionar bilhete vendido";
             this.previousForm = previousForm;
+            this.connectionString = connectionString;
             VerifySGBDConnection();
             this.cn = SGBDConnection();
             this.selectedBilheteira = null;
@@ -59,7 +62,7 @@ namespace ZooLifeForm
 
         private SqlConnection SGBDConnection()
         {
-            return new SqlConnection("data source = tcp:mednat.ieeta.pt\\SQLSERVER,8101; Initial Catalog = p8g5; uid = p8g5; password = grupoRRBD2024");
+            return new SqlConnection(this.connectionString);
         }
 
         private void NovoRecinto_Load()

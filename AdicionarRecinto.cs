@@ -21,10 +21,12 @@ namespace ZooLifeForm
         private SqlConnection cn;
         private SqlCommand cmd;
         private SqlDataReader reader;
+        private string connectionString;
 
-        public AdicionarRecinto(Form previousForm)
+        public AdicionarRecinto(Form previousForm, string connectionString)
         {
             this.previousForm = previousForm;
+            this.connectionString = connectionString;
             InitializeComponent();
             NovoRecinto_Load();
         }
@@ -47,7 +49,7 @@ namespace ZooLifeForm
 
         private SqlConnection getSGBDConnection()
         {
-            return new SqlConnection("data source = tcp:mednat.ieeta.pt\\SQLSERVER,8101; Initial Catalog = p8g5; uid = p8g5; password = grupoRRBD2024");
+            return new SqlConnection(connectionString);
         }
 
         private void PopulateZooComboBox()

@@ -17,9 +17,11 @@ namespace ZooLifeForm
         int animal1;
         int animal2;
         private SqlConnection cn;
-        public GerirRelacoes(Form prevForm, int animalID = -1)
+        private string connectionString;
+        public GerirRelacoes(Form prevForm, string connectionString, int animalID = -1)
         {
             InitializeComponent();
+            this.connectionString = connectionString;
             this.prevForm = prevForm;
             if (animalID != -1)
             {
@@ -33,7 +35,7 @@ namespace ZooLifeForm
 
         private SqlConnection getSGBDConnection()
         {
-            return new SqlConnection("data source = tcp:mednat.ieeta.pt\\SQLSERVER,8101; Initial Catalog = p8g5; uid = p8g5; password = grupoRRBD2024");
+            return new SqlConnection(connectionString);
         }
 
         private bool verifySGBDConnection()

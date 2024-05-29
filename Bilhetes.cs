@@ -19,12 +19,15 @@ namespace ZooLifeForm
 
         private String selectedZoo;
         private String selectedBilheteira;
-        public Bilhetes(String selectedZoo, Form prevForm)
+        private string connectionString;
+        public Bilhetes(String selectedZoo, Form prevForm, string connectionString)
         {
             InitializeComponent();
             this.prevForm = prevForm;
+            this.connectionString = connectionString;
             VerifySqlConnection();
             this.selectedZoo = selectedZoo;
+            
             this.selectedBilheteira = null;
             this.Text = "ZooLife - Lista de Bilhetes (" + this.selectedZoo + ")";
             cn = SqlConnection();
@@ -44,7 +47,7 @@ namespace ZooLifeForm
 
         private SqlConnection SqlConnection()
         {
-            return new SqlConnection("data source = tcp:mednat.ieeta.pt\\SQLSERVER,8101; Initial Catalog = p8g5; uid = p8g5; password = grupoRRBD2024");
+            return new SqlConnection(connectionString);
         }
 
         private bool VerifySqlConnection()
@@ -352,7 +355,7 @@ namespace ZooLifeForm
 
         private void button_adicionar_bilhete_Click(object sender, EventArgs e)
         {
-            AdicionarBilhete novo_bilhete_form = new AdicionarBilhete(this.selectedZoo, this); // Create an instance of the AnimalList form
+            AdicionarBilhete novo_bilhete_form = new AdicionarBilhete(this.selectedZoo, this, this.connectionString); // Create an instance of the AnimalList form
             novo_bilhete_form.Show(); // Show the AnimalList form
             this.Hide();
         }

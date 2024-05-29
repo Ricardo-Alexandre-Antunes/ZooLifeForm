@@ -22,11 +22,13 @@ namespace ZooLifeForm
         private SqlDataReader reader;
         private Object[] veterinarios;
         private int counter = 0;
+        private string connectionString;
 
-        public NovoAnimal()
+        public NovoAnimal(string connectionString)
         {
             InitializeComponent();
             NovoAnimal_Load();
+            this.connectionString = connectionString;
             veterinarios = new Object[100];
             counter = 0;
         }
@@ -244,7 +246,7 @@ namespace ZooLifeForm
 
         private SqlConnection getSGBDConnection()
         {
-            return new SqlConnection("data source = tcp:mednat.ieeta.pt\\SQLSERVER,8101; Initial Catalog = p8g5; uid = p8g5; password = grupoRRBD2024");
+            return new SqlConnection(connectionString);
         }
 
         private void NovoAnimalZooCombo_SelectedIndexChanged(object sender, EventArgs e)
