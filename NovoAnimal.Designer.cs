@@ -62,6 +62,7 @@
             this.NovoAnimalNomeLabel.Size = new System.Drawing.Size(44, 16);
             this.NovoAnimalNomeLabel.TabIndex = 0;
             this.NovoAnimalNomeLabel.Text = "Nome";
+            this.NovoAnimalNomeLabel.Click += new System.EventHandler(this.NovoAnimalNomeLabel_Click);
             // 
             // TitleLabel
             // 
@@ -72,6 +73,7 @@
             this.TitleLabel.Size = new System.Drawing.Size(552, 69);
             this.TitleLabel.TabIndex = 1;
             this.TitleLabel.Text = "Inserir Novo Animal";
+            this.TitleLabel.Click += new System.EventHandler(this.TitleLabel_Click);
             // 
             // label2
             // 
@@ -80,6 +82,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(0, 16);
             this.label2.TabIndex = 2;
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // NovoAnimalDietaLabel
             // 
@@ -89,6 +92,7 @@
             this.NovoAnimalDietaLabel.Size = new System.Drawing.Size(39, 16);
             this.NovoAnimalDietaLabel.TabIndex = 3;
             this.NovoAnimalDietaLabel.Text = "Dieta";
+            this.NovoAnimalDietaLabel.Click += new System.EventHandler(this.NovoAnimalDietaLabel_Click);
             // 
             // NovoAnimalPesoLabel
             // 
@@ -98,6 +102,7 @@
             this.NovoAnimalPesoLabel.Size = new System.Drawing.Size(65, 16);
             this.NovoAnimalPesoLabel.TabIndex = 4;
             this.NovoAnimalPesoLabel.Text = "Peso (kg)";
+            this.NovoAnimalPesoLabel.Click += new System.EventHandler(this.NovoAnimalPesoLabel_Click);
             // 
             // NovoAnimalEspécieLabel
             // 
@@ -107,6 +112,7 @@
             this.NovoAnimalEspécieLabel.Size = new System.Drawing.Size(57, 16);
             this.NovoAnimalEspécieLabel.TabIndex = 5;
             this.NovoAnimalEspécieLabel.Text = "Espécie";
+            this.NovoAnimalEspécieLabel.Click += new System.EventHandler(this.NovoAnimalEspécieLabel_Click);
             // 
             // NovoAnimalNome
             // 
@@ -148,6 +154,7 @@
             this.NovoAnimalComprimentoLabel.Size = new System.Drawing.Size(109, 16);
             this.NovoAnimalComprimentoLabel.TabIndex = 10;
             this.NovoAnimalComprimentoLabel.Text = "Comprimento (m)";
+            this.NovoAnimalComprimentoLabel.Click += new System.EventHandler(this.NovoAnimalComprimentoLabel_Click);
             // 
             // NovoAnimalComprimento
             // 
@@ -165,6 +172,7 @@
             this.NovoAnimalCorLabel.Size = new System.Drawing.Size(28, 16);
             this.NovoAnimalCorLabel.TabIndex = 12;
             this.NovoAnimalCorLabel.Text = "Cor";
+            this.NovoAnimalCorLabel.Click += new System.EventHandler(this.NovoAnimalCorLabel_Click);
             // 
             // NovoAnimalCor
             // 
@@ -193,6 +201,7 @@
             this.CancelButton.TabIndex = 15;
             this.CancelButton.Text = "Cancelar";
             this.CancelButton.UseVisualStyleBackColor = true;
+            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // NovoAnimalHabitatLabel
             // 
@@ -202,6 +211,7 @@
             this.NovoAnimalHabitatLabel.Size = new System.Drawing.Size(50, 16);
             this.NovoAnimalHabitatLabel.TabIndex = 16;
             this.NovoAnimalHabitatLabel.Text = "Habitat";
+            this.NovoAnimalHabitatLabel.Click += new System.EventHandler(this.NovoAnimalHabitatLabel_Click);
             // 
             // NovoAnimalZooLabel
             // 
@@ -211,6 +221,7 @@
             this.NovoAnimalZooLabel.Size = new System.Drawing.Size(31, 16);
             this.NovoAnimalZooLabel.TabIndex = 17;
             this.NovoAnimalZooLabel.Text = "Zoo";
+            this.NovoAnimalZooLabel.Click += new System.EventHandler(this.NovoAnimalZooLabel_Click);
             // 
             // NovoAnimalHabitaculoLabel
             // 
@@ -220,6 +231,7 @@
             this.NovoAnimalHabitaculoLabel.Size = new System.Drawing.Size(72, 16);
             this.NovoAnimalHabitaculoLabel.TabIndex = 18;
             this.NovoAnimalHabitaculoLabel.Text = "Habitáculo";
+            this.NovoAnimalHabitaculoLabel.Click += new System.EventHandler(this.NovoAnimalHabitaculoLabel_Click);
             // 
             // NovoAnimalZooCombo
             // 
@@ -261,6 +273,7 @@
             this.NovoAnimalVeterinario.Size = new System.Drawing.Size(72, 16);
             this.NovoAnimalVeterinario.TabIndex = 22;
             this.NovoAnimalVeterinario.Text = "Veterinário";
+            this.NovoAnimalVeterinario.Click += new System.EventHandler(this.NovoAnimalVeterinario_Click);
             // 
             // NovoAnimalVeterinarioCombo
             // 
@@ -304,6 +317,7 @@
             this.Controls.Add(this.NovoAnimalNomeLabel);
             this.Name = "NovoAnimal";
             this.Text = "NovoAnimal";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.NovoAnimal_FormClosing);
             this.Load += new System.EventHandler(this.NovoAnimal_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

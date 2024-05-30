@@ -23,14 +23,21 @@ namespace ZooLifeForm
         private Object[] veterinarios;
         private int counter = 0;
         private string connectionString;
+        private Form prevForm;
 
-        public NovoAnimal(string connectionString)
+        public NovoAnimal(Form prevForm, string connectionString)
         {
             InitializeComponent();
-            NovoAnimal_Load();
+            this.prevForm = prevForm;
             this.connectionString = connectionString;
+            NovoAnimal_Load();
             veterinarios = new Object[100];
             counter = 0;
+        }
+
+        private void NovoAnimal_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.prevForm.Show();
         }
 
         private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -397,6 +404,71 @@ namespace ZooLifeForm
         }
 
         private void NovoAnimal_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CancelButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void TitleLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void NovoAnimalDietaLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void NovoAnimalPesoLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void NovoAnimalEspécieLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void NovoAnimalComprimentoLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void NovoAnimalCorLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void NovoAnimalNomeLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void NovoAnimalHabitatLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void NovoAnimalZooLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void NovoAnimalHabitaculoLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void NovoAnimalVeterinario_Click(object sender, EventArgs e)
         {
 
         }

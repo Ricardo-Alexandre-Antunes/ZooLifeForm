@@ -51,6 +51,7 @@ namespace ZooLifeForm
             PopulateAnimalList(); // Call the function to populate animal names on form load
             populateHabitatMenuItems();
             PopulateVeterinarioList();
+            listBox1.SelectedIndex = 0;
         }
 
         private void GerirRelacoes_FormClosing(object sender, FormClosingEventArgs e)
@@ -468,7 +469,8 @@ namespace ZooLifeForm
         private void AdicionarAnimal_Click(object sender, EventArgs e)
         {
             // Navigate to the NovoAnimal page
-            NovoAnimal novoAnimalPage = new NovoAnimal(this.connectionString);
+            Console.WriteLine(this.connectionString);
+            NovoAnimal novoAnimalPage = new NovoAnimal(this, this.connectionString);
             novoAnimalPage.Show();
             this.Hide();
         }
@@ -586,6 +588,8 @@ namespace ZooLifeForm
                            ZooCombo.Items.Add(reader["Nome"].ToString());
                         }
                     }
+
+                    ZooCombo.SelectedIndex = ZooCombo.FindStringExact(this.transferenciaZoo);
                 }
                 catch (Exception ex)
                 {
@@ -617,6 +621,10 @@ namespace ZooLifeForm
                             HabitatCombo.Items.Add(reader["Recinto_ID"].ToString() + ". " + reader["Nome"].ToString());
                         }
                     }
+
+                    //the id of the current habitat is in this.transferenciaHabitat
+                    HabitatCombo.SelectedIndex = HabitatCombo.FindStringExact(this.transferenciaHabitat.ToString() + ". " + this.transferenciaHabitatNome);
+                    HabitaculoCombo.Enabled = true;
                 }
                 catch (Exception ex)
                 {
@@ -649,10 +657,13 @@ namespace ZooLifeForm
                             HabitaculoCombo.Items.Add(reader["ID"].ToString());
                         }
                     }
+
+                    //get the id of the current habitaculo from this.transferenciaHabitaculo
+                    HabitaculoCombo.SelectedIndex = HabitaculoCombo.FindStringExact(this.transferenciaHabitaculo.ToString());
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Failed to load habitat names. Error: " + ex.Message);
+                    MessageBox.Show("Failed to load habitaculo transfer names. Error: " + ex.Message);
                 }
             }
         }
@@ -667,7 +678,7 @@ namespace ZooLifeForm
             {
                 PopulateHabitatComboBox();
                 HabitatCombo.Enabled = true;
-                HabitaculoCombo.Enabled = false;
+
             }
             else
             {
@@ -792,8 +803,6 @@ namespace ZooLifeForm
             HabitatCombo.Text = transferenciaHabitat.ToString() + ". " + transferenciaHabitatNome.ToString();
             HabitaculoCombo.Text = transferenciaHabitaculo.ToString();
             PopulateZooComboBox();
-            PopulateHabitatComboBox();
-            PopulateHabitaculoComboBox();
         }
 
         private int getVeterinarioCC(string name)

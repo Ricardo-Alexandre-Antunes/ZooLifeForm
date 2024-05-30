@@ -122,7 +122,7 @@ namespace ZooLifeForm
             comboBox_bilheteira.Items.Clear(); // Clear any existing items
             comboBox_funcionario_cc.Items.Clear();
 
-            string query = "SELECT ID, Nome FROM ZOO.BILHETEIRA JOIN ZOO.RECINTO ON Recinto_ID = ID WHERE @nome_jz = Recinto.Nome_JZ and ZOO.BILHETEIRA.Estado = 'aberto'"; // Assuming a table named 'Zoos' with a column 'ZooName'
+            string query = "SELECT ID, Nome FROM ZOO.BILHETEIRA JOIN ZOO.RECINTO ON Recinto_ID = ID WHERE @nome_jz = Recinto.Nome_JZ and ZOO.RECINTO.Estado = 'aberto'"; // Assuming a table named 'Zoos' with a column 'ZooName'
             SqlCommand cmd = new SqlCommand(query, cn);
             cmd.Parameters.AddWithValue("@nome_jz", this.selectedZoo);
 

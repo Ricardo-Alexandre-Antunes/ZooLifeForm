@@ -377,7 +377,8 @@ namespace ZooLifeForm
                     label2.Text = "Patrulha";
                     break;
                 case "TRABALHADOR_RESTAURACAO":
-                    query = "SELECT * FROM ZOO.TRABALHADOR_RESTAURACAO INNER JOIN ZOO.RECINTO ON ZOO.TRABALHADOR_RESTAURACAO.Restauracao_ID = ZOO.RECINTO.ID and ZOO.TRABALHADOR_RESTAURACAO.Nome_JZ = ZOO.RECINTO.Nome_JZ WHERE ZOO.TRABALHADOR_RESTAURACAO.F_Numero_CC = @CC";
+                    query = "SELECT * FROM ZOO.TRABALHADOR_RESTAURACAO_DETALHADO WHERE Numero_CC = @CC";
+                    Console.WriteLine(this.selectedFuncionario);
                     label2.Text = "Restaurante designado";
                     break;
                 default:
@@ -408,6 +409,9 @@ namespace ZooLifeForm
                                 ListaResponsabilidades.Items.Add(reader["ID"].ToString() + ". " + reader["Nome_Recinto"].ToString());
                                 break;
                             case "SEGURANCA":
+                                ListaResponsabilidades.Items.Add(reader["RECINTO_ID"].ToString() + ". " + reader["RECINTO_NOME"].ToString());
+                                break;
+                            case "TRABALHADOR_RESTAURACAO":
                                 ListaResponsabilidades.Items.Add(reader["RECINTO_ID"].ToString() + ". " + reader["RECINTO_NOME"].ToString());
                                 break;
                         }   
